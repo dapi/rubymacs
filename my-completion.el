@@ -12,6 +12,19 @@
 (require 'auto-complete-config)
 (require 'auto-complete-etags)
 
+; (defun ac-gtags-candidate2 ()
+;   (if (memq major-mode ac-gtags-modes)
+;         (ignore-errors
+;                 (with-temp-buffer
+;                           (when (eq (call-process "global" nil t nil "-ci" ac-prefix) 0)
+;                                       (goto-char (point-min))
+;                                                   (let (candidates)
+;                                                                 (while (and (not (eobp))
+;                                                                                           (push (buffer-substring-no-properties (line-beginning-position) (line-end-position)) candidates)
+;                                                                                                                     (eq (forward-line) 0)))
+;                                                                                                                                   candidates)))))) вместо nreverse acndidates
+;
+
 (add-to-list 'ac-gtags-modes 'ruby-mode)
 
 
