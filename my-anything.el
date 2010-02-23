@@ -9,6 +9,8 @@
 ;(require 'anything-complete)
 ;(anything-read-string-mode 1)
 ;(anything-complete-shell-history-setup-key "\C-o")
+;
+(setq anything-c-adaptive-history-file "~/.emacs.tmp/anything-c-adaptive-history/")
 
 
 (global-set-key (kbd "M-X") 'anything)
