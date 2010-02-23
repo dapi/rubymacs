@@ -10,9 +10,6 @@
 [submodule "yasnippets-rails"]
 	path = yasnippets-rails
 	url = git://github.com/eschulte/yasnippets-rails.git
-[submodule "auto-complete"]
-	path = auto-complete
-	url = git://github.com/m2ym/auto-complete.git
 [submodule "rails-minor-mode"]
 	path = rails-minor-mode
 	url = git://github.com/remvee/emacs-rails.git
