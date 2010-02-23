@@ -23,6 +23,9 @@
 ;; (define-key anything-map "\C-z" 'anything-execute-persistent-action)
 
 (require 'anything-gtags)
+;(setq anything-gtags-classify t)
+
+(require 'anything-etags)
 
 ;; прикрутить imenu
 ;; прикрутить поиск файлок в проекте, project-root.el
@@ -127,6 +130,7 @@
 ;;            anything-c-source-info-pages
 ;;            anything-c-source-man-pages
 			anything-c-source-imenu
+            anything-c-source-etags-select
             anything-c-source-gtags-select
 			anything-c-source-file-cache
             anything-c-source-git-project-files

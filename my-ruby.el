@@ -1,15 +1,15 @@
 ;;; Ïðîâåðêà ñèíòàêñèñà - flymake
 ;;; rinari - ruby on rails minor mode
 ;;; ido
-;;; yasnippets
 ;;; ruby-electric - çàêðûòèå ñêîáîê è ïðî÷àÿ àâòîìàòèçàöèÿ
 ;;; vc-git
 ;;; autocomplete
 
-;;; http://rubyforge.org/projects/emacs-rails - ñòàðàøÿ øíÿãà, íå èñïîëüçóþ
+
 
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
+
 
 ;;;
 ;;;
@@ -22,9 +22,10 @@
 (ido-mode t)
      
 ;; Rinari
-(add-to-list 'load-path "~/.emacs.d/rinari")
-(require 'rinari)
-(setq rinari-tags-file-name "TAGS")
+;(add-to-list 'load-path "~/.emacs.d/rinari")
+;(require 'rinari)
+;(setq rinari-tags-file-name "TAGS")
+
 (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 
 ;; Rake files are ruby, too, as are gemspecs.
@@ -37,6 +38,17 @@
 
 
 
+;;
+;;
+;; rails-minor-mode - альтернатива Rinari
+;;
+;;
+
+
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/rails-minor-mode"))
+(require 'rails)
+(setq rails-indent-and-complete nil)
 
 
 ;;;
@@ -81,16 +93,16 @@
  ;;; ruby-electric
  ;;;
  ;;;
-(require 'inf-ruby)
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode)))
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
-(add-hook 'ruby-mode-hook
-	  '(lambda ()
-	     (inf-ruby-keys)
-	     ))
-
+;; (require 'inf-ruby)
+;; (require 'ruby-electric)
+;; (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode)))
+;; (autoload 'inf-ruby-keys "inf-ruby"
+;;   "Set local key defs for inf-ruby in ruby-mode")
+;; (add-hook 'ruby-mode-hook
+;; 	  '(lambda ()
+;; 	     (inf-ruby-keys)
+;; 	     ))
+;; подключит автоматом rails-minor-mode
 
 		 
 ;; added linum
@@ -124,33 +136,31 @@
 
 
 ;; yasnippet
-;(setq load-path
- ;     (cons (concat (file-name-directory (or load-file-name buffer-file-name))
-;                    "yasnippet")
-;            load-path))
-; from setup.el --- setup yasnippets for use with rails
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory
-	;(concat (file-name-directory (or load-file-name buffer-file-name))
-   "~/.emacs.d/yasnippets-rails/rails-snippets/"
-	)
+;; (require 'yasnippet)
+;; (yas/initialize)
+;; (yas/load-directory
+;;    "~/.emacs.d/yasnippets-rails/rails-snippets/"
+;; 	)
+;; rails-minor-mode автоматом включает snippets
+
    
 ;; load yas on ruby-mode
 ;(add-to-list 'yas/extra-mode-hooks
  ;            'ruby-mode-hook)
 
 	
-(require 'imenu)
-(add-hook 'ruby-mode-hook '(lambda () 
-	(imenu-add-menubar-index)
-	))
+;; (require 'imenu)
+;; (add-hook 'ruby-mode-hook '(lambda () 
+;; 	(imenu-add-menubar-index)
+;; 	))
+; rails-minor-mode вставит автоматом
 
 (require 'pabbrev)
 (setq pabbrev-idle-timer-verbose nil)
 
 ; øòóêà ÷òîáû ðàáîòàë è àâòîêîìïëèò è snippets
 (require 'tabkey2)
+; нужна для yasnippet и auto-complete
 
 ;;
 ;;
@@ -159,27 +169,3 @@
 (require 'vc-git)
 (when (featurep 'vc-git) (add-to-list 'vc-handled-backends 'git))
 (require 'git)
-(autoload 'git-blame-mode "git-blame"
-  "Minor mode for incremental blame for Git." t)
-
-
-  
- ;;
- ;;
- ;; ri
- ;;
- ;;
-(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
-(setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
-;;
-;;  You may want to bind the ri command to a key.
-;;  For example to bind it to F1 in ruby-mode:
-;;  Method/class completion is also available.
-;;
-(add-hook 'ruby-mode-hook (lambda ()
-;                               (local-set-key 'f1 'ri)
-                               (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
-                               (local-set-key "\M-\C-I" 'ri-ruby-show-args)
- ))
-
-

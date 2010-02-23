@@ -10,6 +10,7 @@
 
 (require 'auto-complete)
 (require 'auto-complete-config)
+(require 'auto-complete-etags)
 
 (add-to-list 'ac-gtags-modes 'ruby-mode)
 
@@ -17,29 +18,12 @@
 (global-auto-complete-mode t)
 (setq ac-auto-start 1) ; 
 (setq ac-dwim t)
-;(setq-default ac-sources '(ac-source-gtags
-;							ac-source-imenu))
-;(setq-default ac-sources '(ac-source-words-in-same-mode-buffers)
-;			)
-;(add-hook 'ruby-mode-hook
- ;         (lambda ()
-  ;          (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))))
-			   
-;(set-default 'ac-sources '(
-			   ;ac-source-yasnippet 
-			   ;ac-source-gtags
-			   ;ac-source-rcodetools
-;			   ac-source-abbrev 
-			   ;ac-source-words-in-buffer
-			   ; ac-source-words-in-all-buffer
-			   ;ac-source-imenu
-			   ;ac-source-symbols
-			   ;ac-source-files-in-current-dir
-			   ;ac-source-semantic    
-                                        ;this source need file `auto-complete-semantic.el'   
-;			   ))
 
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-gtags)))
+
+; Постоянно сбоит
+;(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-etags)))
+(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)))
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-yasnippet)))
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-files-in-current-dir)))
 
