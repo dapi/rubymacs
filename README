@@ -1,4 +1,14 @@
+Configured:
+- haml, sass
+- Both Rinari and Rails-Minor-Mode
+- ECB
+- nifty auto-complete
+- gtags, etags
+- anything
+- auto search root dir of git project
+
 TODO:
 - ruby auto complete http://www.cx4a.org/pub/auto-complete-ruby.el
 - rcodetools
+- use sass files to auto-complete haml
 
