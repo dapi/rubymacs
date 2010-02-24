@@ -1,4 +1,5 @@
-Configured:
+Features:
+
 - haml, sass
 - Both Rinari and Rails-Minor-Mode
 - ECB
@@ -7,8 +8,12 @@ Configured:
 - anything
 - auto search root dir of git project
 
+TOFIX:
+- Bug with Anything for non-git projects
+
 TODO:
+- rinari for rails3
 - ruby auto complete http://www.cx4a.org/pub/auto-complete-ruby.el
 - rcodetools
 - use sass files to auto-complete haml
-
+- update gtags by key binding

@@ -23,8 +23,8 @@
 
 ; save temps somewhere else and don't affect the git repository
 (defvar user-temporary-file-directory
-(concat (file-name-directory (or load-file-name buffer-file-name)) 
-	".emacs.tmp" "/"))
+;(concat (file-name-directory (or load-file-name buffer-file-name)) 
+	"~/.emacs.tmp/")
 (make-directory user-temporary-file-directory t)
 ;(setq backup-directory-alist
 ;      `(("." . ,user-temporary-file-directory)

@@ -1,6 +1,6 @@
 [submodule "rinari"]
 	path = rinari
-	url = git://github.com/eschulte/rinari.git
+	url = git://github.com/dapi/rinari.git
 [submodule "rhtml"]
 	path = rhtml
 	url = git://github.com/eschulte/rhtml.git
