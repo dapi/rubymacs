@@ -17,13 +17,29 @@
 
 
 (global-auto-complete-mode t)
-(setq ac-auto-start 1) ; 
+(setq ac-auto-start 3)
 (setq ac-dwim t)
 
+;(define-key ac-completing-map "\r" 'ac-expand)
 ;(define-key ac-completing-map "\r" 'ac-complete)
 (define-key ac-completing-map "\M-/" 'ac-stop)
 ;(define-key ac-completing-map "\t" 'ac-complete)
-
+;(define-key map "\r" 'ac-complete)
+;;  (define-key map "\t" 'ac-expand)
+;;  (define-key map "\r" 'ac-complete)
+;;  (define-key map (kbd "M-TAB") 'auto-complete)
+;;  (define-key map "\C-s" 'ac-isearch)
+;;  (define-key map "\M-n" 'ac-next)
+;;  (define-key map "\M-r" 'ac-previous)
+;;  (define-key map [down] 'ac-next)
+;;  (define-key map [up] 'ac-previous)
+;;  (define-key map [C-down] 'ac-quick-help-scroll-down)
+;;  (define-key map [C-up] 'ac-quick-help-scroll-up)
+;;  (define-key map "\C-\M-n" 'ac-quick-help-scroll-down)
+;;  (define-key map "\C-\M-p" 'ac-quick-help-scroll-up)
+;;      (define-key map (read-kbd-macro (format "M-%s" (1+ i))) symbol)))
+;;  (define-key ac-mode-map (read-kbd-macro ac-trigger-key) nil))
+;;  (define-key ac-mode-map (read-kbd-macro key) 'ac-trigger-key-command)))
 
 
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-gtags)))
