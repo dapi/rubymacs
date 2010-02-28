@@ -30,7 +30,7 @@
 (global-set-key [(shift insert)] 'yank)
 ;(global-set-key [(shift delete)] 'copy-region-as-kill)
 (global-set-key [(shift delete)] 'kill-region)
-(global-set-key "\C-x \C-b" 'ibuffer) ;; более удобный переключатель буферов
+
 
 
 (defun my-kill-emacs ()
@@ -132,16 +132,31 @@ directory, select directory. Lastly the file is opened."
 (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
 (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
+
+;;
+;;
+;; bubble-buffer
+;;
+;;
+
+(when (require 'bubble-buffer nil t)
+  (global-set-key [f11] 'bubble-buffer-next)
+  (global-set-key [(shift f11)] 'bubble-buffer-previous))
+(setq bubble-buffer-omit-regexp "\\(^ .+$\\|\\*Messages\\*\\|*compilation\\*\\|\\*.+output\\*$\\|\\*TeX Help\\*$\\|\\*vc-diff\\*\\|\\*Occur\\*\\|\\*grep\\*\\|\\*cvs-diff\\*\\)")
+
 ;;
 ;;
 ;; ibuffer
 ;;
 ;;
-
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key "\C-x \C-b" 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 ;(add-to-list 'ibuffer-never-show-regexps "^\\*")
 (setq ibuffer-show-empty-filter-groups nil)
+(setq ibuffer-shrink-to-minimum-size t)
+(setq ibuffer-always-show-last-buffer nil)
+(setq ibuffer-sorting-mode 'recency)
+(setq ibuffer-use-header-line t)
 
 
 (setq ibuffer-saved-filter-groups

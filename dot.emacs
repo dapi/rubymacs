@@ -3,6 +3,7 @@
 ; http://www.emacswiki.org/cgi-bin/wiki/NumberedWindows
 ; http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/etags.html
 ; http://www.emacswiki.org/emacs/DiredMode
+; Some powerful tips http://www.xsteve.at/prg/emacs/power-user-tips.html
 
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
 
