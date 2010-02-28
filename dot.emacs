@@ -14,16 +14,6 @@
 ;(auto-install-update-emacswiki-package-name t)
 
 
-; уникальные названия буферов http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html
-(require 'uniquify) 
-(setq 
-  uniquify-buffer-name-style 'post-forward
-  uniquify-separator ":")
-;(setq uniquify-buffer-name-style 'reverse)
-;(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
-
 ; Выключаем scrollbar и полосу прокрутки
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -59,7 +49,8 @@
 ;(setq display-time-interval 1)
 ;(setq display-time-format "%H:%M:%S")
 ;(display-time-mode)
-
+(setq woman-show-log nil)
+(setq woman-ignore t)
 
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key [(meta backspace)] 'advertised-undo)
