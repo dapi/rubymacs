@@ -61,7 +61,8 @@
 (defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
      
 (global-set-key [(control tab)] 'shk-tabbar-next)
-;(global-set-key [(control shift iso-lefttab)] 'shk-tabbar-prev)
+(global-set-key [(control shift iso-lefttab)] 'shk-tabbar-prev)
+(global-set-key [(control meta tab)] 'tabbar-forward-group)
 
 
 
