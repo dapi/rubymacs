@@ -28,9 +28,23 @@
         (open-files-cache "/home/danil/projects/github/dapi/lubopytno.ru/.open-files")
         (vcs              git)
 ;        (compile-cmd      "ant")
+        (ack-args         "")
+;        (startup-hook     my-java-project-startup)
+        (shutdown-hook    nil)))
+
+(project-def "emacs"
+      '((basedir          "/home/danil/.emacs.d/")
+        (src-patterns     ("*.rb" "*.rake"))
+;        (ignore-patterns  ("*.class" "*.wsdl"))
+;        (tags-file        "/home/danil/projects/github/dapi/lubopytno.ru/TAGS")
+        (file-list-cache  "/home/danil/.emads.d.tmp/.files")
+        (open-files-cache "/home/danil/.emacs.d.tmp/.open-files")
+        (vcs              git)
+;        (compile-cmd      "ant")
 ;        (ack-args         "--java")
 ;        (startup-hook     my-java-project-startup)
         (shutdown-hook    nil)))
+
 
 (global-set-key (kbd "C-c p c") 'project-compile)
 (global-set-key (kbd "C-c p g") 'project-grep)

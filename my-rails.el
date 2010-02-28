@@ -24,6 +24,15 @@
 (require 'rcodetools)
 
 
+;; ruby-mode
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+;(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+;(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+
+
 
 ;;
 ;;
@@ -52,7 +61,7 @@
  
 (add-hook 'ruby-mode-hook (lambda () 
       (gtags-mode 1)
-      (rinari-gtags-create-or-update)
+;      (rinari-gtags-create-or-update)
       (setq gtags-symbol-regexp "[A-Za-z_:][A-Za-z0-9_#.:?]*")
 ;      (define-key ruby-mode-map "\e." 'gtags-find-tag)
 ;      (define-key ruby-mode-map "\e," 'gtags-find-with-grep)
@@ -75,8 +84,8 @@
 
 
 ;; Interactively Do Things (highly recommended, but not strictly required)
-(require 'ido)
-(ido-mode t)
+;(require 'ido)
+;(ido-mode t)
 
 
      
@@ -91,8 +100,8 @@
 (require 'rinari)
 (setq rinari-tags-file-name "TAGS")
 
-; вроде emacs-rails делает это автоматом
-;(define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+(define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+
 
 
 
