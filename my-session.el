@@ -11,12 +11,23 @@
 ;(desktop-save-mode t)
 ;(desktop-load-default)
 ;(desktop-read)
-
 (global-set-key (kbd "C-c d") 'desktop-change-dir)
 (global-set-key (kbd "C-c C-d") 'desktop-change-dir)
 
+
+
 ;; Save a list of recent files visited.
 (recentf-mode 1)
+(setq recentf-max-saved-items 500)
+(setq recentf-max-menu-items 60)
+(global-set-key [(f12)] 'recentf-open-files)
+
+
+;;
+;;
+;; mk-project
+;;
+;;
 
 (require 'mk-project)
 (project-def "lubo"
