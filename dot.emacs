@@ -41,10 +41,12 @@
 (load "~/.emacs.d/my-perl.el")
 (load "~/.emacs.d/my-completion.el")
 (load "~/.emacs.d/my-html.el")
-;(load "~/.emacs.d/my-ruby.el")
-(load "~/.emacs.d/my-rails.el")
+(load "~/.emacs.d/my-ruby.el")
+(load "~/.emacs.d/my-tags.el")
+(load "~/.emacs.d/my-flymake.el")
+;(load "~/.emacs.d/my-rails.el")
 (load "~/.emacs.d/my-anything.el")
-; (load "~/.emacs.d/my-org.el")
+;(load "~/.emacs.d/my-org.el")
 (load "~/.emacs.d/my-tab.el")
 
 
@@ -58,12 +60,12 @@
 (setq woman-show-log nil)
 (setq woman-ignore t)
 
-(global-set-key "\C-h" 'delete-backward-char)
+;(global-set-key "\C-h" 'delete-backward-char)
 (global-set-key [(meta backspace)] 'advertised-undo)
-(global-set-key [f4] 'replace-string)
-(global-set-key [(meta f3)] 'find-file-other-frame)
+;(global-set-key [f4] 'replace-string)
+;(global-set-key [(meta f3)] 'find-file-other-frame)
 
-(global-set-key [(control r)] 'replace-string)
+;(global-set-key [(control r)] 'replace-string)
 ;(global-set-key [(control f8)] 'kill-this-buffer)
 (global-set-key [(meta q)] 'comment-or-uncomment-region)
 (global-set-key [?\C-,] 'previous-buffer)

@@ -1,11 +1,11 @@
 ;;; sessions and desktops
 ;
 ; If you want to save minibuffer history from one session to another, use the savehist library.
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
-(when (require 'session nil t)
-  (add-hook 'after-init-hook 'session-initialize)
-  (add-to-list 'session-globals-exclude 'org-mark-ring))
+;; (require 'session)
+;; (add-hook 'after-init-hook 'session-initialize)
+;; (when (require 'session nil t)
+;;   (add-hook 'after-init-hook 'session-initialize)
+;;   (add-to-list 'session-globals-exclude 'org-mark-ring))
 
 
 ;(desktop-save-mode t)

@@ -19,7 +19,10 @@
  Emacs buffer are those starting with “*”."
   (list
    (cond
-	((string-equal "*" (substring (buffer-name) 0 1))
+	((or 
+      (string-equal "*" (substring (buffer-name) 0 1))
+      (string-equal "TAGS" (buffer-name))
+      )
 	 "Emacs Buffer"
 	 )
 	((eq major-mode 'dired-mode)
