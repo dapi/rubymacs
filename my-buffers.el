@@ -44,6 +44,12 @@
 (global-set-key (kbd "C-x c") 'my-kill-emacs)
 
 
+;;
+;;
+;; sr-speedbar
+;;
+;;
+(require 'sr-speedbar)
 
 ;;
 ;;
@@ -65,15 +71,16 @@
 (add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
 ;(setq iswitchb-buffer-ignore '("^ " "*"))
 (add-to-list 'iswitchb-buffer-ignore "^ ")
-(add-to-list 'iswitchb-buffer-ignore "*Messages*")
-(add-to-list 'iswitchb-buffer-ignore "*ECB")
-(add-to-list 'iswitchb-buffer-ignore "*Buffer")
-(add-to-list 'iswitchb-buffer-ignore "*WoMan")
-(add-to-list 'iswitchb-buffer-ignore "*Completions")
-(add-to-list 'iswitchb-buffer-ignore "*ftp ")
-(add-to-list 'iswitchb-buffer-ignore "*bsh")
-(add-to-list 'iswitchb-buffer-ignore "*jde-log")
-(add-to-list 'iswitchb-buffer-ignore "*file")
+(add-to-list 'iswitchb-buffer-ignore "^*")
+;; (add-to-list 'iswitchb-buffer-ignore "*Messages*")
+;; (add-to-list 'iswitchb-buffer-ignore "*ECB")
+;; (add-to-list 'iswitchb-buffer-ignore "*Buffer")
+;; (add-to-list 'iswitchb-buffer-ignore "*WoMan")
+;; (add-to-list 'iswitchb-buffer-ignore "*Completions")
+;; (add-to-list 'iswitchb-buffer-ignore "*ftp ")
+;; (add-to-list 'iswitchb-buffer-ignore "*bsh")
+;; (add-to-list 'iswitchb-buffer-ignore "*jde-log")
+;; (add-to-list 'iswitchb-buffer-ignore "*file")
 (add-to-list 'iswitchb-buffer-ignore "^[tT][aA][gG][sS]$")
 
 
@@ -149,7 +156,7 @@ directory, select directory. Lastly the file is opened."
 ;; ibuffer
 ;;
 ;;
-(global-set-key "\C-x \C-b" 'ibuffer)
+(global-set-key "\C-x\C-b" 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 ;(add-to-list 'ibuffer-never-show-regexps "^\\*")
 (setq ibuffer-show-empty-filter-groups nil)

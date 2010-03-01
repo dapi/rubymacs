@@ -158,9 +158,8 @@
 (require 'pabbrev)
 (setq pabbrev-idle-timer-verbose nil)
 
-; øòóêà ÷òîáû ðàáîòàë è àâòîêîìïëèò è snippets
-(require 'tabkey2)
-; нужна для yasnippet и auto-complete
+; (require 'tabkey2)
+; нужна для yasnippet и auto-complete, но работает и без нее
 
 ;;
 ;;

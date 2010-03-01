@@ -5,6 +5,11 @@
 ; http://www.emacswiki.org/emacs/DiredMode
 ; Some powerful tips http://www.xsteve.at/prg/emacs/power-user-tips.html
 
+; byte compile files
+; find .emacs.d -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el
+; emacs -batch -l runme.el -kill 
+; emacs -batch -f batch-byte-compile files...
+
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
 
 ;; auto-install

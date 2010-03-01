@@ -1,13 +1,15 @@
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/rails-minor-mode"))
+;; no fucking rails-minor-mode, just rinari
+ (add-to-list 'load-path (expand-file-name "~/.emacs.d/rails-minor-mode"))
 (require 'rails)
-(setq rails-indent-and-complete nil)
-(setq rails-features:list
-  '(
-    ;rails-snippets-feature
-    rails-speedbar-feature
-    rails-rspec-feature)
-  )
+
+;; (setq rails-indent-and-complete nil)
+ (setq rails-features:list
+   '(
+     ;rails-snippets-feature
+     rails-speedbar-feature
+     rails-rspec-feature)
+   )
 
 
 ;; yasnippet
@@ -29,8 +31,8 @@
   "Mode for editing ruby source files" t)
 
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
-;(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-;(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 
 
 
@@ -110,7 +112,8 @@
  ;; ri
  ;;
  ;;
-(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
+;(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
+(autoload 'ri "/home/danil/.emacs.d/ri-emacs/ri-ruby.el" nil t)
 (setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
 ;;
 ;;  You may want to bind the ri command to a key.
@@ -118,10 +121,10 @@
 ;;  Method/class completion is also available.
 ;;
 (add-hook 'ruby-mode-hook (lambda ()
-;                               (local-set-key 'f1 'ri)
-                               (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
-                               (local-set-key "\M-\C-I" 'ri-ruby-show-args)
- ))
+                            (local-set-key [(f1)] 'ri)
+                            (local-set-key [(control f1)] 'ri-ruby-complete-symbol)
+                            (local-set-key [(control shift f1)] 'ri-ruby-show-args)
+                            ))
 
 
 
@@ -134,6 +137,8 @@
 
 (require 'format-spec)
 ;; прикольная штука, чтобы видеть какие строки зименились
+
+(require 'git)
 (autoload 'git-blame-mode "git-blame"
   "Minor mode for incremental blame for Git." t)
 
