@@ -111,12 +111,12 @@
  '(icicle-command-abbrev-alist nil)
  '(icicle-reminder-prompt-flag 6)
  '(inhibit-startup-screen t)
- '(line-number-mode t)
  '(org-agenda-files (quote ("~/Dropbox/orgfiles/tasks.org")))
  '(org-cycle-include-plain-lists t)
  '(org-modules (quote (org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mouse org-annotate-file org-toc)))
  '(ruby-electric-newline-before-closing-bracket t)
  '(save-place t nil (saveplace))
+ '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(truncate-lines t))
 

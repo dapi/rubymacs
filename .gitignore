@@ -1,5 +1,8 @@
 *.bak
+*~
+history
 auto-save-list
 auto-install
 anything-c-adaptive-history
 *.elc
+session.*

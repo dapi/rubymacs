@@ -16,6 +16,14 @@
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 
 
+
+(require 'browse-kill-ring+)
+; M-y
+(global-set-key "\C-cy" '(lambda ()
+                           (interactive)
+                           (popup-menu 'yank-menu)))
+
+
 ;;; Copy Past
 ;;;; делаем чтоб можно было копировать из емакса во вне
 ;;;l http://www.emacswiki.org/emacs/CopyAndPaste

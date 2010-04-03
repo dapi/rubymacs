@@ -1,3 +1,4 @@
+;; http://github.com/technomancy/emacs-starter-kit/blob/master/starter-kit-ruby.el
 ;; yasnippet
 ;; rcodetools (not used)
 ;; ruby-mode
@@ -5,9 +6,11 @@
 ;; ri (ruby information)
 ;; ruby-electric
 ;; imenu
+;; idle-highlighting TURNED OFF
 ;; git
 ;; gtag ?
 ;; hideshow ?
+
 
 ;;
 ;;
@@ -36,10 +39,11 @@
 ;;
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
-
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
@@ -56,7 +60,7 @@
 (require 'rinari)
 (setq rinari-tags-file-name "TAGS")
 (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-
+(define-key ruby-mode-map (kbd "C-c l") "lambda")
 
 ;;
 ;;
@@ -113,6 +117,24 @@
 
 ; (require 'tabkey2)
 ; нужна для yasnippet и auto-complete, но работает и без нее
+
+;;
+;;
+;; idle-highlighting
+;;
+;;
+;; (require 'idle-highlight)
+
+;; (defun my-coding-hook ()
+;;   (make-local-variable 'column-number-mode)
+;;   (column-number-mode t)
+;;   (if window-system (hl-line-mode t))
+;;   (idle-highlight))
+
+;; (add-hook 'emacs-lisp-mode-hook 'my-coding-hook)
+;; (add-hook 'ruby-mode-hook 'my-coding-hook)
+;; (add-hook 'js2-mode-hook 'my-coding-hook)
+
 
 ;;
 ;;
