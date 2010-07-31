@@ -17,7 +17,8 @@
 
 
 ; не работает
-(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
+;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
+(setq load-path (cons "/var/lib/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
 (require 'anything-rcodetools)
 ;; ;;(setq rct-get-all-methods-command "PAGER=cat fri -l")
 ;; (setq rct-get-all-methods-command "fri -l")
@@ -129,14 +130,15 @@
 (setq anything-sources
       (list anything-c-source-buffers+
 			anything-c-source-imenu
-            anything-c-source-etags-select
-            anything-c-source-gtags-select
+ ;           anything-c-source-etags-select
+;            anything-c-source-gtags-select
 			anything-c-source-file-cache
 ;            anything-c-source-git-project-files
             anything-c-source-files-in-current-dir+
             anything-c-source-file-name-history
             anything-c-source-recentf
-            anything-c-source-locate
+;            anything-c-source-locate
+
 ;            anything-c-source-buffers
 ;;            anything-c-source-info-pages
 ;;            anything-c-source-man-pages

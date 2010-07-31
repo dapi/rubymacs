@@ -17,3 +17,18 @@ TODO:
 - rcodetools
 - use sass files to auto-complete haml
 - update gtags by key binding
+
+
+INSTALL:
+
+install ELPA http://tromey.com/elpa/install.html
+wget http://tromey.com/elpa/package.el
+
+cd plugins
+wget  http://yasnippet.googlecode.com/files/yasnippet-0.6.1c.tar.bz2
+tar -jxf yasnippet-0.6.1c.tar.bz2 
+rm yasnippet-0.6.1c.tar.bz2 
+ln -s yasnippet-0.6.1c/ yasnippet
+
+
+

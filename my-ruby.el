@@ -11,18 +11,6 @@
 ;; gtag ?
 ;; hideshow ?
 
-
-;;
-;;
-;; yasnippet
-;;
-;;
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory
-    "~/.emacs.d/yasnippets-rails/rails-snippets/"
- 	)
-
 ;;
 ;;
 ;; rcodetools
@@ -134,18 +122,4 @@
 ;; (add-hook 'emacs-lisp-mode-hook 'my-coding-hook)
 ;; (add-hook 'ruby-mode-hook 'my-coding-hook)
 ;; (add-hook 'js2-mode-hook 'my-coding-hook)
-
-
-;;
-;;
-;; git
-;;
-;;
-(require 'vc-git)
-(when (featurep 'vc-git) (add-to-list 'vc-handled-backends 'git))
-(require 'git)
-(autoload 'git-blame-mode "git-blame"
-  "Minor mode for incremental blame for Git." t)
-(require 'format-spec)
-;; прикольная штука, чтобы видеть какие строки зименились
 

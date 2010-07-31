@@ -1,6 +1,21 @@
 ;; http://gist.github.com/321268
+;;
+
+
+(require 'vc-git)
+(when (featurep 'vc-git) (add-to-list 'vc-handled-backends 'git))
+
+(add-to-list 'load-path "/usr/share/doc/git-core/contrib/emacs")
+(require 'git)
+(autoload 'git-blame-mode "git-blame"
+		    "Minor mode for incremental blame for Git." t)
+(require 'format-spec)
+;; прикольная штука, чтобы видеть какие строки зименились
+;;
 
 ;; creates .gitignore file
+;;
+;;
  
  
 (defun gitignore(dir)

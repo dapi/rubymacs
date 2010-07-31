@@ -5,19 +5,50 @@
 ; http://www.emacswiki.org/emacs/DiredMode
 ; Some powerful tips http://www.xsteve.at/prg/emacs/power-user-tips.html
 
+; ubuntu
+; http://stackoverflow.com/questions/189291/emacs-ubuntu-initialization
+;(load-file "/usr/share/emacs/site-lisp/debian-startup.el")
+;(debian-startup 'emacs23)
+
 ; byte compile files
 ; find .emacs.d -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el
 ; emacs -batch -l runme.el -kill 
 ; emacs -batch -f batch-byte-compile files...
 
+(setq load-path (cons "/usr/share/emacs/site-lisp/" load-path))
+(setq load-path (cons "/usr/share/emacs/site-lisp/global" load-path))
+(setq load-path (cons "/usr/share/emacs/site-lisp/emacs-goodies-el" load-path))
+
+(setq load-path (cons "~/.rvm/src/ruby-1.9.2-head/misc/" load-path))
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
+;; (add-to-list 'load-path
+;;              "~/.emacs.d/plugins")
+
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+;; package-list-packages
+
+
+
+
+
 
 ;; auto-install
 
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
-;(auto-install-update-emacswiki-package-name t)
+(auto-install-update-emacswiki-package-name t)
 
 
 ; Выключаем scrollbar и полосу прокрутки
@@ -37,11 +68,11 @@
 (load "~/.emacs.d/my-scroll.el")
 (load "~/.emacs.d/my-backup.el")
 (load "~/.emacs.d/my-buffers.el")
-(load "~/.emacs.d/my-scroll.el")
 (load "~/.emacs.d/my-perl.el")
 (load "~/.emacs.d/my-completion.el")
 (load "~/.emacs.d/my-html.el")
 (load "~/.emacs.d/my-ruby.el")
+(load "~/.emacs.d/my-git.el")
 (load "~/.emacs.d/my-tags.el")
 (load "~/.emacs.d/my-flymake.el")
 ;(load "~/.emacs.d/my-rails.el")
@@ -89,8 +120,10 @@
 ; Ничего не работает, смотри http://www.enigmacurry.com/2009/01/14/extending-emacs-with-advice/
 ; и http://www.emacswiki.org/emacs/EasyPG
 ; Не спрашивать графически пароль11
-(setenv "GPG_AGENT_INFO" nil)
+(require 'epa)
+;(setenv "GPG_AGENT_INFO" nil)
 ; сохранять пароль GPG
+(epa-file-enable)
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
 
@@ -127,7 +160,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
+ '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(border ((t (:background "red"))))
  '(buffer-menu-buffer ((t nil)))
  '(cperl-array-face ((((class color) (background dark)) (:foreground "yellow" :underline t))))
@@ -161,3 +194,5 @@
  '(tabbar-unselected ((t (:inherit tabbar-default :background "gray50"))))
  '(widget-button ((t (:inherit default :foreground "gray80" :width condensed))))
  '(widget-button-pressed ((((min-colors 88) (class color)) (:inherit widget-button :foreground "red1")))))
+
+

@@ -1,3 +1,19 @@
+;;
+;;
+;; yasnippet
+;;
+;;
+;; (add-to-list 'load-path
+;;              "~/.emacs.d/plugins/yasnippet")
+
+;; (require 'yasnippet)
+;; (yas/initialize)
+(yas/load-directory "~/.emacs.d/yasnippets-rails/rails-snippets/" )
+;; Перешел на yasnippet-bundle
+
+
+
+
 ;;;
 ;;;
 ;;; autocomplete

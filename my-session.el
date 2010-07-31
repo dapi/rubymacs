@@ -1,22 +1,32 @@
 ;;; sessions and desktops
 ;
 
- (require 'session)
-(add-hook 'after-init-hook 'session-initialize)
-(when (require 'session nil t)
-  (add-hook 'after-init-hook 'session-initialize)
-  (add-to-list 'session-globals-exclude 'org-mark-ring))
+;(setq-default save-visited-files-location "~/.emacs.tmp/emacs-visited-files")
+;(turn-on-save-visited-files-mode)
 
 
-;(desktop-save-mode t)
+
+
+; сохраняет places и глобальные переменные
+;(require 'session)
+;(setq-default session-initialize t)
+;(session-initialize)
+;(add-hook 'after-init-hook 'session-initialize)
+;; (when (require 'session nil t)
+;;   (add-hook 'after-init-hook 'session-initialize)
+;;   (add-to-list 'session-globals-exclude 'org-mark-ring))
+
+
+(desktop-save-mode 1)
+(setq-default desktop-save t)
 ;(desktop-load-default)
 ;(desktop-read)
 ;; (global-set-key (kbd "C-c d") 'desktop-change-dir)
 ;; (global-set-key (kbd "C-c C-d") 'desktop-change-dir)
 
 
-(require 'saveplace)
-(setq-default save-place t)
+;(require 'saveplace)
+;(setq-default save-place t)
 
 
 (savehist-mode 1)
@@ -73,6 +83,23 @@
 ;        (ack-args         "--java")
 ;        (startup-hook     my-java-project-startup)
         (shutdown-hook    nil)))
+
+(project-def "chebytoday"
+      '((basedir          "/home/danil/projects/github/dapi/chebytoday/")
+        (src-patterns     ("*.rb" "*.rake"))
+        (tags-file        "/home/danil/projects/github/dapi/chebytoday/TAGS")
+        (file-list-cache  "/home/danil/projects/github/dapi/chebytoday/.files")
+        (open-files-cache "/home/danil/projects/github/dapi/chebytoday/.open-files")
+;        (ignore-patterns  ("*.class" "*.wsdl"))
+;        (tags-file        "/home/danil/projects/github/dapi/lubopytno.ru/TAGS")
+;        (file-list-cache  "/home/danil/.emads.d.tmp/.files")
+;        (open-files-cache "/home/danil/.emacs.d.tmp/.open-files")
+        (vcs              git)
+;        (compile-cmd      "ant")
+;        (ack-args         "--java")
+;        (startup-hook     my-java-project-startup)
+        (shutdown-hook    nil)))
+
 
 
 (global-set-key (kbd "C-c p c") 'project-compile)

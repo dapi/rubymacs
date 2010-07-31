@@ -6,3 +6,5 @@ auto-install
 anything-c-adaptive-history
 *.elc
 session.*
+emacs-visited-files
+elpa/*
