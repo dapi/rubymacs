@@ -73,7 +73,10 @@
 (load "~/.emacs.d/my-html.el")
 (load "~/.emacs.d/my-ruby.el")
 (load "~/.emacs.d/my-git.el")
-(load "~/.emacs.d/my-tags.el")
+
+; отключу пока gtag
+;(load "~/.emacs.d/my-tags.el")
+
 (load "~/.emacs.d/my-flymake.el")
 ;(load "~/.emacs.d/my-rails.el")
 (load "~/.emacs.d/my-anything.el")

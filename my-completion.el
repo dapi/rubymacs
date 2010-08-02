@@ -58,6 +58,7 @@
 ;;  (define-key ac-mode-map (read-kbd-macro key) 'ac-trigger-key-command)))
 
 
+
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-gtags)))
 
 ; Постоянно сбоит
@@ -65,7 +66,7 @@
 
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)))
 (add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-yasnippet)))
-(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-files-in-current-dir)))
+;(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-files-in-current-dir)))
 
 ;(add-hook 'ruby-mode-hook '(lambda () 
 	;(pabbrev-mode t)

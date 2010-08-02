@@ -3,6 +3,8 @@
 ;; gtags
 ;;
 ;;
+;http://imaginateaqui.net/blog/2008/10/using-rtags-ang-gtags-for-coding-ruby/
+
 
 (autoload 'gtags-mode "gtags" "" t)
 
@@ -23,6 +25,8 @@
     ;;  tagfile already exists; update it
     (shell-command "global -u && echo 'updated tagfile'")))
  
+
+
 (add-hook 'ruby-mode-hook (lambda () 
       (gtags-mode 1)
 ;      (rinari-gtags-create-or-update)

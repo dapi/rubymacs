@@ -16,7 +16,7 @@
 ;; rcodetools
 ;;
 ;;
-(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
+;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
 ;(require 'rcodetools)
 
 
