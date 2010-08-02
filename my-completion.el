@@ -11,6 +11,22 @@
 (yas/load-directory "~/.emacs.d/yasnippets-rails/rails-snippets/" )
 ;; Перешел на yasnippet-bundle
 
+;; (defvar anything-c-source-define-yasnippet-on-region
+;;   '((name . "Create new YaSnippet on region")
+;;     (dummy)
+;;     (action . (lambda (c)
+;;                 (with-stub
+;;                   (let* ((mode-name (symbol-name anything-c-yas-cur-major-mode))
+;;                          (root-dir (expand-file-name
+;;                                     (if (listp yas/root-directory)
+;;                                         (car yas/root-directory)
+;;                                       yas/root-directory)))
+;;                          (default-snippet-dir (anything-c-yas-find-recursively mode-name root-dir 'dir))
+;;                          (filename (concat default-snippet-dir "/" anything-pattern)))
+;;                     (stub read-file-name => filename)
+;;                     (anything-c-yas-create-new-snippet
+;;                      (with-current-buffer anything-current-buffer
+;;                        (if mark-active (buffer-substring-no-properties (region-beginning) (region-end)) "")))))))))
 
 
 

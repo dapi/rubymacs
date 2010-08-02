@@ -38,6 +38,9 @@
 (global-set-key [(f12)] 'recentf-open-files)
 
 
+
+; устанавливать при установке рута проекта gtags-visit-rootdir
+
 ;;
 ;;
 ;; mk-project
@@ -113,4 +116,5 @@
 (global-set-key (kbd "C-c p h") 'project-home)
 (global-set-key (kbd "C-c p d") 'project-dired)
 (global-set-key (kbd "C-c p t") 'project-tags)
+
 

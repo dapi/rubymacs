@@ -164,6 +164,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(anything-header ((t (:inherit header-line :foreground "grey30"))))
  '(border ((t (:background "red"))))
  '(buffer-menu-buffer ((t nil)))
  '(cperl-array-face ((((class color) (background dark)) (:foreground "yellow" :underline t))))
@@ -178,6 +179,7 @@
  '(erb-face ((t (:background "black"))))
  '(erb-out-delim-face ((t (:inherit erb-face :foreground "darkred"))))
  '(erb-out-face ((t (:inherit erb-face))))
+ '(header-line ((t (:inherit default :foreground "grey70" :slant oblique))))
  '(highlight ((((class color) (min-colors 88) (background dark)) (:background "#202a2a"))))
  '(mode-line ((((class color) (min-colors 88)) (:background "red4" :foreground "gray90"))))
  '(mode-line-highlight ((((class color) (min-colors 88)) (:background "red"))))

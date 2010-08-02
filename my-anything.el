@@ -15,30 +15,26 @@
 ;(anything-read-string-mode 1)
 ;(anything-complete-shell-history-setup-key "\C-o")
 
+;;    *If non-nil, use separate source file by file.
+;(setq anything-gtags-classify t)	
+
+(setq anything-candidate-separator
+      "------------------------------------------------------------------------------------")
+
 (setq anything-c-adaptive-history-file "~/.emacs.tmp/anything-c-adaptive-history")
 
 (global-set-key (kbd "M-X") 'anything)
 
-; не работает
-;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
-;(setq load-path (cons "/var/lib/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
-;(require 'anything-rcodetools)
-;; ;;(setq rct-get-all-methods-command "PAGER=cat fri -l")
-;; (setq rct-get-all-methods-command "fri -l")
-;; ;;       ;; See docs
-;; (define-key anything-map "\C-z" 'anything-execute-persistent-action)
 
 
 (require 'anything-gtags)
-;;    *If non-nil, use separate source file by file.
-;(setq anything-gtags-classify t)
 
 (require 'anything-etags)
 
 (require 'anything-imenu)
 ;(require 'anything-git)
 (require 'anything-rake)
-	
+
 
 (setq anything-sources
       (list anything-c-source-buffers+
@@ -54,9 +50,9 @@
             anything-c-source-locate
 
             anything-c-source-buffers
-;;            anything-c-source-info-pages
-;;            anything-c-source-man-pages
-;;            anything-c-source-emacs-commands
+            anything-c-source-info-pages
+            anything-c-source-man-pages
+            anything-c-source-emacs-commands
 ))
 
 
