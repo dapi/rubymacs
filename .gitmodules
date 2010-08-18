@@ -16,3 +16,6 @@
 [submodule "rinari"]
 	path = rinari
 	url = http://github.com/masatomo/rinari.git
+[submodule "emacs-rails-reloaded"]
+	path = emacs-rails-reloaded
+	url = http://github.com/hron/emacs-rails-reloaded.git

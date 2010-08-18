@@ -1,0 +1,23 @@
+C-x C-x Set the mark point and move point where the mark was. Удобно скакать от кода к коду.
+C-S-Backspace delete whole line
+C-g Keyboard quit, deactive marking region
+
+
+Ruby/Rails:
+M-. искать где определна функция find-tag
+M-, искать где функция использутся find-reverse-tag
+M-* прягнуть обратно откуда искал
+
+
+<C-S-f1>        ri-ruby-show-args
+<C-f1>          ri-ruby-complete-symbol
+<f1>            ri
+
+C-c ] искать файлы по всему проекту (rinari-find-file-in-project)
+
+emacs-rails-reloaded:
+* Navigation around rails files,
+  press [C-c '] or [C-c ;] (больше вариантов) to display available files.
+  [C-c up] to toggle (controller|mailer) <> view.
+  [C-c t] to toggle test <> implementation.
+
