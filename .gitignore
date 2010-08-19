@@ -1,5 +1,7 @@
 *.bak
 *~
+.#*
+.emacs*
 history
 auto-save-list
 auto-install
@@ -8,3 +10,4 @@ anything-c-adaptive-history
 session.*
 emacs-visited-files
 elpa/*
+ac-comphist.dat

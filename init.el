@@ -15,15 +15,20 @@
 ; emacs -batch -l runme.el -kill 
 ; emacs -batch -f batch-byte-compile files...
 
-(setq load-path (cons "/usr/share/emacs/site-lisp/" load-path))
-(setq load-path (cons "/usr/share/emacs/site-lisp/global" load-path))
-(setq load-path (cons "/usr/share/emacs/site-lisp/emacs-goodies-el" load-path))
+; /home/danil/bin/myemacs
+; http://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
+(setq default-frame-alist
+      '((top . 0) (left . 0)
+        (width . 110) (height . 45)
+        ))
+(setq initial-frame-alist
+      '((top . 0) (left . 0)
+        (width . 110) (height . 45)
+        ))
 
-(setq load-path (cons "~/.rvm/src/ruby-1.9.2-head/misc/" load-path))
+
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
-;; (add-to-list 'load-path
-;;              "~/.emacs.d/plugins")
-
+;(require 'byte-code-cache) неработает с elpa или с package.el, не загружает yasnippet
 
 
 ;;; This was installed by package-install.el.
@@ -40,15 +45,23 @@
 
 
 
+;; (setq load-path (cons "/usr/share/emacs/site-lisp/" load-path))
+;; (setq load-path (cons "/usr/share/emacs/site-lisp/emacs-goodies-el" load-path))
+
+; для inf-ruby и др
+(setq load-path (cons "~/.rvm/src/ruby-1.9.2-head/misc/" load-path)); TODO как-то брать автоматом
+
+
+;; auto-compile
 
 
 
 ;; auto-install
-
+;; для anything, в elpa его почемуто нет
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
-(auto-install-update-emacswiki-package-name t)
+; (auto-install-update-emacswiki-package-name t)
 
 
 ; Выключаем scrollbar и полосу прокрутки
@@ -69,16 +82,15 @@
 (load "~/.emacs.d/my-backup.el")
 (load "~/.emacs.d/my-buffers.el")
 (load "~/.emacs.d/my-perl.el")
+
 (load "~/.emacs.d/my-completion.el")
 (load "~/.emacs.d/my-html.el")
 (load "~/.emacs.d/my-ruby.el")
 (load "~/.emacs.d/my-git.el")
-
-; отключу пока gtag
-;(load "~/.emacs.d/my-tags.el")
-
 (load "~/.emacs.d/my-flymake.el")
-;(load "~/.emacs.d/my-rails.el")
+(load "~/.emacs.d/my-tags.el")
+
+;(load "~/.emacs.d/my-rails.el") все ушло в ruby
 (load "~/.emacs.d/my-anything.el")
 ;(load "~/.emacs.d/my-org.el")
 (load "~/.emacs.d/my-tab.el")
@@ -91,12 +103,12 @@
 ;(setq display-time-interval 1)
 ;(setq display-time-format "%H:%M:%S")
 ;(display-time-mode)
-(setq woman-show-log nil)
-(setq woman-ignore t)
+;; (setq woman-show-log nil)
+;; (setq woman-ignore t)
 
 ;(global-set-key "\C-h" 'delete-backward-char)
 (global-set-key [(meta backspace)] 'advertised-undo)
-;(global-set-key [f4] 'replace-string)
+(global-set-key [f4] 'replace-string)
 ;(global-set-key [(meta f3)] 'find-file-other-frame)
 
 ;(global-set-key [(control r)] 'replace-string)
@@ -104,15 +116,17 @@
 (global-set-key [(meta q)] 'comment-or-uncomment-region)
 (global-set-key [?\C-,] 'previous-buffer)
 (global-set-key [?\C-.] 'next-buffer)
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+;  
+; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
 
 
 (fset 'yes-or-no-p 'y-or-n-p) ;;не заставляйте меня печать yes целиком
 
 (setq-default indent-tabs-mode nil) ; пробелы вместо табов
 (setq
-	default-tab-width 4 ;;подифолту
 	tab-width 2
-	delete-key-deletes-forward 't		
+	; delete-key-deletes-forward 't		давно нет такой переменной
 	kill-whole-line 't)
 	
 	
@@ -123,11 +137,14 @@
 ; Ничего не работает, смотри http://www.enigmacurry.com/2009/01/14/extending-emacs-with-advice/
 ; и http://www.emacswiki.org/emacs/EasyPG
 ; Не спрашивать графически пароль11
-(require 'epa)
+;(require 'epa)
 ;(setenv "GPG_AGENT_INFO" nil)
 ; сохранять пароль GPG
-(epa-file-enable)
-(setq epa-file-cache-passphrase-for-symmetric-encryption t)
+;(epa-file-enable)
+;(setq epa-file-cache-passphrase-for-symmetric-encryption t) уже давно не работает
+
+; Чтобы не жать на выход три раза ESC
+
 
 
 (custom-set-variables
@@ -157,6 +174,14 @@
  '(truncate-lines t))
 
 ; '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 132 :width normal :family "misc-fixed"))))
+
+;; (setq initial-frame-alist (append '((width . 263) (height . 112) (top . -5) (left . 5) (font . "4.System VIO")) initial-frame-alist))
+;; (setq default-frame-alist (append '((width . 263) (height . 112) (top . -5) (left . 5) (font . "4.System VIO")) default-frame-alist))
+
+;(setq initial-frame-alist (append '((width . 110) (height . 44) (top . -5) (left . 5))
+;(setq default-frame-alist (append '((width . 110) (height . 44) (top . -5) (left . 5))
+
+
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.

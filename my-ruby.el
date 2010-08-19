@@ -35,7 +35,11 @@
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
+(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
+                                     interpreter-mode-alist))
 
+
+(define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      
 ;;;
 ;;;
@@ -44,11 +48,14 @@
 ;;;
 
 
+;; временно отключил в пользу emacs rails reloaded
 (add-to-list 'load-path "~/.emacs.d/rinari")
 (require 'rinari)
-(setq rinari-tags-file-name "TAGS")
-(define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-(define-key ruby-mode-map (kbd "C-c l") "lambda")
+;; (setq rinari-tags-file-name "TAGS")
+
+(define-key ruby-mode-map (kbd "C-c ]") 'rinari-find-file-in-project)
+
+;; (define-key ruby-mode-map (kbd "C-c l") "lambda")
 
 ;;
 ;;
@@ -56,24 +63,31 @@
 ;;
 ;;
 ;(autoload 'ri "/home/danil/.emacs.d/ri-emacs/ri-ruby.el" nil t)
-(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
-(setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
-
-
-
-
+;(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
+;(setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
 ;;
 ;;  You may want to bind the ri command to a key.
 ;;  For example to bind it to F1 in ruby-mode:
 ;;  Method/class completion is also available.
 ;;
- (add-hook 'ruby-mode-hook (lambda ()
-                             (local-set-key [(f1)] 'ri)
-                             (local-set-key [(control f1)] 'ri-ruby-complete-symbol)
-                             (local-set-key [(control shift f1)] 'ri-ruby-show-args)
-                             ))
+ ;; (add-hook 'ruby-mode-hook (lambda ()
+ ;;                             (local-set-key [(f1)] 'ri)
+ ;;                             (local-set-key [(control f1)] 'ri-ruby-complete-symbol)
+ ;;                             (local-set-key [(control shift f1)] 'ri-ruby-show-args)
+ ;;                             ))
 
 
+;; yari
+;; ;; You can use C-u M-x yari to reload all completion targets.
+
+(require 'yari)
+(define-key ruby-mode-map [f1] 'yari-anything)
+
+
+;;; rails
+(setq load-path (cons (expand-file-name "~/.emacs.d/emacs-rails-reloaded") load-path))
+(require 'rails-autoload)
+ ; rails/bytecompile
 
 
 ;;;
@@ -86,9 +100,31 @@
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode)))
 
 
-; (require 'inf-ruby)
-;; rinari подключает его автоматом
+(require 'inf-ruby)
+;; rinari подключает его автоматом, убедиться что он этого не делает
+; поэтому убедиться что он подключается с ruby а не с rinari/utils
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
 
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (inf-ruby-keys)
+             ))
+
+
+; apidock search
+(defun gaizka-search-apidock-rails ()
+  "Search current word in apidock for rails"
+  (interactive)
+  (let* ((word-at-point (thing-at-point 'symbol))
+		(word (read-string "Search apidock for? " word-at-point)))
+	(browse-url (concat "http://apidock.com/rails/" word))))
+ 
+(define-key ruby-mode-map (kbd "C-c d") 'gaizka-search-apidock-rails)
+ 
+;(provide 'rails-apidock)
 ;;
 ;;
 ;; imenu

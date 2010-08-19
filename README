@@ -24,11 +24,16 @@ INSTALL:
 install ELPA http://tromey.com/elpa/install.html
 wget http://tromey.com/elpa/package.el
 
+
 cd plugins
 wget  http://yasnippet.googlecode.com/files/yasnippet-0.6.1c.tar.bz2
 tar -jxf yasnippet-0.6.1c.tar.bz2 
 rm yasnippet-0.6.1c.tar.bz2 
 ln -s yasnippet-0.6.1c/ yasnippet
+
+git submodule init
+git submodule update
+rm rinari/utils/inf-ruby.el
 
 
 

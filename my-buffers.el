@@ -51,6 +51,17 @@
 
 (global-set-key (kbd "C-x c") 'my-kill-emacs)
 
+;; ;; Kill-server
+;; (defun my-kill-emacs ()
+;; (interactive)
+;; (save-some-buffers)
+;; (desktop-save-in-desktop-dir)
+;; (kill-emacs))
+
+;; (global-set-key (kbd "C-x c") 'my-kill-emacs)
+
+
+
 
 ;;
 ;;
