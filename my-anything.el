@@ -29,7 +29,7 @@
 
 (require 'anything-gtags)
 
-(require 'anything-etags)
+;(require 'anything-etags) я им не пользуюсь
 
 (require 'anything-imenu)
 ;(require 'anything-git)

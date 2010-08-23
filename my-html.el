@@ -13,8 +13,8 @@
 
 
 ;; HAML
-(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/haml-edge-2.3.100/extra/" load-path))
-(setq load-path (cons "/home/danil/.rvm/gems/ruby-1.9.2-head/gems/haml-3.0.13/extra/" load-path))
+;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/haml-edge-2.3.100/extra/" load-path))
+(setq load-path (cons "/home/danil/.rvm/gems/ruby-1.9.2-head/gems/haml-3.0.17/extra/" load-path))
 
 
 (require 'haml-mode)
@@ -38,18 +38,6 @@
           )
 
 
-; JS2
-; in Emacs, M-x byte-compile-file RE js2.el RE
-; http://code.google.com/p/js2-mode/
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
- 
-(setq js2-basic-offset 2)
-(setq js2-use-font-lock-faces t)
-
-
-
-
 
 
 ;;;; yaml-mode
@@ -57,8 +45,8 @@
 ;
 ;
 
-(autoload 'yaml-mode "yaml-mode" nil t)
-;(require 'yaml-mode)
+;(autoload 'yaml-mode "yaml-mode" nil t)
+(require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yaml"  . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yml"  . yaml-mode))
 

@@ -5,12 +5,14 @@
 ;;
 ;; (add-to-list 'load-path
 ;;              "~/.emacs.d/plugins/yasnippet")
-
 ;(require 'yasnippet)
 ;(yas/initialize)
 
-
 (yas/load-directory "~/.emacs.d/yasnippets-rails/rails-snippets/" )
+
+; Тут слишком много всего
+; (yas/load-directory "~/.emacs.d/yasnippets-jpablobr" )
+(yas/load-directory "~/.emacs.d/yasnippets-rejeep" )
 
 
 ;; (defvar anything-c-source-define-yasnippet-on-region
@@ -44,10 +46,19 @@
 (setq load-path (cons "~/.emacs.d/auto-complete/" load-path))
 
 (require 'auto-complete-config)
+
+
 (ac-config-default)
+(add-to-list 'ac-modes 'sass-mode)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/dict")
 (setq ac-ignore-case nil)
 (setq ac-auto-show-menu t)
+
+(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-gtags)))
+(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-yasnippet)))
+
+
+
 ; сбоит
 ;(require 'auto-complete-etags)
 
@@ -60,20 +71,15 @@
 ;; (setq ac-dwim t)
 
 
-(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-gtags)))
-
 ;  'ac-source-words-in-same-mode-buffers - вроде как есть подефолту
 ; Постоянно сбоит
 ;(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-etags)))
-;(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-yasnippet)))
+
 ;(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-files-in-current-dir)))
 
 ;(add-hook 'ruby-mode-hook '(lambda () 
 	;(pabbrev-mode t)
 	;))
-
-
-
 
 
 ; дурацкая штука	

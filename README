@@ -36,4 +36,10 @@ git submodule update
 rm rinari/utils/inf-ruby.el
 
 
+rm ~/.emacs.d/yasnippets-jpablobr/README*
+
+cp auto-complete/dict/css-mode auto-complete/dict/sass-mode
+
+
+
 

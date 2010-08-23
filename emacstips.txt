@@ -6,8 +6,10 @@ C-g Keyboard quit, deactive marking region
 C-] Abort innermost recursive editing level and cancel the command which invoked it (abort-recursive-edit). 
 C-/, Alt-Backspace undo
 
-M-; Комментарий в конце строки
+C-x C-o will delete all the empty lines around your current cursor position, except for one;
+M-q re-aligns the current paragraph; I use it all the time when writing e-mails etc. (you might want to check out filladapt for a version that gives you a bit more smartness with indentations, lists etc.); 
 
+M-; Комментарий в конце строки
 
 Ruby/Rails:
 M-. искать где определна функция find-tag
@@ -16,7 +18,8 @@ M-* прягнуть обратно откуда искал
 
 C-c d flymake display error
 
-
+C-h k describe key
+ss
 <C-S-f1>        ri-ruby-show-args
 <C-f1>          ri-ruby-complete-symbol
 <f1>            ri

@@ -83,9 +83,11 @@
 (load "~/.emacs.d/my-buffers.el")
 (load "~/.emacs.d/my-perl.el")
 
-(load "~/.emacs.d/my-completion.el")
+(load "~/.emacs.d/my-js.el")            ; Нужно запускать до completion
 (load "~/.emacs.d/my-html.el")
+
 (load "~/.emacs.d/my-ruby.el")
+(load "~/.emacs.d/my-tab.el")
 (load "~/.emacs.d/my-git.el")
 (load "~/.emacs.d/my-flymake.el")
 (load "~/.emacs.d/my-tags.el")
@@ -94,6 +96,9 @@
 (load "~/.emacs.d/my-anything.el")
 ;(load "~/.emacs.d/my-org.el")
 (load "~/.emacs.d/my-tab.el")
+
+(load "~/.emacs.d/my-completion.el")
+
 
 
 (global-font-lock-mode 1)                     ; for all buffers
@@ -120,6 +125,8 @@
 ;  
 ; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
 
+(global-set-key [(super =)] 'text-scale-increase)
+(global-set-key [(super -)] 'text-scale-decrease)
 
 (fset 'yes-or-no-p 'y-or-n-p) ;;не заставляйте меня печать yes целиком
 
