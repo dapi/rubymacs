@@ -25,3 +25,6 @@
 [submodule "yasnippets-rejeep"]
 	path = yasnippets-rejeep
 	url = http://github.com/rejeep/yasnippets.git
+[submodule "rsense"]
+	path = rsense
+	url = http://github.com/m2ym/rsense.git

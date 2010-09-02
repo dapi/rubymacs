@@ -2,6 +2,9 @@ C-x C-x Set the mark point and move point where the mark was. Удобно ск�
 C-x C-space - global mark
 C-S-Backspace delete whole line
 
+ruby-mode:
+C-c C-e - insert end
+
 C-g Keyboard quit, deactive marking region
 C-] Abort innermost recursive editing level and cancel the command which invoked it (abort-recursive-edit). 
 C-/, Alt-Backspace undo
@@ -12,6 +15,7 @@ M-q re-aligns the current paragraph; I use it all the time when writing e-mails 
 M-; Комментарий в конце строки
 
 Ruby/Rails:
+C-: string->symbol
 M-. искать где определна функция find-tag
 M-, искать где функция использутся find-reverse-tag
 M-* прягнуть обратно откуда искал
@@ -19,7 +23,11 @@ M-* прягнуть обратно откуда искал
 C-c d flymake display error
 
 C-h k describe key
-ss
+C-h after any prefix key will display all available shortcuts under that
+  prefix.
+
+C-h y YARI yet anoter ri
+
 <C-S-f1>        ri-ruby-show-args
 <C-f1>          ri-ruby-complete-symbol
 <f1>            ri
@@ -32,3 +40,8 @@ emacs-rails-reloaded:
   [C-c up] to toggle (controller|mailer) <> view.
   [C-c t] to toggle test <> implementation.
 
+
+region (selection)	narrow-to-region	C-x n n
+current page	narrow-to-page	C-x n p
+function	narrow-to-defun	C-x n d
+everything	widen	C-x n w

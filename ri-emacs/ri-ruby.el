@@ -68,7 +68,7 @@
 (defvar ri-ruby-program "ruby"
   "The ruby program name.")
 
-(defvar ri-ruby-script "/home/kristof/.xemacs/ri-emacs.rb"
+(defvar ri-ruby-script (expand-file-name "/~emacs.d/vendor/ri-emacs/ri-emacs.rb")
   "the ruby script to communicate with")
 
 (defvar ri-ruby-process nil

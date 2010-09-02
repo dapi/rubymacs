@@ -1,0 +1,1725 @@
+<?xml version="1.0" encoding="iso-2022-jp" ?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>irbsh 〜IRB.extend ShellUtilities〜</title>
+<meta http-equiv="Content-type" content="text/html; charset=iso-2022-jp" />
+<!-- head-element:nil -->
+</head>
+<body>
+<h2>Index</h2>
+
+<ul>
+<li><p><a href="#label:4">irbshとは</a></p>
+<ul>
+<li><a href="#label:5">こんな人は使ってみて!!</a></li>
+<li><a href="#label:6">irbshが用意している機能</a></li>
+</ul></li>
+<li><a href="#label:7">ダウンロード</a></li>
+<li><p><a href="#label:8">インストール</a></p>
+<ul>
+<li><p><a href="#label:9">irbについての注意</a></p>
+<ul>
+<li><a href="#label:10">Windowsでは</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#label:11">起動方法</a></li>
+<li><p><a href="#label:12">使い方</a></p>
+<ul>
+<li><a href="#label:13">普通にinf-ruby-modeとして使う</a></li>
+<li><a href="#label:14">カレントディレクトリ表示・ディレクトリトラッキング</a></li>
+<li><a href="#label:15">コマンドラインスタック</a></li>
+<li><a href="#label:16">スクリプトをロード</a></li>
+<li><a href="#label:17">多重化(複数の窓を開く)</a></li>
+<li><a href="#label:18">編集しているバッファからirbshを呼ぶ</a></li>
+<li><a href="#label:19">再起動</a></li>
+<li><a href="#label:20">拡張されたコマンドたち</a></li>
+<li><a href="#label:29">末尾の「,」を削除</a></li>
+<li><a href="#label:30">出力結果をkill-ringへ</a></li>
+<li><a href="#label:31">出力を消す</a></li>
+<li><a href="#label:32">魔法のC-a</a></li>
+<li><a href="#label:33">前/次のプロンプトへ飛ぶ</a></li>
+<li><a href="#label:34">対応する括弧の挿入</a></li>
+<li><a href="#label:35">お手軽メソッド定義</a></li>
+</ul></li>
+<li><p><a href="#label:36">制御符号</a></p>
+<ul>
+<li><a href="#label:37">「;」出力を抑制</a></li>
+<li><a href="#label:38">「|」出力を別バッファに保存(リダイレクト)</a></li>
+<li><a href="#label:39">「&amp;」バックグラウンドシェル</a></li>
+</ul></li>
+<li><p><a href="#label:40">シェルとしての機能</a></p>
+<ul>
+<li><a href="#label:41">シェルコマンドの実行</a></li>
+<li><a href="#label:42">ワンタッチsystemコマンド</a></li>
+<li><p><a href="#label:43">cdについて</a></p>
+<ul>
+<li><a href="#label:44">シェルコマンドとしてcdを実行すると</a></li>
+<li><a href="#label:45">Rubyの文としてcdするときはquote不要</a></li>
+</ul></li>
+<li><a href="#label:46">コマンド実行履歴</a></li>
+</ul></li>
+<li><p><a href="#label:47">高度な機能</a></p>
+<ul>
+<li><a href="#label:48">試運転機能</a></li>
+<li><a href="#label:49">quoteなしでRubyの式を実行</a></li>
+<li><a href="#label:55">ヒストリメニュー</a></li>
+<li><p><a href="#label:56">メタ変数</a></p>
+<ul>
+<li><a href="#label:57">EmacsバッファをFileオブジェクトとして扱う</a></li>
+<li><a href="#label:58">リージョンをFileオブジェクトとして扱う</a></li>
+</ul></li>
+<li><a href="#label:59">EmacsLisp式を評価する</a></li>
+<li><a href="#label:60">YAML経由でオブジェクトを編集</a></li>
+</ul></li>
+<li><p><a href="#label:61">強力補完機能</a></p>
+<ul>
+<li><p><a href="#label:62">シェルコマンド入力時の補完</a></p>
+<ul>
+<li><a href="#label:63">コマンド名補完</a></li>
+<li><a href="#label:64">ファイル名補完</a></li>
+</ul></li>
+<li><a href="#label:65">Rubyの文においてファイル名の補完</a></li>
+<li><p><a href="#label:66">前と同一のディレクトリ名を補完</a></p>
+<ul>
+<li><a href="#label:67">シェルコマンドのコンテキストでは</a></li>
+<li><a href="#label:68">Rubyのコンテキストでは</a></li>
+</ul></li>
+<li><a href="#label:69">ディレクトリの補完</a></li>
+<li><a href="#label:70">ワイルドカード展開</a></li>
+<li><a href="#label:71">ホームディレクトリ展開</a></li>
+<li><a href="#label:72">バッファ名の補完</a></li>
+<li><a href="#label:73">メソッド名/変数名補完</a></li>
+</ul></li>
+<li><p><a href="#label:74">マルチラインバッファ</a></p>
+<ul>
+<li><a href="#label:75">複数行のコードを入力するには</a></li>
+<li><a href="#label:76">マルチラインバッファのヒストリ</a></li>
+<li><a href="#label:77">マルチラインバッファでのキー操作</a></li>
+</ul></li>
+<li><a href="#label:84">内部コマンド</a></li>
+<li><p><a href="#label:94">評価リスト</a></p>
+<ul>
+<li><a href="#label:95">*ruby scratch*バッファ</a></li>
+<li><a href="#label:96">任意のruby-modeのバッファでもok</a></li>
+<li><a href="#label:97">エラージャンプ機能</a></li>
+<li><a href="#label:98">スクリプトバッファのみ実行</a></li>
+<li><a href="#label:99">$IRBSH変数</a></li>
+</ul></li>
+<li><a href="#label:100">ワンライナー</a></li>
+<li><p><a href="#label:101">.irbshrc</a></p>
+<ul>
+<li><a href="#label:102">シェルエイリアス機能</a></li>
+<li><a href="#label:103">プロンプトのカスタマイズ</a></li>
+<li><a href="#label:104">pushdignoredups</a></li>
+<li><a href="#label:105">systemecho</a></li>
+</ul></li>
+<li><p><a href="#label:106">応用</a></p>
+<ul>
+<li><a href="#label:107">シェルのaliasをirbshのエイリアスにするには</a></li>
+<li><p><a href="#label:108">windows.elとの共存</a></p>
+<ul>
+<li><a href="#label:109">どっちも使いたい！</a></li>
+<li><a href="#label:110">やっぱり無効でいいや</a></li>
+<li><a href="#label:111">キーバインドを変える</a></li>
+</ul></li>
+</ul></li>
+<li><p><a href="#label:112">技術メモ</a></p>
+<ul>
+<li><a href="#label:113">メソッド名/変数名補完について</a></li>
+<li><a href="#label:114">comint-redirect.el</a></li>
+<li><a href="#label:115">comint-util.el, cmdline-stack.el</a></li>
+<li><a href="#label:118">シェルエイリアスの実装</a></li>
+<li><a href="#label:119">ワイルドカード展開の実装</a></li>
+<li><a href="#label:120">プロンプト拡張</a></li>
+<li><a href="#label:121">制限・欠点</a></li>
+<li><a href="#label:122">TODO</a></li>
+</ul></li>
+<li><a href="#label:123">更新履歴</a></li>
+<li><a href="#label:149">ライセンス</a></li>
+</ul>
+<hr />
+
+<h1><a name="Title:" href="#Title:">Title:</a> <a name="label:0">irbsh 〜IRB.extend ShellUtilities〜</a></h1><!-- RDLabel: "irbsh 〜IRB.extend ShellUtilities〜" -->
+
+<pre>$Id: irbsh.ja.rd.r 1133 2006-01-17 00:46:30Z rubikitch $</pre>
+<dl>
+<dt><a name="label:1" id="label:1"></a>author</dt><!-- RDLabel: "author" -->
+<dd>
+<p>rubikitch&lt;rubikitch@ruby-lang.org&gt;</p>
+</dd>
+<dt><a name="label:2" id="label:2"></a>irbsh official site</dt><!-- RDLabel: "irbsh official site" -->
+<dd>
+<p><a href="http://www.rubyist.net/~rubikitch/computer/irbsh/">&lt;URL:http://www.rubyist.net/~rubikitch/computer/irbsh/&gt;</a></p>
+</dd>
+<dt><a name="label:3" id="label:3"></a>screenshot</dt><!-- RDLabel: "screenshot" -->
+<dd>
+<ul>
+<li><a href="irbsh.jpg">スクリーンショット</a></li>
+<li><a href="irbsh-history.jpg">ヒストリメニューのスクリーンショット</a></li>
+<li><a href="eval-list.jpg">評価リストのスクリーンショット</a></li>
+<li><a href="bg.jpg">バックグラウンドシェルのスクリーンショット</a></li>
+</ul>
+</dd>
+</dl>
+<h2><a name="1" href="#1">1</a> <a name="label:4">irbshとは</a></h2><!-- RDLabel: "irbshとは" -->
+
+<p>irbshとはirb(対話型Ruby)とinf-ruby-mode(irbのEmacsインターフェース)を大幅に拡張したものである。
+シェルコマンドとの親和性を重点に置いている。
+irbshは<a href="#label:94">評価リスト</a>機能があるため、Emacs上のちょっとした<em>Ruby開発環境</em>としての顔も持ち合わせるようになった。</p>
+<p>非常に多機能であるが、使い方は簡単である。</p>
+<h3><a name="1.1" href="#1.1">1.1</a> <a name="label:5">こんな人は使ってみて!!</a></h3><!-- RDLabel: "こんな人は使ってみて!!" -->
+
+<p>以下のような人達に向いている。</p>
+<ul>
+<li>頭の中がRubyだらけで、Rubyでしかモノを考えられない人。</li>
+<li>irbにすっかり魅了されてしまった人。</li>
+<li><p>シェルスクリプトなんてほとんど書か(け)ない人。</p>
+<ul>
+<li>シェルスクリプトの代わりにRubyを使っている人も含む。</li>
+</ul></li>
+<li>EmacsとRubyの連携をうまく取りたいと考えている人。</li>
+<li>シェルコマンドにRubyな変数展開を施したいと思っている人。</li>
+<li>shell-modeが嫌いな人。</li>
+<li><p>zshを使っている人。</p>
+<ul>
+<li>コマンドラインスタックあり。</li>
+<li>その場でワイルドカード展開できたらなあと思っている人。</li>
+</ul></li>
+<li>リージョンやEmacsのバッファの内容をRubyやシェルで簡単に処理したい人。</li>
+<li>irbで長い出力がうざいと思っている人。</li>
+<li>出力を他のバッファに保存したいと思ってる人。</li>
+<li>Emacsの強力補完機能でなんとかしたなあと思っている人。</li>
+<li>irbで複数行のコードをスムーズに入れたいなと思っている人。</li>
+<li>スクリプトをテキパキと開発したいなぁと思っている人。</li>
+</ul>
+<h3><a name="1.2" href="#1.2">1.2</a> <a name="label:6">irbshが用意している機能</a></h3><!-- RDLabel: "irbshが用意している機能" -->
+
+<p>以下の点を拡張してある。</p>
+<ul>
+<li><p>スペースから始まるコマンドラインはシェルコマンドとして実行。</p>
+<ul>
+<li>Rubyの#{〜}による変数展開が使える。</li>
+<li>どんなシェルコマンドを実行しているのかを表示できる。</li>
+<li>終了ステータスを表示。</li>
+</ul></li>
+<li><p>カレントディレクトリを切り替えると、irbshバッファのカレントディレクトリも切り替わる。(ディレクトリトラッキング)</p>
+<ul>
+<li>shell-modeではそうなっている。</li>
+</ul></li>
+<li><p>(デフォルトで)2ストロークで system 関数を書ける。</p>
+<ul>
+<li>Rubyの文の中にシェルコマンドを実行するのが容易。</li>
+</ul></li>
+<li>シェルコマンド/Rubyのコンテキストをキー一発で切り替え可能。</li>
+<li><p>コマンドラインの最後が</p>
+<ul>
+<li>「;」ならば出力を消す。MATLABの案。</li>
+<li>「|」なら他のバッファに出力を保存する。<a href="http://oneliner-elisp.sourceforge.net/">Oneliner</a>の案。</li>
+<li>「&amp;」ならば別バッファでバックグラウンドでirbshと同時実行。当然対話的動作もできる。</li>
+</ul></li>
+<li><p>コンテキストに応じた<em>賢い</em>補完が可能。</p>
+<ul>
+<li>バッファ名、シェルコマンド、ファイル/ディレクトリ名、メソッド/変数名。</li>
+</ul></li>
+<li><p>zshライクな機能。</p>
+<ul>
+<li>コマンドラインスタックが利用可能。</li>
+<li>ワイルドカード展開。</li>
+</ul></li>
+<li><p>ファイル名補完つきで任意のスクリプトをロード可能。</p>
+<ul>
+<li>`ruby-load-file' と同じ機能だが、ちゃんと load "〜" と出る！</li>
+</ul></li>
+<li>今編集しているバッファからirbshを呼出すことが可能。</li>
+<li>リージョン/バッファをFileオブジェクトとして扱うことが可能。</li>
+<li>端末上のシェルライクなキーバインド。</li>
+<li>間違ったコマンドラインを実行したとき、その結果を消すことができる。</li>
+<li>式の途中で改行したら自動的に複数行入力を行う<a href="#label:74">マルチラインバッファ</a>へ移行する。</li>
+<li><a href="#label:94">評価リスト</a>機能で一連の式を一括実行。スクリプト開発支援。</li>
+<li>スクリプト落書きバッファ<a href="#label:95">*ruby scratch*バッファ</a>。</li>
+<li><a href="#label:100">ワンライナー</a>でいつでもどこでもRubyの式を実行できる。</li>
+<li><a href="#label:60">YAML経由でオブジェクトを編集</a>できる。</li>
+<li>任意のEmacsLisp式を実行できる。</li>
+<li><a href="#label:35">お手軽メソッド定義</a>で簡単メソッド定義。</li>
+</ul>
+<h2><a name="2" href="#2">2</a> <a name="label:7">ダウンロード</a></h2><!-- RDLabel: "ダウンロード" -->
+
+<p><a href="http://raa.ruby-lang.org/list.rhtml?name=irbsh">[RAA:irbsh]</a>よりダウンロードすること。</p>
+<h2><a name="3" href="#3">3</a> <a name="label:8">インストール</a></h2><!-- RDLabel: "インストール" -->
+
+<p>0.9.3にてインストーラがつきました。</p>
+<ol>
+<li>当然のことながら、rubyとinf-ruby-modeをインストール。このとき<a href="#label:9">irbについての注意</a>についても参照。</li>
+<li><p>次のコマンドを実行する。</p>
+<pre>$ ruby setup.rb config
+$ ruby setup.rb setup
+# ruby setup.rb install</pre></li>
+<li><p>.irbrcの最後に</p>
+<pre>load "irbsh-lib.rb" if IRB.conf[:PROMPT_MODE] == :INF_RUBY</pre>
+<p>と書く。</p></li>
+<li><p>.emacsに</p>
+<pre>(load "irbsh")
+(load "irbsh-toggle")</pre>
+<p>なり、</p>
+<pre>(when (locate-library "irbsh")
+  (autoload 'irbsh "irbsh" "irbsh - IRB.extend ShellUtilities" t)
+  (autoload 'irbsh-oneliner-with-completion "irbsh" "irbsh oneliner" t))
+(when (locate-library "irbsh-toggle")
+  (autoload 'irbsh-toggle "irbsh-toggle" 
+    "Toggles between the *irbsh*1 buffer and whatever buffer you are editing."
+  t)
+  (autoload 'irbsh-toggle-cd "irbsh-toggle" 
+    "Pops up a irbsh-buffer and insert a "cd &lt;file-dir&gt;" command." t))</pre>
+<p>などと書く。
+もし、</p>
+<pre>(file-error "Cannot open load file" "irbsh")</pre>
+<p>などと怒られるようであれば、</p>
+<pre>(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")</pre>
+<p>を加える。（厳密にはruby setup install時で*.elがインストールされるディレクトリ）</p></li>
+</ol>
+<h3><a name="3.1" href="#3.1">3.1</a> <a name="label:9">irbについての注意</a></h3><!-- RDLabel: "irbについての注意" -->
+
+<h4><a name="3.1.1" href="#3.1.1">3.1.1</a> <a name="label:10">Windowsでは</a></h4><!-- RDLabel: "Windowsでは" -->
+
+<p>Ruby付属のinf-ruby.elのデフォルトの設定ではWindowsでは動いてくれないこともある。
+そのために以下の設定を.emacsに加えよう。<a name="footmark:1" id="footmark:1" href="#foottext:1"><sup><small>*1</small></sup></a></p>
+<pre>(setq ruby-program-name "ruby -S irb --inf-ruby-mode")</pre>
+<h2><a name="4" href="#4">4</a> <a name="label:11">起動方法</a></h2><!-- RDLabel: "起動方法" -->
+
+<pre>M-x irbsh</pre>
+<p>とする。
+いつものようにirbが起動するだろう。
+カレントディレクトリが出ていることと、irbがirbshになっているという違いはあるものの、基本的には一緒。</p>
+<h2><a name="5" href="#5">5</a> <a name="label:12">使い方</a></h2><!-- RDLabel: "使い方" -->
+
+<p>まあ特に説明するまでもないけれど、使ってみればわかるものばかりだ。</p>
+<h3><a name="5.1" href="#5.1">5.1</a> <a name="label:13">普通にinf-ruby-modeとして使う</a></h3><!-- RDLabel: "普通にinf-ruby-modeとして使う" -->
+
+<p>何も言わないので、このまま使おう（笑）。
+使い方は今までと一緒なので。
+ってこれじゃあダウンロードした意味がないっしょ。</p>
+<h3><a name="5.2" href="#5.2">5.2</a> <a name="label:14">カレントディレクトリ表示・ディレクトリトラッキング</a></h3><!-- RDLabel: "カレントディレクトリ表示・ディレクトリトラッキング" -->
+
+<p>プロンプトの直前の行にカレントディレクトリを表示している。
+これはあくまで現在有効なプロンプトの直前の行だけ表示していて、前のプロンプトのものは消えるようになっている。
+このおかげで*irbsh*バッファのカレントディレクトリもそれに追随できる。</p>
+<pre>irbsh(main):007:0&gt; cd "/tmp"
+"/tmp"
+[pwd:/tmp]</pre>
+<p>cdコマンド(irbshの内部コマンド。Dir::chdirでもよいが、頻繁に使うので短縮形を用意。)でカレントディレクトリを /tmp にしてから、C-xC-fを押してみよう。
+ちゃんと /tmp から始まるようになっている。</p>
+<h3><a name="5.3" href="#5.3">5.3</a> <a name="label:15">コマンドラインスタック</a></h3><!-- RDLabel: "コマンドラインスタック" -->
+
+<p>zshを使っている人にはおなじみ、コマンドラインスタック。
+zshを使っている人はここは飛ばしても構わないが一応説明しておこう。</p>
+<p>いきなりだが例をあげてみることにする。
+たとえば、ファイルをコピーしたくなって、ここまで打ったとする。(1)</p>
+<pre>#(1)
+[pwd:~]
+irbsh(main):001:0&gt; File::cp File::expand_path("~/.emacs"), "/tmp"</pre>
+<p>おっと、 require 'ftools' 忘れてたって思う。
+そのとき、M-qを押してみよう。
+このようにコマンドラインが消える。(2)</p>
+<pre>#(2)
+[pwd:~]
+irbsh(main):001:0&gt; </pre>
+<p>そしたら落ち着いて require 'ftools' と入れる。(3)</p>
+<pre>#(3)
+[pwd:~]
+irbsh(main):001:0&gt; require 'ftools'</pre>
+<p>なんと、前入力したコマンドが戻ってるじゃないか！(4)</p>
+<pre>#(4)
+irbsh(main):001:0&gt; require 'ftools'
+true
+[pwd:~]
+irbsh(main):002:0&gt; File::cp File::expand_path("~/.emacs"), "/tmp"</pre>
+<p>めでたく、安心してEnterをブチっと押すとファイルのコピーが実行される。(5)</p>
+<pre>#(5)
+irbsh(main):001:0&gt; require 'ftools'
+true
+irbsh(main):002:0&gt; File::cp File::expand_path("~/.emacs"), "/tmp"
+true
+[pwd:~]
+irbsh(main):003:0&gt; </pre>
+<p>なお、コマンドラインスタック機能はirbshと分離しているため、shell-modeやielm-modeなどでも使用可能。</p>
+<h3><a name="5.4" href="#5.4">5.4</a> <a name="label:16">スクリプトをロード</a></h3><!-- RDLabel: "スクリプトをロード" -->
+
+<p>C-cC-f を押すとエコーエリアに</p>
+<pre>Load file: ~/</pre>
+<p>と出てくるのでファイル名を入力する。
+たとえば、 ~/.irbrc としたとき、</p>
+<pre>irbsh(main):010:0&gt; load '/home/rubikitch/.irbrc'</pre>
+<p>のような文が挿入される。</p>
+<p>inf-ruby.elで ruby-load-file も同等の働きをするが、これを使うとちゃんと load 文が明示されるので、ロードされたことがわかる。</p>
+<h3><a name="5.5" href="#5.5">5.5</a> <a name="label:17">多重化(複数の窓を開く)</a></h3><!-- RDLabel: "多重化(複数の窓を開く)" -->
+
+<p>C-cC-sで別プロセスのirbshを起動する。
+バッファ名は*irbsh*のあとに1から順に数字が振られていく。
+他のカレントディレクトリで作業する場合などに役立つだろう。</p>
+<p>また、C-c 1〜C-c 9でその番号の*irbsh*バッファへ飛んでくれる。
+GNU screenみたいなイメージである。</p>
+<h3><a name="5.6" href="#5.6">5.6</a> <a name="label:18">編集しているバッファからirbshを呼ぶ</a></h3><!-- RDLabel: "編集しているバッファからirbshを呼ぶ" -->
+
+<pre>M-x goto-irbsh</pre>
+<p>で任意のバッファよりirbshを呼ぶことができる。</p>
+<p>現在ある*irbsh*バッファ群がどれも使用中のときは、新しいirbshが起動される。
+使用中とは、*irbsh*バッファのカーソルがコマンドラインを指していないときのことをいう。</p>
+<p>また、任意のバッファで</p>
+<pre>M-x irbsh-toggle</pre>
+<p>を実行するとirbshバッファがポップアップする。
+irbshバッファで実行するとirbshバッファを呼び出す前のウィンドウ構成に戻る。</p>
+<h3><a name="5.7" href="#5.7">5.7</a> <a name="label:19">再起動</a></h3><!-- RDLabel: "再起動" -->
+
+<pre>M-x irbsh-restart</pre>
+<p>でirbshを再起動する。
+すなわち、今のirbshプロセスを殺してもう一度立ち上げる。
+この際、以前のバッファの内容はなくなるので注意。</p>
+<h3><a name="5.8" href="#5.8">5.8</a> <a name="label:20">拡張されたコマンドたち</a></h3><!-- RDLabel: "拡張されたコマンドたち" -->
+
+<p>変数 irbsh-use-sigle-key-extension-flag を t にすると、C-w, C-u, C-kなどの動作が拡張される。
+デフォルトでは t になっている。
+「コマンドラインに文字列を入力する」という状況で、役に立たないコマンドのキーバインドに割り当てているので、通常の動作とかぶることはほとんどないだろう。</p>
+<p>それぞれ、コマンドライン上での挙動が変わり、そうでないときは普通の動作である。</p>
+<p>C-uを上書するのはさすがにやりすぎなのでVer 0.5.2よりC-uはもとの動作に戻した。
+そのかわりC-c C-uを使おう。</p>
+<dl>
+<dt><a name="label:21" id="label:21"></a>C-w</dt><!-- RDLabel: "C-w" -->
+<dd>
+<p>1単語削除。</p>
+</dd>
+<dt><a name="label:22" id="label:22"></a>C-u C-w</dt><!-- RDLabel: "C-u C-w" -->
+<dd>
+<p>kill-region。</p>
+</dd>
+<dt><a name="label:23" id="label:23"></a>C-d</dt><!-- RDLabel: "C-d" -->
+<dd>
+<p>コマンドラインの最後尾にいるときに '', を挿入。</p>
+<p>日本語キーボードを使っていて、CtrlとCapsを入れ替えている人にとっては楽に入力できるだろう。</p>
+</dd>
+<dt><a name="label:24" id="label:24"></a>C-k</dt><!-- RDLabel: "C-k" -->
+<dd>
+<p>コマンドラインの最後尾にいるときに先頭のスペースをトグルする。
+それによって入力したコマンドラインのコンテキストを切り替える。
+Rubyの文として解釈するか、シェルコマンドとして解釈するかが変わる。</p>
+<p>コマンドを入力してから、「あっ、これはシェルコマンドだった」って思ったときには迷わずこれを押そう！</p>
+</dd>
+<dt><a name="label:25" id="label:25"></a>C-o</dt><!-- RDLabel: "C-o" -->
+<dd>
+<p>C-p C-wと同じ効果。他の引数で同じコマンド/メソッドを実行したいときに便利。</p>
+</dd>
+<dt><a name="label:26" id="label:26"></a>C-p</dt><!-- RDLabel: "C-p" -->
+<dd>
+<p>直前のコマンドラインの内容を取り出す。M-pと同じ。</p>
+</dd>
+<dt><a name="label:27" id="label:27"></a>C-n</dt><!-- RDLabel: "C-n" -->
+<dd>
+<p>次のコマンドラインの内容を取り出す。M-nと同じ。</p>
+</dd>
+<dt><a name="label:28" id="label:28"></a>C-v</dt><!-- RDLabel: "C-v" -->
+<dd>
+<p><a href="#label:55">ヒストリメニュー</a>を開く。</p>
+</dd>
+</dl>
+<h3><a name="5.9" href="#5.9">5.9</a> <a name="label:29">末尾の「,」を削除</a></h3><!-- RDLabel: "末尾の「,」を削除" -->
+
+<p>C-d を使っていると末尾の「,」が残ってしまうことになる。
+irbsh-strip-last-comma-flag を t にすると Enter を押したときに末尾の「,」が削除されるようになる。
+デフォルトは t になっている。
+だからわざわざ手で削除する必要はない。</p>
+<pre>puts  C-d abc
+irbsh(main):083:0&gt; puts 'abc',
+↓ Enterを押す
+irbsh(main):083:0&gt; puts 'abc'
+abc
+nil
+[pwd:~]</pre>
+<h3><a name="5.10" href="#5.10">5.10</a> <a name="label:30">出力結果をkill-ringへ</a></h3><!-- RDLabel: "出力結果をkill-ringへ" -->
+
+<p>C-cC-k を押すと、直前のirbshの出力がkill-ringに入れられる。
+文章を書いているときに M-x goto-irbsh でirbshを呼出し、何らかの計算をして、その結果を貼り付けるといった場合に有効である。</p>
+<h3><a name="5.11" href="#5.11">5.11</a> <a name="label:31">出力を消す</a></h3><!-- RDLabel: "出力を消す" -->
+
+<p>C-c C-qで直前のプロンプトもろとも出力を消すことができる。
+これは間違ったコマンドラインを実行してしまったときや、結果が思ったものと違う場合に使ってみよう。</p>
+<pre>irbsh(*SHELL*):061:0&gt;  ls ~/.eamcs
+~ $ ls ~/.eamcs
+ls: /home/rubikitch/.eamcs: No such file or directory
+[pwd:~] (status = 256)
+irbsh(main):062:0&gt; </pre>
+<p>おっと、間違えた。
+こういうときは落ち着いてC-c C-qを押そう！</p>
+<pre>irbsh(main):062:0&gt; </pre>
+<p>そして、正しいコマンドを入力。</p>
+<pre>irbsh(*SHELL*):062:0&gt;  ls ~/.emacs
+~ $ ls ~/.emacs
+/home/rubikitch/.emacs
+[pwd:~] (status = 0)
+irbsh(main):063:0&gt; </pre>
+<p>なお、C-c C-o は標準で用意されている機能で、出力のみを消すコマンドである。</p>
+<pre>irbsh(*SHELL*):062:0&gt;  ls ~/.emacs
+*** output flushed ***
+irbsh(main):063:0&gt; </pre>
+<h3><a name="5.12" href="#5.12">5.12</a> <a name="label:32">魔法のC-a</a></h3><!-- RDLabel: "魔法のC-a" -->
+
+<p>C-aにはちょっとした細工を仕掛けている。
+一回押したらプロンプトの先頭へ飛ぶようになっている<a name="footmark:2" id="footmark:2" href="#foottext:2"><sup><small>*2</small></sup></a>。
+そこでたて続けにC-aを押すと今度は行頭へ飛んでくれる。</p>
+<pre>irbsh(main):004:0&gt; 567
+                      ^←カーソル位置
+↓C-aを押すと
+irbsh(main):004:0&gt; 567
+                   ^
+↓もう一回C-a
+irbsh(main):004:0&gt; 567
+^</pre>
+<h3><a name="5.13" href="#5.13">5.13</a> <a name="label:33">前/次のプロンプトへ飛ぶ</a></h3><!-- RDLabel: "前/次のプロンプトへ飛ぶ" -->
+
+<p>C-c C-p, C-c C-nでそれぞれ前/次のプロンプトへ飛んくれる。
+これはshell-modeなどでもそうである。
+そこで<a href="#label:32">魔法のC-a</a>などで行頭にカーソルを動かしたとき、それらのコマンドを実行したらそのプロンプトのある行の先頭へ飛んでくれるようになる。</p>
+<p>これは出力結果をコピーするのに有用だ。</p>
+<h3><a name="5.14" href="#5.14">5.14</a> <a name="label:34">対応する括弧の挿入</a></h3><!-- RDLabel: "対応する括弧の挿入" -->
+
+<p>「(」、「{」、「[」、「'」、「"」において、対応する括弧を自動的に挿入することができる。
+やりかたは簡単で、それらの文字を入力する前にC-cを押す。
+対応する括弧が挿入され、括弧の真ん中にカーソルが移る。</p>
+<pre>↓C-c " を押すと
+irbsh[11@00:44](main):007:0&gt; ""
+                              ^←カーソル位置</pre>
+<h3><a name="5.15" href="#5.15">5.15</a> <a name="label:35">お手軽メソッド定義</a></h3><!-- RDLabel: "お手軽メソッド定義" -->
+
+<p>irbshでは次の特殊構文で手軽にメソッド定義ができるようにしている。</p>
+<pre>メソッド名 (引数) メソッドの中身</pre>
+<p>ただし、コマンドラインのある行でしか使えない。  </p>
+<p>内部でModule#define_methodを使っているので定義時のローカル変数もメソッドに含めることが可能。</p>
+<pre>irbsh[17@09:10](main):015:0&gt; one () 1
+#&lt;Proc:0xb7984740@(irbsh):15&gt;
+irbsh[17@09:10](main):016:0&gt; two = 2
+2
+irbsh[17@09:10](main):017:0&gt; three_times (x) x*(one+two)
+#&lt;Proc:0xb7978b84@(irbsh):17&gt;
+irbsh[17@09:10](main):018:0&gt; three_times 10
+30</pre>
+<p>ローカル変数を含む複数行のメソッドが定義できるようにdefun特殊構文もある。</p>
+<pre>irbsh[17@09:12](main):022:0&gt; defun four()
+                               two+two
+                             end
+#&lt;Proc:0xb795abd4@(irbsh):22&gt;
+irbsh[17@09:13](main):025:0&gt; four
+4</pre>
+<h2><a name="6" href="#6">6</a> <a name="label:36">制御符号</a></h2><!-- RDLabel: "制御符号" -->
+
+<p>コマンドラインの末尾に特定の記号をつけることで細かい制御が可能。</p>
+<h3><a name="6.1" href="#6.1">6.1</a> <a name="label:37">「;」出力を抑制</a></h3><!-- RDLabel: "「;」出力を抑制" -->
+
+<p>たとえば、結果が巨大な配列だったり長い文字列だったりしたとき、出力を抑制したくもなるだろう。
+こういった場合には、文の最後に「;」を置けばよい。</p>
+<pre>irbsh(main):008:0&gt; Array.new 1000
+[nil, nil, nil...]
+irbsh(main):009:0&gt; Array.new 1000;
+[pwd:/tmp] (Output is disabled.)
+irbsh(main):010:0&gt; </pre>
+<p>このように、出力が打ち消される。
+MATLABを使っているのならば、それと同じと考えればよかろう。</p>
+<h3><a name="6.2" href="#6.2">6.2</a> <a name="label:38">「|」出力を別バッファに保存(リダイレクト)</a></h3><!-- RDLabel: "「|」出力を別バッファに保存(リダイレクト)" -->
+
+<p>このコマンドの出力結果はあとで取っておきたいとか思ったら、コマンドラインの末尾に「|」をつけよう。
+こうすることで irbsh-redirect-output-buffer で指定したバッファ(デフォルト "*irbsh output*")に出力結果が保存される。</p>
+<pre>irbsh(main):009:0&gt; Array.new(3)|
+output is at #&lt;buffer *irbsh output*&gt;
+irbsh(*SHELL*):010:0&gt;  ls ~/.emacs|
+output is at #&lt;buffer *irbsh output*&gt;</pre>
+<p>なお、 irbsh-display-redirect-output-buffer-flagをtにすれば出力バッファがポップアップされる。
+デフォルトはnilにしている。</p>
+<h3><a name="6.3" href="#6.3">6.3</a> <a name="label:39">「&amp;」バックグラウンドシェル</a></h3><!-- RDLabel: "「&」バックグラウンドシェル" -->
+
+<p>通常のシェルと同様に「&amp;」をコマンドラインの末尾につけたらバックグラウンドでコマンドを実行するようになる。
+ただし、これはシェルのコンテキストでのみ有効である。
+Rubyのコンテキストだと、継続行になるので注意。
+「|」に似ているが、バックグラウンドシェルを起動したらすぐにirbshのプロンプトに戻る点が違う。 </p>
+<pre>irbsh[29@07:58](main):061:0&gt; 
+#### MULTI-LINE BEGIN ####
+"1&amp;
+2"
+#### MULTI-LINE END ####
+"1&amp;\n2"
+irbsh[29@07:58](*SHELL*):062:0&gt;  ls &amp;
+background process at #&lt;buffer *ls*&gt;</pre>
+<p>このとき、*ls*というバッファに「ls」の出力結果が保存される。
+major-mode は shell-mode を継承した irbsh-background-shell-mode となる。
+基本的には shell-mode なので、ユーザ入力が伴う対話的なプログラムでも問題なく実行できる。
+通常の shell-mode と違うのは、</p>
+<ul>
+<li>シェルのプロンプトが出ない</li>
+<li><p>プロセスが終了したら</p>
+<ul>
+<li>「q」でバッファを消せる</li>
+<li>「C-m(Enter)」で同じコマンドを実行できる</li>
+</ul></li>
+</ul>
+<p>という点だ。
+GNU Screenのzombie機能みたいな感じだと思えばよい。
+当然、「q」も「C-m」もプロセス実行中は「そのまま」のキーとして役割を果たす。</p>
+<p>なお、この機能はruby的には特に何もしていない。
+コマンドラインをemacsが解釈してemacsがバックグラウンドプロセスを立ち上げているのである。</p>
+<p>また、irbsh-use-screenをtにするとバックグラウンドシェルのかわりにGNU Screenを利用する。</p>
+<h2><a name="7" href="#7">7</a> <a name="label:40">シェルとしての機能</a></h2><!-- RDLabel: "シェルとしての機能" -->
+
+<p>irbshはシェルコマンドを実行しやすくするために作られたので、シェルとしての機能には力を入れている。</p>
+<h3><a name="7.1" href="#7.1">7.1</a> <a name="label:41">シェルコマンドの実行</a></h3><!-- RDLabel: "シェルコマンドの実行" -->
+
+<p>コマンドラインにて、<em>最初に空白をあける</em>ことでこの行をシェルコマンドとみなす。
+このとき irbsh-display-context-at-prompt-flag が t ならば、プロンプトにこの行をシェルコマンドとみなすのか、Rubyスクリプトとみなすのか(以後、これを「コンテキスト」と言おう)を示してくれる。</p>
+<p>Emacs内部で</p>
+<pre>irbsh_system %Q[空白を取り除いたコマンドラインの内容]</pre>
+<p>と展開されるので、変数展開もしてくれる。
+なお、statusとはシェルコマンドのリターンコードである。</p>
+<pre>irbsh(*SHELL*):048:0&gt;  pwd
+~ $ pwd
+/home/rubikitch
+irbsh(main):049:0&gt; a = 1
+1
+irbsh(*SHELL*):050:0&gt;  echo #{a}
+~ $ echo 1
+1
+[pwd:~] (status = 0)</pre>
+<h3><a name="7.2" href="#7.2">7.2</a> <a name="label:42">ワンタッチsystemコマンド</a></h3><!-- RDLabel: "ワンタッチsystemコマンド" -->
+
+<p>ただ、上記の機能だけではRubyの制御構造を使ったりすることはできない。
+そのためには irbsh_system を明示的に指定する必要がある。</p>
+<p>ただ、これをそのまま入力するのは面倒なのでワンタッチで入力できるようにしている。
+C-cC-m を押すと irbsh_system %Q[] が挿入され、[]の真ん中にカーソルがゆく。
+irbsh_system は system 関数を irbsh 用にしたものでシェルコマンドを実行する。</p>
+<pre>irbsh(main):039:0&gt; irbsh_system %Q[pwd]
+~/src/irbsh $ pwd
+/home/rubikitch/src/irbsh
+[pwd:~/src/irbsh] (status = 0)
+
+irbsh(main):004:0&gt; (1..5).each {|i| irbsh_system %Q[echo #{i}]}
+~ $ echo 1
+1
+~ $ echo 2
+2
+~ $ echo 3
+3
+~ $ echo 4
+4
+~ $ echo 5
+5
+[pwd:~] (status = 0)</pre>
+<h3><a name="7.3" href="#7.3">7.3</a> <a name="label:43">cdについて</a></h3><!-- RDLabel: "cdについて" -->
+
+<p>いろんな事情があって、cdコマンドは特別扱いをしている。</p>
+<h4><a name="7.3.1" href="#7.3.1">7.3.1</a> <a name="label:44">シェルコマンドとしてcdを実行すると</a></h4><!-- RDLabel: "シェルコマンドとしてcdを実行すると" -->
+
+<p>irbshがシェルコマンドを実行するときは、子プロセスを生成するという方法をとっている。
+そのため、そのままcdコマンドをシェルコマンドとして実行しても実行後には元のディレクトリに戻ってしまう。
+こういう落とし穴にはまらないためにも、シェルコマンドとしてcdを実行しようとしたら、irbsh_cdメソッドを呼ぶことにしている。
+よって安心してcdできる。</p>
+<pre>irbsh(*SHELL*):006:0&gt;  cd
+"~"
+irbsh(*SHELL*):007:0&gt;  cd /tmp
+"/tmp"
+[pwd:/tmp]</pre>
+<h4><a name="7.3.2" href="#7.3.2">7.3.2</a> <a name="label:45">Rubyの文としてcdするときはquote不要</a></h4><!-- RDLabel: "Rubyの文としてcdするときはquote不要" -->
+
+<p>cdはかなり頻繁に行われるので、いちいちコマンドの前にスペースを入れたり、quoteしたりするのが面倒だという人もいるだろう。</p>
+<p>変数 irbsh-use-cd-without-quote-flag を t にすると、cdメソッドの引数でquoteされていなくても、あたかもquoteされたように扱う。
+ただし、変数を引数としたときにはまる可能性があるのでちょっと注意が必要である。
+そのためデフォルトではnilにしている。
+nilにしていてもC-dでquoteできるのでさほど混乱はしないだろう。</p>
+<pre>irbsh(main):010:0&gt; cd /tmp
+"/tmp"
+[pwd:/tmp]
+irbsh(main):011:0&gt; cd '~/emacs/'
+"~/emacs"
+[pwd:~/emacs]</pre>
+<h3><a name="7.4" href="#7.4">7.4</a> <a name="label:46">コマンド実行履歴</a></h3><!-- RDLabel: "コマンド実行履歴" -->
+
+<p>irbsh-history-fileに指定されたファイルにコマンド実行履歴が記録される。初期値は~/.irbsh_history。nilに設定すると記録されない。</p>
+<h2><a name="8" href="#8">8</a> <a name="label:47">高度な機能</a></h2><!-- RDLabel: "高度な機能" -->
+
+<p>irbshには独特の機能をいくつか用意している。</p>
+<h3><a name="8.1" href="#8.1">8.1</a> <a name="label:48">試運転機能</a></h3><!-- RDLabel: "試運転機能" -->
+
+<p>複雑な制御構造の中でシェルコマンドを実行するとき、どうしても試運転したくなることがあるだろう。
+そんなときのために試運転機能を用意している。</p>
+<p>使い方はいたって簡単で、最後に「$」をつけるだけ。</p>
+<pre>irbsh(main):019:0&gt; 3.times { irbsh_system %Q[echo 123] }$
+~/emacs(dryrun) $ echo 123
+~/emacs(dryrun) $ echo 123
+~/emacs(dryrun) $ echo 123
+3
+[pwd:~/emacs]
+
+irbsh(main):020:0&gt; 3.times { irbsh_system %Q[echo 123] }
+~/emacs $ echo 123
+123
+~/emacs $ echo 123
+123
+~/emacs $ echo 123
+123
+[pwd:~/emacs] (status = 0)</pre>
+<h3><a name="8.2" href="#8.2">8.2</a> <a name="label:49">quoteなしでRubyの式を実行</a></h3><!-- RDLabel: "quoteなしでRubyの式を実行" -->
+
+<p>irbshでは特定の名前で定義されたRubyのメソッドをquoteなしで実行することができる。
+あたかもシェルコマンドを実行しているような感覚である。
+これは、最後の引数を変えて同じメソッドを実行するのに役立つ。</p>
+<p>さて、どのように引数が渡るのか説明しよう。
+あなたは Method#arity というメソッドを知っているかな？
+リファレンスマニュアルを見ればわかるのだが、これはメソッドの引数の数を返す。
+Rubyの引数は可変長引数もサポートしているので、arityが負の値を返すこともある。
+該当部分を引用してみよう。</p>
+<dl>
+<dt><a name="label:50" id="label:50"></a>arity</dt><!-- RDLabel: "arity" -->
+<dd>
+<p>メソッドオブジェクトの引数の数を返します．
+selfが引数の数を可変長で受け取れる場合</p>
+<pre>-(最低限必要な数+1)</pre>
+<p>を返します．</p>
+</dd>
+</dl>
+<p>シェルコマンドと同じ感覚なのでコマンドラインはsplitされる。
+splitされたもののうち、最初のもの( f としよう)が名前を表す。
+このとき「nq_f」というメソッドが定義されているのなら、それが実行される。
+そうでなければシェルコマンドとしてコマンドラインが実行される。</p>
+<p>splitされたもので先頭のもの以外は nq_f の引数になる。
+その数を n としよう
+arityの値によって以下のように渡される。</p>
+<dl>
+<dt><a name="label:51" id="label:51"></a>arity == n</dt><!-- RDLabel: "arity == n" -->
+<dd>
+<p>それぞれの引数に文字列として渡される。</p>
+</dd>
+<dt><a name="label:52" id="label:52"></a>arity &lt; n</dt><!-- RDLabel: "arity < n" -->
+<dd>
+<p>先頭から順に詰めていき、最後に引数はあまったものを空白でくっつけたもの。
+すなわち cmdline.split( /\s+/, arity ) である。</p>
+</dd>
+<dt><a name="label:53" id="label:53"></a>arity &gt; n</dt><!-- RDLabel: "arity > n" -->
+<dd>
+<p>エラー。</p>
+</dd>
+<dt><a name="label:54" id="label:54"></a>arity &lt; 0</dt><!-- RDLabel: "arity < 0" -->
+<dd>
+<p>先頭から順に詰めていき、最後はあまったものの配列が渡る。</p>
+</dd>
+</dl>
+<p>例をあげてみよう。
+なお、ppというのは<a href="http://www.rubyist.net/~rubikitch/computer/ppp/">pの強力版</a>である。</p>
+<pre>irbsh(main):121:0&gt; require 'ppp'
+true
+irbsh(main):130:0&gt; def nq_f1(x); ppp :x; end
+nil
+irbsh(main):132:0&gt; def nq_f2(x,y); ppp :x, :y; end
+nil
+irbsh(main):134:0&gt; def nq_f3(x,*y); ppp :x,:y; end
+nil
+irbsh(main):135:0&gt; def nq_f4(x,y,*z);ppp :x,:y,:z; end
+nil
+irbsh(main):148:0&gt; method(:nq_f1).arity
+1
+irbsh(main):149:0&gt; method(:nq_f2).arity
+2
+irbsh(main):150:0&gt; method(:nq_f3).arity
+-2
+irbsh(main):151:0&gt; method(:nq_f4).arity
+-3
+irbsh(main):139:0&gt;  f1 1 2 3 4 5
+x = "1 2 3 4 5"
+[:x]
+irbsh(main):140:0&gt;  f2 1 2 3 4 5
+x = "1"
+y = "2 3 4 5"
+[:x, :y]
+irbsh(main):141:0&gt;  f3 1 2 3 4 5
+x = "1"
+y = ["2", "3", "4", "5"]
+[:x, :y]
+irbsh(main):144:0&gt;  f4 1 2 3 4 5
+x = "1"
+y = "2"
+z = ["3", "4", "5"]
+[:x, :y, :z]</pre>
+<h3><a name="8.3" href="#8.3">8.3</a> <a name="label:55">ヒストリメニュー</a></h3><!-- RDLabel: "ヒストリメニュー" -->
+
+<p>過去に実行したコマンドラインをコピーすることができる。
+これによって、過去に行った動作を自動化することも簡単になる。</p>
+<p>コマンドライン上でC-vを押してみよう。
+もし、C-vが嫌ならばコマンド irbsh-history-menu を適当なキーに割り当てよう。
+画面が分割されて*irbsh history*というバッファに過去に実行したコマンドがずら〜っとでてくる。</p>
+<p>ここで</p>
+<pre>Select history:</pre>
+<p>とでてくる。
+最初の1文字、すなわちコロンの前にある文字をタイプすればそのコマンドが今のコマンドラインにコピーされる。
+また次のコマンドをコピーしたいのならば、またC-vを押して選ぼう。</p>
+<p>なお、この*irbsh history*バッファは、そのコマンドラインを実行したときに消えるのでそんなに邪魔にはならないだろう。
+どうしても邪魔ならばSelect history: と出たときに 0 あるいは C-v とタイプすれば*irbsh history*バッファは画面から消える。</p>
+<p>また、*irbsh history*表示中に C-s を押し検索文字列を入力するとマッチしたもののみ選択できる。</p>
+<h3><a name="8.4" href="#8.4">8.4</a> <a name="label:56">メタ変数</a></h3><!-- RDLabel: "メタ変数" -->
+
+<p>irbshとEmacsの間でデータをやりとりするため、次のメタ変数が使える。</p>
+<h4><a name="8.4.1" href="#8.4.1">8.4.1</a> <a name="label:57">EmacsバッファをFileオブジェクトとして扱う</a></h4><!-- RDLabel: "EmacsバッファをFileオブジェクトとして扱う" -->
+
+<p>irbshではEmacsのバッファを扱うことができる。
+ただし、今のところ読み込み専用となっている。
+書き込みが必要な場合はirbshではなくてEmacs Lispで書くなり、<a href="#label:30">出力結果をkill-ringへ</a>を使うなりしてみよう。</p>
+<p>バッファの内容を扱うには</p>
+<p>「---バッファ名---」</p>
+<p>というメタ変数もどきを書いてやればいい。
+このとき、そのバッファの内容は一時ファイルに保存され、そのFileオブジェクトを得ることができる。
+あとは、通常のFileオブジェクトと同様に扱うことができる。</p>
+<p>「---バッファ名---」を実行した時点でのバッファの内容が保存されるので、その後にバッファを変更してもそのFileオブジェクトには反映<em>されない</em>ので注意しよう。
+その時点での内容を反映させたかったら再び「---バッファ名---」を評価すること。</p>
+<p>たとえば、*scratch*バッファの内容が以下のものであるとする。</p>
+<pre>;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.</pre>
+<p>そして、irbshで試しに実行してみると、</p>
+<pre>irbsh(main):063:0&gt; scratch = ---*scratch*---
+#&lt;File:0x401938a0&gt;
+irbsh(main):064:0&gt; scratch.class
+File
+irbsh(main):065:0&gt; scratch.path
+"/tmp/irbshtmp4964wnC"
+irbsh(main):066:0&gt; s = scratch.read
+";; This buffer is for notes you don't want to save, and for Lisp evaluation.\n;; If you want to create a file, visit that file with C-x C-f,\n;; then enter the text in that file's own buffer.\n"
+irbsh(main):067:0&gt; ni
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+irbsh(main):068:0&gt; s.grep(/save/)
+[";; This buffer is for notes you don't want to save, and for Lisp evaluation.\n"]</pre>
+<h4><a name="8.4.2" href="#8.4.2">8.4.2</a> <a name="label:58">リージョンをFileオブジェクトとして扱う</a></h4><!-- RDLabel: "リージョンをFileオブジェクトとして扱う" -->
+
+<p><a href="#label:57">EmacsバッファをFileオブジェクトとして扱う</a>の変種としてリージョンもFileオブジェクトとして扱うことができる。
+これも例によって読み込み専用である。</p>
+<ol>
+<li>まず、適当なリージョンを作り、M-wやC-wでkill-ringに入れる。</li>
+<li>そしてirbshで「__region__」とする</li>
+</ol>
+<p>そうするとリージョンの内容が一時ファイルに保存され __region__ がそのFileオブジェクトになる。</p>
+<p>「foo bar baz」がリージョンの内容だとする。
+このときの実行結果はこんな感じ。</p>
+<pre>irbsh(main):019:0&gt; fbb = __region__
+#&lt;File:0x402f62a4&gt;
+irbsh(main):020:0&gt; fbb.gets
+"foo bar baz"
+irbsh(main):021:0&gt; fbb.rewind; fbb.read
+"foo bar baz"</pre>
+<h3><a name="8.5" href="#8.5">8.5</a> <a name="label:59">EmacsLisp式を評価する</a></h3><!-- RDLabel: "EmacsLisp式を評価する" -->
+
+<p>irbsh内でEmacsLisp式を評価することができる。
+シェルのコンテキストでは</p>
+<pre>el</pre>
+<p>を、Rubyのコンテキストでは</p>
+<pre>EmacsLisp.el</pre>
+<p>を使う。</p>
+<pre>irbsh[13@18:30](*SHELL*):010:0&gt;  el (setq a 2)
+2
+nil
+irbsh[13@18:30](main):011:0&gt; EmacsLisp.el %((setq a (* 2 a))) 
+4
+nil</pre>
+<p>なお、これは<a href="#label:60">YAML経由でオブジェクトを編集</a>機能のための簡単な実装なのでRubyで本格的にEmacsをコントロールしたいならば<a href="http://www.rubyist.net/~rubikitch/computer/el4r/">el4r</a>を使おう。</p>
+<h3><a name="8.6" href="#8.6">8.6</a> <a name="label:60">YAML経由でオブジェクトを編集</a></h3><!-- RDLabel: "YAML経由でオブジェクトを編集" -->
+
+<p>irbshではオブジェクトを編集することができる。
+ただし、YAMLに落とせるオブジェクトに限定される。
+オブジェクトをじっくり眺めたり修正したり。</p>
+<pre>irbsh[13@18:30](main):012:0&gt; s = "abcd"
+"abcd"
+irbsh[13@18:38](main):013:0&gt; s.edit
+"editing object..."
+"ABCD"</pre>
+<p>s.editを実行するとYAMLでの表現がバッファに出てくる。</p>
+<pre>　--- abcd</pre>
+<p>これをたとえば次のように修正し、 C-c C-c で抜ける。すると</p>
+<pre>　--- ABCD</pre>
+<p>irbshにも反映される。</p>
+<p>YAMLは自然な表現なので少しの修正ならば直感で大丈夫だと思う。</p>
+<h2><a name="9" href="#9">9</a> <a name="label:61">強力補完機能</a></h2><!-- RDLabel: "強力補完機能" -->
+
+<p>irbshの特徴として強力な補完機能がある。
+irbshのコンテキストにあわせて補完のされ方がかわっていく。
+文脈を見て判断してくれるので、かなり賢い。</p>
+<h3><a name="9.1" href="#9.1">9.1</a> <a name="label:62">シェルコマンド入力時の補完</a></h3><!-- RDLabel: "シェルコマンド入力時の補完" -->
+
+<p>コマンドラインをスペースから始めた場合やirbsh_systemメソッドの引数においてはシェルコマンド入力時の補完機能が働く。
+shell-modeや通常のシェルでおなじみのように最初の引数はコマンドが補完され、その補完の引数ではファイル名が補完される。</p>
+<p>ここで注目すべきことは、シェルコマンド入力時はファイル名の最後にスペースも追加されて補完されることである。</p>
+<h4><a name="9.1.1" href="#9.1.1">9.1.1</a> <a name="label:63">コマンド名補完</a></h4><!-- RDLabel: "コマンド名補完" -->
+
+<p>dpkg-buildpackageコマンドがあるとする。
+このときに、「dpkg-bu」まで入力して TAB を押すと、 dpkg-buildpackage と補完される。</p>
+<pre>irbsh(*SHELL*):076:0&gt;  dpkg-bu
+↓ TAB を押す
+irbsh(*SHELL*):076:0&gt;  dpkg-buildpackage </pre>
+<p>また、zshライクなコマンド名補完もサポートしている。</p>
+<pre>irbsh(*SHELL*):026:0&gt;  ls =modpro
+↓ TAB を押す
+irbsh(*SHELL*):026:0&gt;  ls =modprobe </pre>
+<h4><a name="9.1.2" href="#9.1.2">9.1.2</a> <a name="label:64">ファイル名補完</a></h4><!-- RDLabel: "ファイル名補完" -->
+
+<p>.zprofileというファイルと compile/hoge というファイルがあるとする。</p>
+<pre>irbsh(*SHELL*):077:0&gt;  cat .zpro
+↓ TAB を押すと末尾にスペースつきで補完される。
+irbsh(*SHELL*):077:0&gt;  cat .zprofile
+↓
+irbsh(*SHELL*):077:0&gt;  cat .zprofile compi
+↓ TAB を押すとディレクトリの / まで補完される。
+irbsh(*SHELL*):077:0&gt;  cat .zprofile compile/
+↓ 
+irbsh(*SHELL*):077:0&gt;  cat .zprofile compile/hog
+↓
+irbsh(*SHELL*):077:0&gt;  cat .zprofile compile/hoge </pre>
+<h3><a name="9.2" href="#9.2">9.2</a> <a name="label:65">Rubyの文においてファイル名の補完</a></h3><!-- RDLabel: "Rubyの文においてファイル名の補完" -->
+
+<p>一方で、Rubyの文のコンテキストでは。
+上記と同じように .zprofile と compile/hoge の例を示してみよう。
+puts を '.zprofile' と 'compile/hoge' を引数に実行する場合を想定すると。</p>
+<pre>↓puts C-d .zproと入力
+irbsh(main):022:0&gt; puts '.zpro',
+↓ TAB を押すと補完される。カーソルは e の後ろ。
+irbsh(main):022:0&gt; puts '.zprofile',
+↓ C-e で行末へ。カーソルは , の後ろ。
+irbsh(main):022:0&gt; puts '.zprofile',
+↓ C-d を押す。カーソルは '' の間
+irbsh(main):022:0&gt; puts '.zprofile','',
+↓ compi と入力
+irbsh(main):022:0&gt; puts '.zprofile','compi',
+↓ TAB
+irbsh(main):022:0&gt; puts '.zprofile','compile/',
+↓ hogeと入力
+irbsh(main):022:0&gt; puts '.zprofile','compile/hoge',
+↓ Enter を押すと , が削除されてから実行。めでたしめでたし。
+irbsh(main):022:0&gt; puts '.zprofile','compile/hoge'</pre>
+<h3><a name="9.3" href="#9.3">9.3</a> <a name="label:66">前と同一のディレクトリ名を補完</a></h3><!-- RDLabel: "前と同一のディレクトリ名を補完" -->
+
+<p>zshには同じディレクトリ内のファイルをまとめて指定することができる。
+compile/foo と compile/bar があることを想定する。。
+zshユーザは compile/{foo,bar} と指定するところだろう。</p>
+<p>Dir['compile/{foo,bar}']をとやるとちゃんと ["compile/foo", "compile/bar"] と展開してくれるが、zshと違って<a name="footmark:3" id="footmark:3" href="#foottext:3"><sup><small>*3</small></sup></a>コマンドラインでは展開してくれないので、この機能の存在価値がないとはいえない。</p>
+<pre>irbsh(main):090:0&gt; Dir['compile/{foo,bar}']
+["compile/foo", "compile/bar"]</pre>
+<h4><a name="9.3.1" href="#9.3.1">9.3.1</a> <a name="label:67">シェルコマンドのコンテキストでは</a></h4><!-- RDLabel: "シェルコマンドのコンテキストでは" -->
+
+<p>シェルコマンドのコンテキストでこの様子を見てみよう。</p>
+<pre>echo compi まで入力
+irbsh(*SHELL*):091:0&gt;  echo compi
+↓ TAB
+irbsh(*SHELL*):091:0&gt;  echo compile/
+↓ fo TAB。スペースも追加される。
+irbsh(*SHELL*):091:0&gt;  echo compile/foo 
+↓ ここがミソ。もう一度 TAB。ディレクトリが補完される！！
+irbsh(*SHELL*):091:0&gt;  echo compile/foo compile/
+↓ ba TAB。
+irbsh(*SHELL*):091:0&gt;  echo compile/foo compile/bar </pre>
+<h4><a name="9.3.2" href="#9.3.2">9.3.2</a> <a name="label:68">Rubyのコンテキストでは</a></h4><!-- RDLabel: "Rubyのコンテキストでは" -->
+
+<p>同じくRubyのコンテキストでは、</p>
+<pre>puts C-d compi まで入力
+irbsh(main):091:0&gt; puts 'compi',
+↓ TAB。カーソルは / の後ろ。
+irbsh(main):091:0&gt; puts 'compile/',
+↓ fo TAB
+irbsh(main):091:0&gt; puts 'compile/foo',
+↓ C-e。カーソルは最後尾に
+irbsh(main):091:0&gt; puts 'compile/foo',
+↓ TABを押す。ディレクトリが補完される！！
+irbsh(main):091:0&gt; puts 'compile/foo','compile/',
+↓ ba TAB
+irbsh(main):091:0&gt; puts 'compile/foo','compile/bar',
+↓ Enter
+irbsh(main):091:0&gt; puts 'compile/foo','compile/bar'</pre>
+<h3><a name="9.4" href="#9.4">9.4</a> <a name="label:69">ディレクトリの補完</a></h3><!-- RDLabel: "ディレクトリの補完" -->
+
+<p>mkdirやcdなどディレクトリに適用するコマンド/メソッドについてはディレクトリ名で補完が行われる。
+これはシェルコマンド/Rubyのどちらのコンテキストでも行われる。</p>
+<p>ディレクトリの補完を適用するコマンド/メソッドは変数 irbsh-directory-completion-command-regexp で正規表現で指定する。</p>
+<h3><a name="9.5" href="#9.5">9.5</a> <a name="label:70">ワイルドカード展開</a></h3><!-- RDLabel: "ワイルドカード展開" -->
+
+<p>これは厳密には補完ではないが、zshライクなワイルドカード展開もやってくれる。
+zshでは補完と同じくTabで行うのでここに入れておこう。
+この機能は今のところシェルコマンドのコンテキストでのみ有効である。</p>
+<p>ただ、ワイルドカード展開はRubyのDir.globメソッドを使うので、これらのみ有効となっている。
+zshの拡張ワイルドカードは使えないので注意。
+以下、Ruby1.6リファレンスマニュアルより抜粋。</p>
+<ul>
+<li><p><code>*</code></p>
+<p>空文字列を含む任意の文字列と一致します．</p></li>
+<li><p><code>?</code></p>
+<p>任意の一文字と一致します．</p></li>
+<li><p><code>[ ]</code></p>
+<p>鈎括弧内のいずれかの文字と一致します．<code>-</code>でつな
+がれた文字は範囲を表します．鈎括弧の中の最初の文字が
+<code>^</code>である時には含まれない文字と一致します．</p></li>
+<li><p><code>{ }</code></p>
+<p>コンマで区切られた文字列の組合せに展開します．例えば，
+<code>foo{a,b,c}</code>は<code>fooa</code>, <code>foob</code>,
+<code>fooc</code>に展開されます．他のワイルドカードと異な
+り，展開結果のファイルが存在している必要はありません．</p></li>
+<li><p><code>**/</code></p>
+<p>ワイルドカード <code>*/</code> の0回以上の繰り返しを意味し，
+ディレクトリを再帰的にたどってマッチを行います．
+例えば,
+<code>foo/**/bar</code> は <code>foo/bar</code>, <code>foo/*/bar</code>,
+<code>foo/*/*/bar</code> ... (以下無限に続く)に対して一致する
+文字すべてと一致します．</p></li>
+</ul>
+<p>例を示そう。</p>
+<pre>irbsh(*SHELL*):032:0&gt;  ls
+~/src/irbsh $ ls
+GPL                  comint-redirect.el   irbsh.el                     irbsh.ja.html
+Makefile          comint-util.el       irbsh.elc             irbsh.ja.rd
+RCS                  irbsh-completion.rb  irbsh.ja.hindex.html
+cmdline-stack.el  irbsh-lib.rb               irbsh.ja.hindex.rd
+[pwd:~/src/irbsh] (status = 0)
+irbsh(*SHELL*):033:0&gt;  ls *.el</pre>
+<p>このときにTabを押すと。</p>
+<pre>irbsh(*SHELL*):033:0&gt;  ls cmdline-stack.el irbsh.el comint-redirect.el comint-util.el </pre>
+<p>このように展開される。同じくこれも</p>
+<pre>irbsh(*SHELL*):033:0&gt;  ls {GPL,RCS}
+↓
+irbsh(*SHELL*):033:0&gt;  ls GPL RCS </pre>
+<p>のようになる。</p>
+<h3><a name="9.6" href="#9.6">9.6</a> <a name="label:71">ホームディレクトリ展開</a></h3><!-- RDLabel: "ホームディレクトリ展開" -->
+
+<p>これも補完ではないが、「~(チルダ)」をホームディレクトリに展開する機能も持っている。
+これは、Rubyの文字列でファイル名を指定するときに役立つ。
+チルダかその後に続く「/(スラッシュ)」のときにTABを押そう。</p>
+<pre>irbsh[12:47](main):027:0&gt; open '~',
+↓この状態でTABを押すとこのように展開。
+irbsh[12:47](main):027:0&gt; open '/home/rubikitch',
+
+
+irbsh[12:47](main):027:0&gt; open '~/',
+↓この状態ならば / もついてくる。
+irbsh[12:47](main):027:0&gt; open '/home/rubikitch/',</pre>
+<h3><a name="9.7" href="#9.7">9.7</a> <a name="label:72">バッファ名の補完</a></h3><!-- RDLabel: "バッファ名の補完" -->
+
+<p><a href="#label:57">EmacsバッファをFileオブジェクトとして扱う</a>では「---」にバッファ名をはさむ形で指定するが、そのときにバッファ名の補完が使える。</p>
+<pre>↓scratch = ---*まで入力
+irbsh(main):089:0&gt; scratch = ---*
+↓*Completions*バッファに補完候補がぞろぞろと現れるのでscrまで入力。
+irbsh(main):089:0&gt; scratch = ---*scr
+↓TABを押す。ちゃんと---も補完されている。
+irbsh(main):089:0&gt; scratch = ---*scratch*---</pre>
+<h3><a name="9.8" href="#9.8">9.8</a> <a name="label:73">メソッド名/変数名補完</a></h3><!-- RDLabel: "メソッド名/変数名補完" -->
+
+<p>ついにメソッド名/変数名補完機能までつけてしまった。
+端末上でirbを起動すると、readlineライブラリがロードされて、補完機能も使えるようになるが、これもEmacs上でできるのだ。
+操作方法はTABで行うから端末上とまったく一緒なので詳しくはRubyソースコードパッケージについているdoc/irb/irb-tools.rd.jaを見てみよう。
+これでいちいちメソッド名などを調べる手間は省ける。</p>
+<p>これなしでは生きていけなくなるだろう。</p>
+<h2><a name="10" href="#10">10</a> <a name="label:74">マルチラインバッファ</a></h2><!-- RDLabel: "マルチラインバッファ" -->
+
+<h3><a name="10.1" href="#10.1">10.1</a> <a name="label:75">複数行のコードを入力するには</a></h3><!-- RDLabel: "複数行のコードを入力するには" -->
+
+<p>Ver 0.6.0からの新機能としてマルチラインバッファが加わった。
+複数行のRubyコードを簡単にirbsh上で実行できる。</p>
+<p>起動方法は「C-c SPACE」である。
+comint-modeにおいて複数行を一気にプロセスに送るのにこのキーバインドが選ばれているため、このキーに割り当てている。
+コマンドラインを入力途中でC-c SPACEとすると、マルチラインバッファに入力途中のコマンドラインがペーストされる。</p>
+<p>また、1.0.0からはマルチラインバッファに移行せずそのまま複数行入力できる。</p>
+<p>一旦マルチラインバッファに入ると、通常のruby-modeでRubyコードが書ける。</p>
+<h3><a name="10.2" href="#10.2">10.2</a> <a name="label:76">マルチラインバッファのヒストリ</a></h3><!-- RDLabel: "マルチラインバッファのヒストリ" -->
+
+<p>マルチラインバッファには専用のヒストリがついている。
+マルチラインバッファの過去の入力を呼びもどすことができる。
+M-p で過去側、M-nで未来側のヒストリを呼ぶ。</p>
+<h3><a name="10.3" href="#10.3">10.3</a> <a name="label:77">マルチラインバッファでのキー操作</a></h3><!-- RDLabel: "マルチラインバッファでのキー操作" -->
+
+<p>マルチラインバッファの特殊機能がいくつかある。</p>
+<dl>
+<dt><a name="label:78" id="label:78"></a>C-c C-c</dt><!-- RDLabel: "C-c C-c" -->
+<dd>
+<p>マルチラインバッファから抜け、その内容をirbshで実行する。</p>
+</dd>
+<dt><a name="label:79" id="label:79"></a>C-c C-x</dt><!-- RDLabel: "C-c C-x" -->
+<dd>
+<p>マルチラインバッファの内容をirbshで実行するが、マルチラインバッファから抜けない。
+試行錯誤するのに向いている。</p>
+</dd>
+<dt><a name="label:80" id="label:80"></a>C-c C-q</dt><!-- RDLabel: "C-c C-q" -->
+<dd>
+<p>直前のコマンドと出力を消す。irbsh上で実行するのと同じ。</p>
+</dd>
+<dt><a name="label:81" id="label:81"></a>C-c C-e</dt><!-- RDLabel: "C-c C-e" -->
+<dd>
+<p>バッファの内容を消す。</p>
+</dd>
+<dt><a name="label:82" id="label:82"></a>M-p</dt><!-- RDLabel: "M-p" -->
+<dd>
+<p>ヒストリ呼び出し(過去側)</p>
+</dd>
+<dt><a name="label:83" id="label:83"></a>M-n</dt><!-- RDLabel: "M-n" -->
+<dd>
+<p>ヒストリ呼び出し(未来側)</p>
+</dd>
+</dl>
+<h2><a name="11" href="#11">11</a> <a name="label:84">内部コマンド</a></h2><!-- RDLabel: "内部コマンド" -->
+
+<p>どれもオーバーロードされる可能性も考えて、短い名前と長い名前を用意している。</p>
+<dl>
+<dt><a name="label:85" id="label:85"></a>pwd, irbsh_pwd</dt><!-- RDLabel: "pwd, irbsh_pwd" -->
+<dd>
+<p>カレントディレクトリを表示。</p>
+</dd>
+<dt><a name="label:86" id="label:86"></a>cd( dir ), pushd, irbsh_cd</dt><!-- RDLabel: "cd( dir ), pushd, irbsh_cd" -->
+<dd>
+<p>カレントディレクトリの切り替え。
+cdでも自動的にディレクトリがスタックされる。</p>
+</dd>
+<dt><a name="label:87" id="label:87"></a>popd, irbsh_popd</dt><!-- RDLabel: "popd, irbsh_popd" -->
+<dd>
+<p>いわゆるpopd。
+ディレクトリスタックをポップする。</p>
+</dd>
+<dt><a name="label:88" id="label:88"></a>dirs</dt><!-- RDLabel: "dirs" -->
+<dd>
+<p>ディレクトリスタックを表示する。</p>
+</dd>
+<dt><a name="label:89" id="label:89"></a>ls( *argv ), irbsh_ls</dt><!-- RDLabel: "ls( *argv ), irbsh_ls" -->
+<dd>
+<p>ファイルのリストを表示し、その結果を配列で返す。</p>
+</dd>
+<dt><a name="label:90" id="label:90"></a>ll( *argv ), irbsh_ll</dt><!-- RDLabel: "ll( *argv ), irbsh_ll" -->
+<dd>
+<p>ls -l を実行し、ファイルのリストを配列で返す。</p>
+</dd>
+<dt><a name="label:91" id="label:91"></a>ni, irbsh_no_inspect</dt><!-- RDLabel: "ni, irbsh_no_inspect" -->
+<dd>
+<p>普段はinspectで結果表示がなされるがこのコマンドを使うとto_sで結果を表示する。
+使い方は3通り。</p>
+<ul>
+<li><p>a_object.ni</p>
+<p>レシーバに指定されたオブジェクトに適用。</p></li>
+<li><p>ni expression</p>
+<p>expressionの評価結果に適用する。</p></li>
+<li><p>ni { block }</p>
+<p>blockの実行結果に適用する。</p></li>
+</ul>
+</dd>
+<dt><a name="label:92" id="label:92"></a>irbsh_system( cmd )</dt><!-- RDLabel: "irbsh_system( cmd )" -->
+<dd>
+<p>irbshにてシェルコマンドを実行する。</p>
+</dd>
+<dt><a name="label:93" id="label:93"></a>irbsh_alias( alias, definition )</dt><!-- RDLabel: "irbsh_alias( alias, definition )" -->
+<dd>
+<p>irbshでの<a href="#label:102">シェルエイリアス機能</a>を実現する。</p>
+</dd>
+</dl>
+<h2><a name="12" href="#12">12</a> <a name="label:94">評価リスト</a></h2><!-- RDLabel: "評価リスト" -->
+
+<p>Ver0.8.0からの新機能として「評価リスト」が加わった。
+評価リストとは、評価したい式をあらかじめ登録しておき、ワンタッチで実行できるようにするためのものである。
+何度も評価したい場合でも同じ式を何度も入力する必要がなくなる。</p>
+<p>この機能がもっとも威力を発揮するとき、それはメソッドの動作を試行錯誤するときだ。
+というわけで、評価リストはスクリプトと連動するように作られている。</p>
+<p>評価リストの立ち上げ方は「C-c M-e」、実行は「C-c C-z」だ。</p>
+<p>　評価リストバッファでM-C-vとするとirbshバッファがスクロールする。
+M-C-yが逆スクロールである。</p>
+<p>評価リスト機能はEmacsLispデバッガedebugの同等の機能をヒントにして作られた。</p>
+<h3><a name="12.1" href="#12.1">12.1</a> <a name="label:95">*ruby scratch*バッファ</a></h3><!-- RDLabel: "*ruby scratch*バッファ" -->
+
+<p>irbshバッファにて「C-c M-e」を押すと画面が3分割される。
+上に*ruby scratch*バッファ、下にirbshバッファと評価リストバッファとなる。
+評価リストバッファのウィンドウが選択されるようになる。</p>
+<p>　*ruby scratch*バッファはruby-modeで任意のRubyスクリプトを書くことができる。
+また、評価リストバッファには評価したい式を続けて書くようになっている。
+評価リストバッファの内容はirbで1文1文解釈されるので、複数個書いても全然平気だ。</p>
+<p>評価リストに式を書いたあとは「C-c C-z」を押す！
+この「C-c C-z」はirbshバッファでも評価リストバッファでも*ruby scratch*バッファでも、どのバッファにいてても有効だ。
+　*ruby scratch*バッファの内容がloadされ、その直後に評価リストが評価されるようになる。</p>
+<p>例を示そう。*ruby scratch*バッファに</p>
+<pre>def f(x)
+  x ** 2
+end</pre>
+<p>と書き、評価リストに</p>
+<pre>f(0)
+f(1)
+f(2)
+f(3)
+s=---*ruby scratch*---;
+s.read.length</pre>
+<p>と書いたとき、irbshには次のように出力される。</p>
+<p>なお、<a href="#label:57">EmacsバッファをFileオブジェクトとして扱う</a>機能や<a href="#label:58">リージョンをFileオブジェクトとして扱う</a>機能を評価リストで使ったとき、一時ファイルのファイル名がそのまま出てきてしまうのは仕様である。
+<a href="#label:37">出力を抑制</a>する機能とあわせて0.9.0以降から使える。</p>
+<pre>irbsh[27@16:03](main):085:0&gt; 
+EvalList(main):086:0&gt; f(0)
+0
+EvalList(main):087:0&gt; f(1)
+1
+EvalList(main):088:0&gt; f(2)
+4
+EvalList(main):089:0&gt; f(3)
+9
+EvalList(main):090:0&gt; s=open( '/tmp/irbshtmp256619ew' )
+(Output is disabled.)
+EvalList(main):091:0&gt; s.read.length
+22
+EvalList(main):092:0&gt; nil</pre>
+<p>最後のnilはゴミなので気にしなくてよい。
+ここでも<a href="#label:57">EmacsバッファをFileオブジェクトとして扱う</a>などのirbsh独自の<a href="#label:56">メタ変数</a>が使えるし、「;」で出力を抑制することもできる。</p>
+<p>スクリプトを変更したときでも一発で評価リストの内容を評価してくれる。
+ここでf(x)の内容を次のように変更しよう。</p>
+<pre>def f(x)
+  x ** 3
+end</pre>
+<p>そして、「C-c C-z」を押す！</p>
+<pre>irbsh[27@16:36](main):090:0&gt; 
+EvalList(main):091:0&gt; f(0)
+0
+EvalList(main):092:0&gt; f(1)
+1
+EvalList(main):093:0&gt; f(2)
+8
+EvalList(main):094:0&gt; f(3)
+27
+EvalList(main):095:0&gt; nil</pre>
+<p>たったこれだけで変更後のスクリプトを試すことができる！
+わざわざセーブしたりするような手間が省けるのでとても便利だ、是非とも活用しよう。</p>
+<p>　*ruby scratch*バッファでM-C-vとするとirbshバッファがスクロールする。
+M-C-yが逆スクロールである。
+評価リストが立ち上がっている状態でirbshバッファにてM-C-v, M-C-yを押すと、*ruby scratch*バッファがスクロールする。</p>
+<h3><a name="12.2" href="#12.2">12.2</a> <a name="label:96">任意のruby-modeのバッファでもok</a></h3><!-- RDLabel: "任意のruby-modeのバッファでもok" -->
+
+<p>さきほど *ruby scratch* バッファでの例を示したが、実は任意のruby-modeのバッファでも可能だ。
+ruby-modeのバッファ上で「C-c M-e」を押してみよう。
+画面が3分割されてirbshバッファ、評価リストバッファが現れる。</p>
+<p>以後、*ruby scratch*バッファも含め、ruby-modeなバッファを「スクリプトバッファ」と呼ぶことにする。</p>
+<p>たとえば、以下のスクリプトtest.rbがあったとする。</p>
+<pre>#!/usr/bin/env ruby
+def f(x)
+  x ** 2
+end
+
+if __FILE__ == $0
+  p f(10)
+end</pre>
+<p>そこで前の例と同じように評価リストに</p>
+<pre>f(0)
+f(1)
+f(2)
+f(3)</pre>
+<p>と書いて「C-c C-z」を押すと、同じ結果がでてくる。</p>
+<p>ここでポイントとなるのが</p>
+<pre>if __FILE__ == $0
+end</pre>
+<p>でかこまれた部分だ。
+その部分はスクリプトをコマンドとして実行するときのみ実行されるコードとなる。
+よって、irbshでloadされるときには実行されないことに注意したい。</p>
+<p>スクリプト開発でメソッドの動作を試行錯誤したいとき、メソッドを着実に作成したいときに評価リストを活用しよう！！
+特に使い棄てスクリプトをさっさと作成するときに、
+『このメソッドは確実に動いてほしいんだけど、かといってRubyUnit使うのは大袈裟だな』
+という場合においては非常に威力を発揮する。</p>
+<h3><a name="12.3" href="#12.3">12.3</a> <a name="label:97">エラージャンプ機能</a></h3><!-- RDLabel: "エラージャンプ機能" -->
+
+<p>評価リストの大事な機能として、評価リスト実行中にエラーが発生したとき、スクリプトバッファのエラー箇所へジャンプする機能だ。
+たとえば、スクリプトバッファの内容が以下のようになっているものとしよう。
+わざとエラーを発生させていることに注意。
+説明のために行番号をつけている。</p>
+<pre>1: def f(x)
+2:   x ** 
+3: end
+4: 
+5: def g(x)
+6:   f(x)
+7: end</pre>
+<p>そして、評価リストを</p>
+<pre>g 1</pre>
+<p>としよう。そこで「C-c C-z」すると当然のことながらエラーメッセージがでる。</p>
+<pre>irbsh[29@18:09](main):014:0&gt; 
+SyntaxError: /home/rubikitch/.irbsh_eval_tmp:3: parse error
+/home/rubikitch/.irbsh_eval_tmp:5: nested method definition
+def g(x)
+      ^
+/home/rubikitch/.irbsh_eval_tmp:7: parse error
+        from /home/rubikitch/src/irbsh/irbsh-lib.rb:418:in `load'
+        from /home/rubikitch/src/irbsh/irbsh-lib.rb:418:in `irbsh_load_script_and_eval_eval_list'
+        from (irbsh):14</pre>
+<p>/home/rubikitch/.irbsh_eval_tmpはスクリプトバッファを一時的に保存したファイルである。
+デフォルトでは ~/.irbsh_eval_tmp に保存される。</p>
+<p>そこで、「C-c `」を押すとスクリプトバッファの3行目に移る。
+もう一度押すと5行目、もう一度押すと7行目に移る。
+さらにもう一度押したら何も起きない。
+スクリプトバッファすなわち .irbsh_eval_tmp でのエラー行へジャンプするようになっている。</p>
+<p>なお、「C-u 数 C-c `」を押すとその数だけジャンプするようになる。
+負の数を指定すると前のエラーメッセージへ戻る。</p>
+<h3><a name="12.4" href="#12.4">12.4</a> <a name="label:98">スクリプトバッファのみ実行</a></h3><!-- RDLabel: "スクリプトバッファのみ実行" -->
+
+<p>場合によっては、評価リストを実行するのではなくてスクリプトバッファのみを実行したいこともあろう。
+ちょっとしたコード片の実験をするのに便利。
+評価リストコマンドに数引数をつければ、スクリプトバッファのloadのみする。
+すなわち「C-u C-c C-z」。</p>
+<h3><a name="12.5" href="#12.5">12.5</a> <a name="label:99">$IRBSH変数</a></h3><!-- RDLabel: "$IRBSH変数" -->
+
+<p>irbsh実行中はグローバル変数の</p>
+<pre>$IRBSH</pre>
+<p>がtrueになる。典型的な使い方は、</p>
+<pre>if $IRBSH
+  # irbsh内でのみ実行されるコード
+end</pre>
+<p>とスクリプトに書くことである。
+irbsh実行時以外は当然nilになるのでスクリプトをコマンドで実行したりするときはその部分は無視される。</p>
+<p>これは評価リストとともに使うと便利だ。
+スクリプトバッファに</p>
+<pre>if $IRBSH
+  # 評価リストを使うための前処理・初期設定
+end</pre>
+<p>のように書いておけば評価リストが簡潔になって嬉しい。</p>
+<h2><a name="13" href="#13">13</a> <a name="label:100">ワンライナー</a></h2><!-- RDLabel: "ワンライナー" -->
+
+<p>emacsにおいて、M-!でシェルコマンド、M-:でLisp式を実行できるのは周知の通りである。
+同じようにRubyの式を実行したいと思うだろう。
+それを実現するのがここで述べるワンライナー機能である。</p>
+<p>デフォルトでは「M-"」に割り当てられている。
+実行すると</p>
+<pre>Irbsh command [/home/rubikitch/src/irbsh]:</pre>
+<p>のようなプロンプトがでてくる。
+その後に任意のRubyの式を入力することができる。
+そのとき、[]内に表示されているカレントディレクトリへ移動してから実行するようになっている。</p>
+<p>また、C-uを押して実行するとM-!やM-:と同様に実行結果がカレントバッファに挿入される。</p>
+<p>ここでもirbsh拡張は生きている。</p>
+<ul>
+<li>スペースをあけるとシェルコマンド</li>
+<li>__region__や---buffername---といったメタ変数が使える</li>
+<li>補完機能</li>
+</ul>
+<p>ただ、ここで入力したRubyの式は改行が押された時点で評価されるようになっている。
+そのため、複数行にわたる式は実行できない。<a name="footmark:4" id="footmark:4" href="#foottext:4"><sup><small>*4</small></sup></a></p>
+<h2><a name="14" href="#14">14</a> <a name="label:101">.irbshrc</a></h2><!-- RDLabel: ".irbshrc" -->
+
+<p>irbshにおけるRuby側の設定は.irbrcに書いてもいいが、.irbshrcに書いてもよい。
+設定ファイル上でirb側とirbsh側を分けたいという人は.irbshrcに書こう。
+.irbshrcには.irbrcと同じく任意のRubyの文が書ける。</p>
+<p>.irbshrcに書くべきものとしては以下のシェルエイリアスなんかがある。</p>
+<h3><a name="14.1" href="#14.1">14.1</a> <a name="label:102">シェルエイリアス機能</a></h3><!-- RDLabel: "シェルエイリアス機能" -->
+
+<p>シェルの代表的な機能として、エイリアス機能がある。
+エイリアス定義には irbsh_alias メソッドを使う。
+書式は次の通り。</p>
+<pre>irbsh_alias エイリアス, 定義</pre>
+<p>エイリアス、定義ともにシンボルか文字列である。</p>
+<p>たとえば、「ls -F」を「lf」とエイリアスしたいとする。
+このとき、以下のどちらかでエイリアスできる。</p>
+<ul>
+<li>irbsh_alias :ls, 'ls -F'</li>
+<li>irbsh_alias 'ls', 'ls -F'</li>
+</ul>
+<h3><a name="14.2" href="#14.2">14.2</a> <a name="label:103">プロンプトのカスタマイズ</a></h3><!-- RDLabel: "プロンプトのカスタマイズ" -->
+
+<p>バージョン0.4.4以降、プロンプトに現在時刻を表示するようにしている。
+それを変えるにはプロンプトのフォーマット文字列(Irbsh.prompt)をカスタマイズすればよい。</p>
+<p>irb標準で用意されているのは以下のフォーマットが用意されている。</p>
+<pre>%N        起動しているコマンド名が出力される.
+%m        mainオブジェクト(self)がto_sで出力される.
+%M        mainオブジェクト(self)がinspectされて出力される.
+%l        文字列中のタイプを表す(", ', /, ], `]'は%wの中の時)
+%NNi      インデントのレベルを表す. NNは数字が入りprintfの%NNdと同じ. 省略可能
+%NNn      行番号を表します.
+%%    %</pre>
+<p>irbshではそれらに加えて</p>
+<pre>%D    年/月/日
+%d    月/日
+%T    時:分:秒
+%t    時:分</pre>
+<p>も使える。</p>
+<p>たとえば、以前のバージョンの表示にするには(時刻表示を消す)、</p>
+<pre>Irbsh.prompt = "%N(%m):%03n:%i&gt; "</pre>
+<p>と.irbshrcへ加える。</p>
+<h3><a name="14.3" href="#14.3">14.3</a> <a name="label:104">pushdignoredups</a></h3><!-- RDLabel: "pushdignoredups" -->
+
+<p>バージョン0.4.4以降、ディレクトリスタックで同じディレクトリを含まないようにしている。
+zshでいうpushdignoredupsである。
+これを無効にするには、</p>
+<pre>Irbsh.disable_pushdignoredups</pre>
+<p>と.irbshrcへ加える。
+有効にするには</p>
+<pre>Irbsh.enable_pushdignordups</pre>
+<p>とする。</p>
+<h3><a name="14.4" href="#14.4">14.4</a> <a name="label:105">systemecho</a></h3><!-- RDLabel: "systemecho" -->
+
+<p>irbshは本来、シェルコマンドを実行するときに実行するコマンドラインを表示している。
+冗長と思う人はそれを無効にできる。</p>
+<pre>Irbsh.disable_systemecho</pre>
+<p>と.irbshrcへ加える。
+有効にするには</p>
+<pre>Irbsh.enable_systemecho</pre>
+<p>とする。  </p>
+<h2><a name="15" href="#15">15</a> <a name="label:106">応用</a></h2><!-- RDLabel: "応用" -->
+
+<h3><a name="15.1" href="#15.1">15.1</a> <a name="label:107">シェルのaliasをirbshのエイリアスにするには</a></h3><!-- RDLabel: "シェルのaliasをirbshのエイリアスにするには" -->
+
+<p>たとえば、zshに次のようなエイリアスが定義されているとする。</p>
+<pre>alias g="gnuclient.rb"
+alias edit="gnuclient.rb"</pre>
+<p>これをいちいち手で変換するのは面倒だ。
+こういう場合は、.irbshrcに次のように書けばいいだろう。</p>
+<pre>zsh_aliases = &lt;&lt;END
+alias g="gnuclient.rb"
+alias edit="gnuclient.rb"
+END
+
+zsh_aliases.each do |z|
+  if /^alias +(.+)=['"](.+)['"]$/.match z 
+    irbsh_alias $1, $2
+  end
+end</pre>
+<h3><a name="15.2" href="#15.2">15.2</a> <a name="label:108">windows.elとの共存</a></h3><!-- RDLabel: "windows.elとの共存" -->
+
+<p><a href="http://www.gentei.org/~yuuji/software/windows.el">広瀬さんのwindows.el</a>とirbshを併用するとき、デフォルトの設定ではn番目のirbshバッファへの切り替え(C-c 1 .. C-c 0)とかぶってしまう。
+そのために、この機能を無効にしたり、別なキーバインドに設定できるようにしている。</p>
+<h4><a name="15.2.1" href="#15.2.1">15.2.1</a> <a name="label:109">どっちも使いたい！</a></h4><!-- RDLabel: "どっちも使いたい！" -->
+
+<p>その場合はwindows.el側が譲ることになる。
+このコードを .emacs に挿入することでirbshのバッファ切り替えとwindows.elのwindow切り替えが共存できる。
+この場合、window切り替えは M-1 .. M-9 としている。</p>
+<pre>;\M-1 .. \M-9 で window[1] .. window[9] の一発切り替え
+(progn
+  (setq win:switch-prefix [esc])
+  (define-key global-map win:switch-prefix nil)
+  (define-key esc-map "1" 'win-switch-to-window)
+  (define-key esc-map "2" 'win-switch-to-window)
+  (define-key esc-map "3" 'win-switch-to-window)
+  (define-key esc-map "4" 'win-switch-to-window)
+  (define-key esc-map "5" 'win-switch-to-window)
+  (define-key esc-map "6" 'win-switch-to-window)
+  (define-key esc-map "7" 'win-switch-to-window)
+  (define-key esc-map "8" 'win-switch-to-window)
+  (define-key esc-map "9" 'win-switch-to-window)
+  (define-key esc-map "0" 'win-toggle-window)
+  (define-key esc-map "-" 'win-switch-menu)
+  )</pre>
+<h4><a name="15.2.2" href="#15.2.2">15.2.2</a> <a name="label:110">やっぱり無効でいいや</a></h4><!-- RDLabel: "やっぱり無効でいいや" -->
+
+<p>irbshのバッファ切り替えを無効にしたいときは、</p>
+<pre>(setq irbsh-nth-buffer-key-function nil)</pre>
+<p>と.emacsに書く。
+C-c 1 .. C-c 9 は従来通り windows.el のものとなる。</p>
+<h4><a name="15.2.3" href="#15.2.3">15.2.3</a> <a name="label:111">キーバインドを変える</a></h4><!-- RDLabel: "キーバインドを変える" -->
+
+<p>irbshのバッファ切り替えのキーバインドを変える方法もある。
+デフォルトの設定では、</p>
+<pre>(setq irbsh-nth-buffer-key-function
+  (lambda (i) (concat "\C-c" (int-to-string i))))</pre>
+<p>となっているが、たとえば C-c c 1 .. C-c c 9 に変えたい場合は、</p>
+<pre>(setq irbsh-nth-buffer-key-function
+  (lambda (i) (concat "\C-cc" (int-to-string i))))</pre>
+<p>のようにすればよい。</p>
+<h2><a name="16" href="#16">16</a> <a name="label:112">技術メモ</a></h2><!-- RDLabel: "技術メモ" -->
+
+<p>以下技術的なメモを。</p>
+<h3><a name="16.1" href="#16.1">16.1</a> <a name="label:113">メソッド名/変数名補完について</a></h3><!-- RDLabel: "メソッド名/変数名補完について" -->
+
+<p>irb/completion.rbを使っている。
+ただし、このライブラリでは強制的にreadlineがロードされるので、こんなことを書いてRubyを騙している（笑）。
+ちょっとエグいかも。</p>
+<pre>$" &lt;&lt; "readline.so"
+module Readline; def self.complete_proc=(x); end; end
+require 'irb/completion'</pre>
+<h3><a name="16.2" href="#16.2">16.2</a> <a name="label:114">comint-redirect.el</a></h3><!-- RDLabel: "comint-redirect.el" -->
+
+<p>これはEmacs21ではcomint.elに統合されているのだが、それ以前のEmacsではこれを使わないといけない。
+<a name="footmark:5" id="footmark:5" href="#foottext:5"><sup><small>*5</small></sup></a>
+プロセスの出力を他のバッファに「リダイレクト」することができて便利。</p>
+<h3><a name="16.3" href="#16.3">16.3</a> <a name="label:115">comint-util.el, cmdline-stack.el</a></h3><!-- RDLabel: "comint-util.el, cmdline-stack.el" -->
+
+<p>これらはshell-modeなど他のcomintに流用できるので使いたい人はどうぞ。
+キーバインドはirbshで割り当てられているものを書いているので、自分でdefine-keyしよう。</p>
+<dl>
+<dt><a name="label:116" id="label:116"></a>comint-util.el</dt><!-- RDLabel: "comint-util.el" -->
+<dd>
+<p>(require 'comint-util)で使用可能。</p>
+<ul>
+<li>comint-ctrl-p (C-p)</li>
+<li>comint-ctrl-n (C-n)</li>
+<li>comint-delete (C-c C-q)</li>
+<li>comint-bol-2 (C-a)</li>
+<li>comint-next-prompt-2 (C-c C-n)</li>
+<li>comint-previous-prompt-2 (C-c C-p)</li>
+</ul>
+</dd>
+<dt><a name="label:117" id="label:117"></a>cmdline-stack.el</dt><!-- RDLabel: "cmdline-stack.el" -->
+<dd>
+<p>(require 'cmdline-stack)で使用可能。</p>
+<ul>
+<li>cmdline-stack-push (M-q)</li>
+<li>cmdline-stack-pop (これは C-m に割り当てればいいだろう)</li>
+</ul>
+</dd>
+</dl>
+<h3><a name="16.4" href="#16.4">16.4</a> <a name="label:118">シェルエイリアスの実装</a></h3><!-- RDLabel: "シェルエイリアスの実装" -->
+
+<p>シェルエイリアスは<!-- Reference, RDLabel "quoteなしでRubyの文を実行" doesn't exist --><em class="label-not-found">nq_*を定義する</em><!-- Reference end -->ことで実現している。</p>
+<pre>irbsh_alias :ls, 'ls -F'</pre>
+<p>を実行したら、</p>
+<pre>def nq_ls( arg = '' )
+  cmd = "ls -F #{arg}"
+  irbsh_system cmd
+end</pre>
+<p>と定義するようになっている。</p>
+<h3><a name="16.5" href="#16.5">16.5</a> <a name="label:119">ワイルドカード展開の実装</a></h3><!-- RDLabel: "ワイルドカード展開の実装" -->
+
+<p><a href="#label:70">ワイルドカード展開</a>には、RubyのDir.globメソッドを使っている。
+コマンドラインに文字列を書いてまだEnterしてない時点では、irbにはその文字列は送られない。
+そのために、任意の文を割り込んで実行できる。
+それでDir.globを実行し、テンポラリバッファにリダイレクトしてその結果を保存し、その内容を貼り付けているのである。</p>
+<p><a href="#label:73">メソッド名/変数名補完</a>にも同じ技術が使われている。</p>
+<h3><a name="16.6" href="#16.6">16.6</a> <a name="label:120">プロンプト拡張</a></h3><!-- RDLabel: "プロンプト拡張" -->
+
+<p>単にIRB::Irb#promptをコピー&amp;ペーストで再定義・・・汚ねえ。</p>
+<h3><a name="16.7" href="#16.7">16.7</a> <a name="label:121">制限・欠点</a></h3><!-- RDLabel: "制限・欠点" -->
+
+<ul>
+<li><a href="#label:73">メソッド名/変数名補完</a>でTABを連打すると固まってしまうことがある。
+  そのときはC-gを押して M-x irbsh-restart しよう。</li>
+</ul>
+<h3><a name="16.8" href="#16.8">16.8</a> <a name="label:122">TODO</a></h3><!-- RDLabel: "TODO" -->
+
+<ul>
+<li>hookではなくてderived-modeでの実装</li>
+<li>ドキュメントのさらなる充実</li>
+<li><a href="#label:74">マルチラインバッファ</a>をより使いやすくしたい</li>
+<li>「!機構」ヒストリ。</li>
+<li>カスタマイズ性の向上(^^;</li>
+<li>ログの保存。</li>
+</ul>
+<h2><a name="17" href="#17">17</a> <a name="label:123">更新履歴</a></h2><!-- RDLabel: "更新履歴" -->
+
+<dl>
+<dt><a name="label:124" id="label:124"></a>[2010/04/08] Ver 1.0.1</dt><!-- RDLabel: "[2010/04/08] Ver 1.0.1" -->
+<dd>
+<ul>
+<li>irbsh.elの表示上の不具合を修正</li>
+<li>Ruby 1.9対応</li>
+</ul>
+</dd>
+<dt><a name="label:125" id="label:125"></a>[2006/01/13] Ver 1.0.0</dt><!-- RDLabel: "[2006/01/13] Ver 1.0.0" -->
+<dd>
+<ul>
+<li>EmacsLisp実行機能</li>
+<li>オブジェクト編集機能</li>
+<li>英語のドキュメント</li>
+<li>irbsh-toggle.el添付</li>
+<li>さまざまなbugfix</li>
+<li>お手軽メソッド定義</li>
+</ul>
+</dd>
+<dt><a name="label:126" id="label:126"></a>[2003/12/21] Ver 0.9.3</dt><!-- RDLabel: "[2003/12/21] Ver 0.9.3" -->
+<dd>
+<ul>
+<li>インストーラを付属。</li>
+</ul>
+</dd>
+<dt><a name="label:127" id="label:127"></a>[2003/08/20] Ver 0.9.2</dt><!-- RDLabel: "[2003/08/20] Ver 0.9.2" -->
+<dd>
+<ul>
+<li>ドキュメント更新。</li>
+<li>irbsh-history-file(~/.irbsh_history)ファイルに実行したコマンドの履歴を記録。nilに設定すると記録しない。</li>
+</ul>
+</dd>
+<dt><a name="label:128" id="label:128"></a>[2003/08/12] Ver 0.9.1</dt><!-- RDLabel: "[2003/08/12] Ver 0.9.1" -->
+<dd>
+<ul>
+<li>bugfix。</li>
+</ul>
+</dd>
+<dt><a name="label:129" id="label:129"></a>[2003/01/29] Ver 0.9.0</dt><!-- RDLabel: "[2003/01/29] Ver 0.9.0" -->
+<dd>
+<ul>
+<li><a href="#label:38">出力をバッファに保存する</a>機能をbugfix。</li>
+<li><!-- Reference, RDLabel "バックグラウンド実行" doesn't exist --><em class="label-not-found">バックグラウンド実行</em><!-- Reference end -->機能の導入！</li>
+<li>Emacs21において<a href="#label:94">評価リスト</a>実行後にC-rが正常に動作しないバグを修正。</li>
+<li>評価リストでniがうまく動作しないバグを修正。</li>
+<li>評価リストでメタ変数が使えるようにした。</li>
+<li>評価リストで;<a href="#label:37">「;」出力を抑制</a>が使えるようになった。</li>
+<li>C-u C-c C-zで評価リストを実行せずに<a href="#label:98">スクリプトバッファのみ実行</a>(load)するようにした。</li>
+<li><a href="#label:100">ワンライナー</a>を使うときにirbshが立ち上がっていない場合は自動でirbshを立ち上げるようにした。</li>
+<li><a href="#label:99">$IRBSH変数</a>を導入。</li>
+<li>option systemechoを導入。</li>
+<li>Windows環境での不具合を修正。</li>
+</ul>
+</dd>
+<dt><a name="label:130" id="label:130"></a>[2002/09/06] Ver 0.8.1</dt><!-- RDLabel: "[2002/09/06] Ver 0.8.1" -->
+<dd>
+<ul>
+<li><a href="#label:100">ワンライナー</a>を導入！</li>
+<li><a href="#label:38">出力をバッファに保存する</a>機能をbugfix。</li>
+<li>スクリプトバッファ、評価リストバッファでM-C-vするとirbshバッファをスクロールするようにした。</li>
+<li>irbshバッファでM-C-vするとスクリプトバッファをスクロールするようにした。</li>
+<li>M-C-yでM-C-vの逆方向スクロール。</li>
+</ul>
+</dd>
+<dt><a name="label:131" id="label:131"></a>[2002/08/29] Ver 0.8.0</dt><!-- RDLabel: "[2002/08/29] Ver 0.8.0" -->
+<dd>
+<ul>
+<li><a href="#label:94">評価リスト</a>の導入！</li>
+<li><a href="#label:74">マルチラインバッファ</a>にも補完がきくようになった。</li>
+</ul>
+</dd>
+<dt><a name="label:132" id="label:132"></a>[2002/04/12] Ver 0.6.1</dt><!-- RDLabel: "[2002/04/12] Ver 0.6.1" -->
+<dd>
+<ul>
+<li>式の途中で改行を入れたとき、<a href="#label:74">マルチラインバッファ</a>へ自動的に移行するようになった！
+      これで大幅に使い勝手が向上するはずだ。</li>
+</ul>
+</dd>
+<dt><a name="label:133" id="label:133"></a>[2002/04/10] Ver 0.6.0</dt><!-- RDLabel: "[2002/04/10] Ver 0.6.0" -->
+<dd>
+<ul>
+<li><a href="#label:74">マルチラインバッファ</a>で複数行の式を容易に実行可能に。</li>
+<li>コマンドラインにてC-wを1語削除、C-u C-wをkill-regionに。</li>
+<li>goto-irbsh: cdしないようにした</li>
+<li><p><a href="#label:55">ヒストリメニュー</a>関係。</p>
+<ul>
+<li>呼び出し後、呼び出し前のwindow-configurationを復帰させるようにした。</li>
+<li>高速化！</li>
+</ul></li>
+<li>shellのコンテキストにて、スペースの入ったファイル名が扱えるようになった。</li>
+<li>shellのコンテキストにて#{}内で__region__や---bufname---が使えるように。</li>
+<li>rehashを廃止し、起動を高速化。</li>
+<li>雑多な高速化。</li>
+</ul>
+</dd>
+</dl>
+<p>　  * <a href="#label:34">対応する括弧の挿入</a>機能。</p>
+<dl>
+<dt><a name="label:134" id="label:134"></a>[2002/01/11] Ver 0.5.3</dt><!-- RDLabel: "[2002/01/11] Ver 0.5.3" -->
+<dd>
+<ul>
+<li>emacs20で<a href="#label:55">ヒストリメニュー</a>の動作がおかしいのを修正。</li>
+<li><a href="#label:108">windows.elとの共存</a>するために、*irbsh*1 .. *irbsh*9 へジャンプする機能を on/off できるようにした。</li>
+</ul>
+</dd>
+<dt><a name="label:135" id="label:135"></a>[2002/01/06] Ver 0.5.2</dt><!-- RDLabel: "[2002/01/06] Ver 0.5.2" -->
+<dd>
+<ul>
+<li>emacs20で<a href="#label:63">コマンド名補完</a>ができなかったバグを修正。</li>
+<li>C-uを元の動作に戻した。</li>
+</ul>
+</dd>
+<dt><a name="label:136" id="label:136"></a>[2001/12/12] Ver 0.5.1</dt><!-- RDLabel: "[2001/12/12] Ver 0.5.1" -->
+<dd>
+<ul>
+<li><a href="#label:55">ヒストリメニュー</a>で、同一のコマンドヒストリをだぶって表示しないように(uniq)した。</li>
+<li><a href="メソッド名">変数名補完</a>で「a = forma(t)」などが補完されないバグを修正。</li>
+</ul>
+</dd>
+<dt><a name="label:137" id="label:137"></a>[2001/12/10]</dt><!-- RDLabel: "[2001/12/10]" -->
+<dd>
+<ul>
+<li><a href="#label:9">irbについての注意</a>を更新。</li>
+</ul>
+</dd>
+<dt><a name="label:138" id="label:138"></a>[2001/12/09] Ver 0.5.0</dt><!-- RDLabel: "[2001/12/09] Ver 0.5.0" -->
+<dd>
+<ul>
+<li><a href="#label:55">ヒストリメニュー</a>機能を追加。</li>
+<li><a href="#label:70">ワイルドカード展開</a>のバグを修正。</li>
+<li><a href="#label:63">コマンド名補完</a>の機能を強化。zshの=commandも解釈するように。</li>
+<li><a href="#label:71">ホームディレクトリ展開</a>機能を追加。</li>
+<li>irb-0.8以降専用となる。</li>
+</ul>
+</dd>
+<dt><a name="label:139" id="label:139"></a>[2001/12/06] Ver 0.4.4</dt><!-- RDLabel: "[2001/12/06] Ver 0.4.4" -->
+<dd>
+<ul>
+<li>プロンプトに現在時刻を表示できるようにした。</li>
+<li>dirsコマンド追加。</li>
+<li><a href="#label:104">pushdignoredups</a>も有効に。</li>
+</ul>
+</dd>
+<dt><a name="label:140" id="label:140"></a>[2001/11/29] Ver 0.4.3</dt><!-- RDLabel: "[2001/11/29] Ver 0.4.3" -->
+<dd>
+<ul>
+<li>雑多なbug fix。主にemacs20での動作のため。</li>
+<li>C-c 1 .. C-c 9 に *irbsh*1 .. *irbsh*9 へのジャンプする機能を。</li>
+<li>新しくirbshを起動するときはプロセスが終了した *irbsh* バッファも使うようにした。</li>
+<li>カレントディレクトリに「%」が含まれているときに誤動作するバグを修正。</li>
+</ul>
+</dd>
+<dt><a name="label:141" id="label:141"></a>[2001/11/26] Ver 0.4.2</dt><!-- RDLabel: "[2001/11/26] Ver 0.4.2" -->
+<dd>
+<ul>
+<li><a href="#label:30">irbsh-result-to-kill-ring</a>において、出力が完了するまで待つことに。
+      これにより、キーボードマクロを使って出力を取り込むことも可能に。</li>
+<li>shellのコンテキストなのに<a href="#label:73">メソッド名/変数名補完</a>をしにいくことがあるバグを修正。</li>
+<li>irbsh-util.rbを添付。irbshを使うのに便利なメソッドを集めたものである。</li>
+</ul>
+</dd>
+<dt><a name="label:142" id="label:142"></a>[2001/11/23] Ver 0.4.1</dt><!-- RDLabel: "[2001/11/23] Ver 0.4.1" -->
+<dd>
+<ul>
+<li>make-temp-fileがないemacsenがあるので、互換性のために定義を追加。</li>
+<li>post-command-hookをbuffer-localに。</li>
+<li>ドキュメントに<a href="#label:9">irbについての注意</a>を追加。</li>
+<li>.irbshに追加する設定をちょっと変更。</li>
+<li>スクリーンショット追加。</li>
+</ul>
+</dd>
+<dt><a name="label:143" id="label:143"></a>[2001/11/22] Ver 0.4.0</dt><!-- RDLabel: "[2001/11/22] Ver 0.4.0" -->
+<dd>
+<ul>
+<li><a href="#label:70">ワイルドカード展開</a>ができるようになった。</li>
+</ul>
+</dd>
+<dt><a name="label:144" id="label:144"></a>[2001/11/21]</dt><!-- RDLabel: "[2001/11/21]" -->
+<dd>
+<ul>
+<li>ドキュメントの<a href="#label:123">更新履歴</a>を新しいもの順に。</li>
+<li>プロンプトにコンテキストを明示するようになった。</li>
+<li><a href="#label:102">シェルエイリアスもどき</a>。</li>
+<li><a href="#label:32">魔法のC-a</a>、<a href="#label:33">前/次のプロンプトへ飛ぶ</a>を追加。</li>
+</ul>
+</dd>
+<dt><a name="label:145" id="label:145"></a>[2001/11/20] Ver 0.3.0</dt><!-- RDLabel: "[2001/11/20] Ver 0.3.0" -->
+<dd>
+<ul>
+<li><a href="#label:20">シェルコマンド/Rubyのコンテキストを瞬時に切り替えする</a>機能追加。</li>
+<li><a href="#label:38">出力をバッファに保存する</a>機能を追加。</li>
+<li><a href="#label:61">補完</a>を大幅に強化。バッファ名、ディレクトリ名、メソッド/変数名での補完も可能に。</li>
+<li><a href="#label:58">リージョンをFileオブジェクトとして扱う</a>機能を追加。</li>
+<li><a href="#label:20">端末上のシェルライクなキーバインド</a>を可能に。</li>
+<li><a href="#label:31">出力結果をプロンプトもろともに消す機能</a>を追加。</li>
+<li><!-- Reference, RDLabel "quoteなしでRubyの文を実行" doesn't exist --><em class="label-not-found">quoteなしでRubyの文を実行</em><!-- Reference end -->する機能を追加。</li>
+<li><a href="#label:112">技術メモ</a>を書いた。</li>
+</ul>
+</dd>
+<dt><a name="label:146" id="label:146"></a>[2001/11/15] Ver 0.1.1</dt><!-- RDLabel: "[2001/11/15] Ver 0.1.1" -->
+<dd>
+<ul>
+<li>XEmacs対応のため、comint-bol-or-process-mark を入れる。</li>
+</ul>
+</dd>
+<dt><a name="label:147" id="label:147"></a>[2001/11/15] Ver 0.1</dt><!-- RDLabel: "[2001/11/15] Ver 0.1" -->
+<dd>
+<ul>
+<li>とりあえず初公開バージョン。</li>
+<li>RAAにもアップ。</li>
+</ul>
+</dd>
+<dt><a name="label:148" id="label:148"></a>[2001/11/12]</dt><!-- RDLabel: "[2001/11/12]" -->
+<dd>
+<ul>
+<li>作りはじめる。</li>
+</ul>
+</dd>
+</dl>
+<h2><a name="18" href="#18">18</a> <a name="label:149">ライセンス</a></h2><!-- RDLabel: "ライセンス" -->
+
+<p>著作権はるびきちにあり、GPLとします。</p>
+<hr />
+<p>
+<a name="foottext:1" id="foottext:1" href="#footmark:1"><sup><small>*1</small></sup></a><small>ZnZさん、ありがとう</small><br />
+<a name="foottext:2" id="foottext:2" href="#footmark:2"><sup><small>*2</small></sup></a><small>Emacs20までだと一気に行頭まで飛んでしまい、シェルとして使いにくいが、Emacs21からは行頭へ飛んでくれる</small><br />
+<a name="foottext:3" id="foottext:3" href="#footmark:3"><sup><small>*3</small></sup></a><small>zshでは compile/{foo,bar} と入力したあとで TAB を押すと展開してくれる。</small><br />
+<a name="foottext:4" id="foottext:4" href="#footmark:4"><sup><small>*4</small></sup></a><small>いらないよね。あくまでワンライナーなんだし。面倒なので実装したくない。</small><br />
+<a name="foottext:5" id="foottext:5" href="#footmark:5"><sup><small>*5</small></sup></a><small>実はemacs21からimportしたもの。</small><br />
+</p>
+</body>
+</html>

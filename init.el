@@ -94,12 +94,15 @@
 
 ;(load "~/.emacs.d/my-rails.el") все ушло в ruby
 (load "~/.emacs.d/my-anything.el")
+(load "~/.emacs.d/my-ido.el")
+
 ;(load "~/.emacs.d/my-org.el")
 (load "~/.emacs.d/my-tab.el")
 
 (load "~/.emacs.d/my-completion.el")
 
-
+;(autoload 'cheat "cheat")
+(require 'cheat)
 
 (global-font-lock-mode 1)                     ; for all buffers
 (transient-mark-mode 1)
@@ -160,9 +163,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
- '(display-time-mode t)
  '(ecb-layout-window-sizes (quote (("left8" (0.2777777777777778 . 0.3269230769230769) (0.2777777777777778 . 0.21153846153846154) (0.2777777777777778 . 0.2692307692307692) (0.2777777777777778 . 0.17307692307692307)))))
  '(ecb-options-version "2.40")
  '(ecb-source-path (quote (("/home/danil/projects/github/dapi/" "/") ("/home/danil/projects/github/dapi/orionet.ru" "orionet.ru"))))
@@ -195,7 +196,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(anything-header ((t (:inherit header-line :foreground "grey30"))))
  '(border ((t (:background "red"))))
  '(buffer-menu-buffer ((t nil)))
@@ -233,3 +234,5 @@
  '(widget-button-pressed ((((min-colors 88) (class color)) (:inherit widget-button :foreground "red1")))))
 
 
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)

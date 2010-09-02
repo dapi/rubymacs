@@ -16,8 +16,28 @@
 ;; rcodetools
 ;;
 ;;
+
 ;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/rcodetools-0.8.5.0/" load-path))
-;(require 'rcodetools)
+
+;; он все время пытается загрузить весь файл, с рельсовскими моделями и тп это не прокатывает
+
+;; (setq load-path (cons "/home/danil/.rvm/gems/ruby-1.9.2-p0/gems/rcodetools-0.8.5.0/" load-path))
+;; (require 'rcodetools)
+
+
+;; (setq xmpfilter-command-name "rvm 1.8.7 ruby -S xmpfilter --dev --fork --detect-rbtest")
+;; (setq rct-doc-command-name "rvm 1.8.7 ruby -S rct-doc --dev --fork --detect-rbtest")
+;; (setq rct-complete-command-name "rvm 1.8.7 ruby -S rct-complete --dev --fork --detect-rbtest")
+;; (setq ruby-toggle-file-command-name "rvm 1.8.7 ruby -S ruby-toggle-file")
+;; (setq rct-fork-command-name "rvm 1.8.7 ruby -S rct-fork")
+;/home/danil/.rvm/bin/ruby-1.8.7-p302
+
+;; (setq xmpfilter-command-name "/home/danil/.rvm/bin/ruby-1.8.7-p302 -S xmpfilter --dev --fork --detect-rbtest")
+;; (setq rct-doc-command-name "/home/danil/.rvm/bin/ruby-1.8.7-p302 -S rct-doc --dev --fork --detect-rbtest")
+;; (setq rct-complete-command-name "/home/danil/.rvm/bin/ruby-1.8.7-p302 -S rct-complete --dev --fork --detect-rbtest")
+;; (setq ruby-toggle-file-command-name "/home/danil/.rvm/bin/ruby-1.8.7-p302  -S ruby-toggle-file")
+;; (setq rct-fork-command-name "/home/danil/.rvm/bin/ruby-1.8.7-p302 -S rct-fork")
+
 
 
 ;;
@@ -57,36 +77,78 @@
 
 ;; (define-key ruby-mode-map (kbd "C-c l") "lambda")
 
+
+;; ruby-block
+
+;; (require 'ruby-block)
+;; (ruby-block-mode t)
+;;
+;; In addition, you can also add this line too.
+;;
+;; ;; do overlay
+;; (setq ruby-block-highlight-toggle 'overlay)
+;; ;; display to minibuffer
+;; (setq ruby-block-highlight-toggle 'minibuffer)
+;; ;; display to minibuffer and do overlay
+;(setq ruby-block-highlight-toggle t)
+;(setq ruby-block-delay 0.1) ; люблю побыстрее
+
+;; (require 'ruby-hacks)
+
+;; (define-key ruby-mode-map (kbd "C-:") 'ruby-toggle-string<>simbol)
+
+
 ;;
 ;;
 ;; ri
 ;;
 ;;
 ;(autoload 'ri "/home/danil/.emacs.d/ri-emacs/ri-ruby.el" nil t)
-;(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
-;(setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
+
+(setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
+(setq ri-ruby-program "/usr/bin/ruby1.8")
+;; (setq ri-ruby-script "1.8.7 ruby /home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
+;; (setq ri-ruby-program "rvm")
+
+(load-file "/home/danil/.emacs.d/ri-emacs/ri-ruby.el")
+
+(define-key ruby-mode-map "\M-\C-i" 'ri-ruby-complete-symbol)
+;           (local-set-key 'f4 'ri-ruby-show-args)
+;; (define-key ruby-mode-map "\M-\C-o" 'rct-complete-symbol)
+
+
 ;;
 ;;  You may want to bind the ri command to a key.
 ;;  For example to bind it to F1 in ruby-mode:
 ;;  Method/class completion is also available.
 ;;
- ;; (add-hook 'ruby-mode-hook (lambda ()
+;; (add-hook 'ruby-mode-hook (lambda ()
  ;;                             (local-set-key [(f1)] 'ri)
  ;;                             (local-set-key [(control f1)] 'ri-ruby-complete-symbol)
  ;;                             (local-set-key [(control shift f1)] 'ri-ruby-show-args)
- ;;                             ))
+  ;;                           ))
+
+
+
+;; irbsh
+;; http://www.rubyist.net/~rubikitch/computer/irbsh/index.en.html#label:5
+;; (add-to-list 'load-path "~/.emacs.d/irbsh/data/emacs/site-lisp")
+;; (load "irbsh")
+;; (load "irbsh-toggle")
 
 
 ;; yari
 ;; ;; You can use C-u M-x yari to reload all completion targets.
 
 (require 'yari)
-(define-key ruby-mode-map [f1] 'yari-anything)
+(define-key ruby-mode-map (kbd "C-h y") 'yari-anything)
 
 
 ;;; rails
 (setq load-path (cons (expand-file-name "~/.emacs.d/emacs-rails-reloaded") load-path))
-(require 'rails-autoload)
+
+; Зачем он мне?
+;(require 'rails-autoload)
  ; rails/bytecompile
 
 

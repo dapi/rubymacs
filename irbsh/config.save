@@ -1,0 +1,13 @@
+prefix=/home/danil/.rvm/rubies/ruby-1.9.2-p0
+std-ruby=$prefix/lib/ruby/1.9.1
+site-ruby-common=$prefix/lib/ruby/site_ruby
+site-ruby=$prefix/lib/ruby/site_ruby/1.9.1
+bin-dir=$prefix/bin
+rb-dir=$site-ruby
+so-dir=$prefix/lib/ruby/site_ruby/1.9.1/i686-linux
+data-dir=$prefix/share
+ruby-path=/home/danil/.rvm/rubies/ruby-1.9.2-p0/bin/ruby
+ruby-prog=/home/danil/.rvm/rubies/ruby-1.9.2-p0/bin/ruby
+make-prog=make
+without-ext=no
+emacs=emacs
