@@ -17,6 +17,45 @@
 
 
 
+(autoload 'kill-ring-search "kill-ring-search"
+  "Search the kill ring in the minibuffer."
+  (interactive))
+
+(global-set-key "\M-\C-y" 'kill-ring-search)
+
+
+; Типографика
+
+(defun typopunct-mode-init ()
+  (require 'typopunct)
+  (typopunct-change-language 'russian)
+  (typopunct-mode t))
+
+(add-hook 'markdown-mode-hook 'typopunct-mode-init)
+
+
+
+;; Register
+
+(global-set-key (kbd "C-,") 'point-to-register)
+(global-set-key (kbd "C-.") 'jump-to-register)
+
+
+
+;;
+;; window-numbers
+;;
+;; Switch buffers by M-[1,2,3,4..]
+(require 'window-number)
+(window-number-mode)
+(window-number-meta-mode)
+
+;; (require 'window-numbering)
+;; (window-numbering-mode 1)
+;; (setq window-numbering-assign-func
+;;       (lambda () (when (equal (buffer-name) "*Calculator*") 9))) ALWAYS NUMBER 9
+
+
 (require 'browse-kill-ring+)
 ; M-y
 (global-set-key "\C-cy" '(lambda ()
@@ -24,20 +63,99 @@
                            (popup-menu 'yank-menu)))
 
 
-;;; Copy Past
+
+(global-font-lock-mode 1)                     ; for all buffers
+(transient-mark-mode 1) ; Отображать selection через C-SPC
+(delete-selection-mode 1) ; Нажатие на клавишу удаляет selection(delete-selection-mode 1) ; Нажатие на клавишу удаляет selection
+
+
+
+; Удалять строку, если нет выделеного региона по M-w/C-w
+(require 'whole-line-or-region)
+(whole-line-or-region-mode)
+
+;; Copy Past
 ;;;; делаем чтоб можно было копировать из емакса во вне
 ;;;l http://www.emacswiki.org/emacs/CopyAndPaste
 (setq x-select-enable-clipboard t)
+
+; You can customize the variable x-select-enable-clipboard to make the Emacs yank functions consult the clipboard before the primary selection, and to make the kill functions to store in the clipboard as well as the primary selection. Otherwise, these commands do not access the clipboard at all. Using the clipboard is the default on MS-Windows and Mac OS, but not on other systems. 
+
 ;  (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 ;(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-; Недавно вставил
-(global-set-key "\C-w" 'backward-kill-word)
+
+
+
+;;
+;; Слово нужно delete, а не kill (не постить в буффер)
+;;
+
+(defun delete-word (arg)
+  "Delete characters forward until encountering the end of a word.
+With argument, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+
+(defun backward-delete-word (arg)
+  "Delete characters backward until encountering the end of a word.
+With argument, do this that many times."
+  (interactive "p")
+  (delete-word (- arg)))
+
+; If you use CUA mode, you might want to register these functions as movements, so that shift-<key> works properly:
+
+(dolist (cmd '(delete-word backward-delete-word)) (put cmd 'CUA 'move))
+
+;(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-w" 'backward-delete-word) ; В крайнем случае применять это для только для минибуфера
+
+
+
+; Надо вернуть в минибуфер
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key [(shift insert)] 'yank)
 ;(global-set-key [(shift delete)] 'copy-region-as-kill)
 (global-set-key [(shift delete)] 'kill-region)
+
+
+
+
+;;
+;; Минибуфер
+; Удаляем директорию целеком, со всякими . и -
+
+;; (defun backward-delete-path ()
+;;   (interactive)
+;;   (backward-delete-char 1)
+;;   (while (not (eq (preceding-char) ?/))
+;;     (backward-delete-char 1)))
+
+ (defun backward-delete-path ()
+   (interactive)
+   (save-match-data
+     (let ((pos (point)))
+       (if (search-backward-regexp "/." (line-beginning-position) t)
+           (progn
+            (delete-region (match-beginning 0) pos)
+            (insert "/")
+            )
+         (delete-region (line-beginning-position) pos))
+       ))) 
+
+
+;; Если что можно заменить на ido-delete-backward-updir
+(define-key minibuffer-local-completion-map "\C-w" 'backward-delete-path)
+(define-key minibuffer-local-map "\C-w" 'backward-delete-path)
+(define-key minibuffer-local-must-match-map "\C-w" 'backward-delete-path) 
+
+
+;; Надо узнавать не в идошном ли мы режиме и тогда его удалялку ставить
+;; (add-hook 'minibuffer-setup-hook (lambda ()
+;;                                    (local-set-key "\C-w" 'backward-delete-path)
+;;                                    ))
+
 
 
 
@@ -51,6 +169,55 @@
 
 (global-set-key (kbd "C-x c") 'my-kill-emacs)
 
+
+
+
+;;;
+;; Навигатор
+;;
+
+(defun geosoft-forward-word ()
+   ;; Move one word forward. Leave the pointer at start of word
+   ;; instead of emacs default end of word. Treat _ as part of word
+   (interactive)
+   (forward-char 1)
+   (backward-word 1)
+   (forward-word 2)
+   (backward-word 1)
+   (backward-char 1)
+   (cond ((looking-at "_") (forward-char 1) (geosoft-forward-word))
+         (t (forward-char 1))))
+
+(defun geosoft-backward-word ()
+   ;; Move one word backward. Leave the pointer at start of word
+   ;; Treat _ as part of word
+   (interactive)
+   (backward-word 1)
+   (backward-char 1)
+   (cond ((looking-at "_") (geosoft-backward-word))
+         (t (forward-char 1))))
+
+(defun forward-word-dwim (&optional n)
+  "Like forward-word, but stops at beginning of words.
+With argument, do this that many times"
+  (interactive "p")
+  (when (looking-at "\\(\\sw\\|\\s_\\)")
+                            (skip-syntax-forward "w_"))
+                          (skip-syntax-forward "^w_"))
+
+(defun backward-word-dwim (&optional n)
+  "Like backward-word, but stops at beginning of words.
+With argument, do this that many times"
+  (interactive "p")
+  (unless (looking-back "\\(\\sw\\|\\s_\\)")
+    (skip-syntax-backward "^w_"))
+  (skip-syntax-backward "w_"))
+
+; Bind the functions to Ctrl-Left and Ctrl-Right with:
+
+; (global-set-key [C-right] 'forward-word) потому что не выделяют текст с Shift-ом
+;; (global-set-key [C-left] 'backward-word) 
+
 ;; ;; Kill-server
 ;; (defun my-kill-emacs ()
 ;; (interactive)
@@ -59,7 +226,6 @@
 ;; (kill-emacs))
 
 ;; (global-set-key (kbd "C-x c") 'my-kill-emacs)
-
 
 
 

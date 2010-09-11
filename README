@@ -41,5 +41,11 @@ rm ~/.emacs.d/yasnippets-jpablobr/README*
 cp auto-complete/dict/css-mode auto-complete/dict/sass-mode
 
 
+install Rsense
+export RSENSE_HOME=~/.emacs.d/rsense/
+ruby ~/.emacs.d/rsense/etc/config.rb > ~/.rsense
+cd $RSENSE_HOME
+./bin/rsense version 
+
 
 

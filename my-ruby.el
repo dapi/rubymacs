@@ -60,6 +60,13 @@
 
 
 (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+
+;; (define-key ruby-mode-map [M-up] 'backward-sentence)
+;; (define-key ruby-mode-map [M-down] 'forward-sentence) 
+
+(define-key ruby-mode-map [M-up] 'ruby-backward-sexp)
+(define-key ruby-mode-map [M-down] 'ruby-forward-sexp) 
+
      
 ;;;
 ;;;
@@ -74,6 +81,7 @@
 ;; (setq rinari-tags-file-name "TAGS")
 
 (define-key ruby-mode-map (kbd "C-c ]") 'rinari-find-file-in-project)
+
 
 ;; (define-key ruby-mode-map (kbd "C-c l") "lambda")
 
@@ -184,7 +192,7 @@
 		(word (read-string "Search apidock for? " word-at-point)))
 	(browse-url (concat "http://apidock.com/rails/" word))))
  
-(define-key ruby-mode-map (kbd "C-c d") 'gaizka-search-apidock-rails)
+;; (define-key ruby-mode-map (kbd "C-c d") 'gaizka-search-apidock-rails)
  
 ;(provide 'rails-apidock)
 ;;
@@ -194,6 +202,8 @@
 ;;
 
 (require 'imenu)
+
+;(add-hook 'ruby-mode-hook 'imenu-add-menubar-index)
 (add-hook 'ruby-mode-hook '(lambda () 
                              (imenu-add-menubar-index)
                              ))
@@ -221,3 +231,8 @@
 ;; (add-hook 'ruby-mode-hook 'my-coding-hook)
 ;; (add-hook 'js2-mode-hook 'my-coding-hook)
 
+
+(setq ruby-electric-newline-before-closing-bracket nil)
+;(setq ruby-electric-newline-before-closing-bracket t)
+
+(rvm-use-default)

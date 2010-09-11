@@ -14,7 +14,7 @@
 
 ;; HAML
 ;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/haml-edge-2.3.100/extra/" load-path))
-(setq load-path (cons "/home/danil/.rvm/gems/ruby-1.9.2-head/gems/haml-3.0.17/extra/" load-path))
+(setq load-path (cons "/home/danil/.rvm/gems/ruby-1.8.7-p302/gems/haml-3.0.18/extra/" load-path))
 
 
 (require 'haml-mode)

@@ -27,135 +27,6 @@
         ))
 
 
-(setq load-path (cons "~/.emacs.d/lisp" load-path))
-;(require 'byte-code-cache) неработает с elpa или с package.el, не загружает yasnippet
-
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
-;; package-list-packages
-
-
-
-;; (setq load-path (cons "/usr/share/emacs/site-lisp/" load-path))
-;; (setq load-path (cons "/usr/share/emacs/site-lisp/emacs-goodies-el" load-path))
-
-; для inf-ruby и др
-(setq load-path (cons "~/.rvm/src/ruby-1.9.2-head/misc/" load-path)); TODO как-то брать автоматом
-
-
-;; auto-compile
-
-
-
-;; auto-install
-;; для anything, в elpa его почемуто нет
-(require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/auto-install/")
-(setq load-path (cons "~/.emacs.d/auto-install" load-path))
-; (auto-install-update-emacswiki-package-name t)
-
-
-; Выключаем scrollbar и полосу прокрутки
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode t))
-
-
-;(server-start)
-
-; gpicker
-
-; какой-то рекурсивный поиск файлов
-;; (require 'find-recursive)
-
-(load "~/.emacs.d/my-session.el")
-(load "~/.emacs.d/my-scroll.el")
-(load "~/.emacs.d/my-backup.el")
-(load "~/.emacs.d/my-buffers.el")
-(load "~/.emacs.d/my-perl.el")
-
-(load "~/.emacs.d/my-js.el")            ; Нужно запускать до completion
-(load "~/.emacs.d/my-html.el")
-
-(load "~/.emacs.d/my-ruby.el")
-(load "~/.emacs.d/my-tab.el")
-(load "~/.emacs.d/my-git.el")
-(load "~/.emacs.d/my-flymake.el")
-(load "~/.emacs.d/my-tags.el")
-
-;(load "~/.emacs.d/my-rails.el") все ушло в ruby
-(load "~/.emacs.d/my-anything.el")
-(load "~/.emacs.d/my-ido.el")
-
-;(load "~/.emacs.d/my-org.el")
-(load "~/.emacs.d/my-tab.el")
-
-(load "~/.emacs.d/my-completion.el")
-
-;(autoload 'cheat "cheat")
-(require 'cheat)
-
-(global-font-lock-mode 1)                     ; for all buffers
-(transient-mark-mode 1)
-
-
-;(setq display-time-interval 1)
-;(setq display-time-format "%H:%M:%S")
-;(display-time-mode)
-;; (setq woman-show-log nil)
-;; (setq woman-ignore t)
-
-;(global-set-key "\C-h" 'delete-backward-char)
-(global-set-key [(meta backspace)] 'advertised-undo)
-(global-set-key [f4] 'replace-string)
-;(global-set-key [(meta f3)] 'find-file-other-frame)
-
-;(global-set-key [(control r)] 'replace-string)
-;(global-set-key [(control f8)] 'kill-this-buffer)
-(global-set-key [(meta q)] 'comment-or-uncomment-region)
-(global-set-key [?\C-,] 'previous-buffer)
-(global-set-key [?\C-.] 'next-buffer)
-(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
-;  
-; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
-
-(global-set-key [(super =)] 'text-scale-increase)
-(global-set-key [(super -)] 'text-scale-decrease)
-
-(fset 'yes-or-no-p 'y-or-n-p) ;;не заставляйте меня печать yes целиком
-
-(setq-default indent-tabs-mode nil) ; пробелы вместо табов
-(setq
-	tab-width 2
-	; delete-key-deletes-forward 't		давно нет такой переменной
-	kill-whole-line 't)
-	
-	
-(auto-compression-mode 1) ; automatically uncompress files when visiting
-;(setq sort-fold-case t) ; sorting functions should ignore case
-
-
-; Ничего не работает, смотри http://www.enigmacurry.com/2009/01/14/extending-emacs-with-advice/
-; и http://www.emacswiki.org/emacs/EasyPG
-; Не спрашивать графически пароль11
-;(require 'epa)
-;(setenv "GPG_AGENT_INFO" nil)
-; сохранять пароль GPG
-;(epa-file-enable)
-;(setq epa-file-cache-passphrase-for-symmetric-encryption t) уже давно не работает
-
-; Чтобы не жать на выход три раза ESC
-
-
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -169,13 +40,11 @@
  '(ecb-source-path (quote (("/home/danil/projects/github/dapi/" "/") ("/home/danil/projects/github/dapi/orionet.ru" "orionet.ru"))))
  '(ecb-vc-enable-support nil)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
- '(icicle-command-abbrev-alist nil)
- '(icicle-reminder-prompt-flag 6)
+; '(icicle-TAB-completion-methods (quote (basic vanilla fuzzy swank)))
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/Dropbox/orgfiles/tasks.org")))
+ '(org-agenda-files (quote ("~/code/chebytoday/doc/todo.org" "~/Dropbox/orgfiles/tasks.org")))
  '(org-cycle-include-plain-lists t)
  '(org-modules (quote (org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mouse org-annotate-file org-toc)))
- '(ruby-electric-newline-before-closing-bracket t)
  '(save-place t nil (saveplace))
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
@@ -212,6 +81,7 @@
  '(erb-face ((t (:background "black"))))
  '(erb-out-delim-face ((t (:inherit erb-face :foreground "darkred"))))
  '(erb-out-face ((t (:inherit erb-face))))
+ '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "chocolate1"))))
  '(header-line ((t (:inherit default :foreground "grey70" :slant oblique))))
  '(highlight ((((class color) (min-colors 88) (background dark)) (:background "#202a2a"))))
  '(mode-line ((((class color) (min-colors 88)) (:background "red4" :foreground "gray90"))))
@@ -236,3 +106,123 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+
+
+
+(setq load-path (cons "~/.emacs.d/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/elpa" load-path))
+;(require 'byte-code-cache) неработает с elpa или с package.el, не загружает yasnippet
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(setq package-archives '(("ELPA" . "http://tromey.com/elpa/") 
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
+(when (load (expand-file-name "~/.emacs.d/lisp/package.el"))
+    (package-initialize))
+;(load "~/.emacs.d/starter-kit-elpa.el")
+;; package-list-packages
+
+
+;; (setq load-path (cons "/usr/share/emacs/site-lisp/" load-path))
+;; (setq load-path (cons "/usr/share/emacs/site-lisp/emacs-goodies-el" load-path))
+
+
+
+;; auto-install
+;; для anything, в elpa его почемуто нет
+;; (require 'auto-install)
+;; (setq auto-install-directory "~/.emacs.d/auto-install/")
+(setq load-path (cons "~/.emacs.d/auto-install" load-path))
+; (auto-install-update-emacswiki-package-name t)
+
+; Выключаем scrollbar и полосу прокрутки
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode t))
+
+
+;(server-start)
+
+; gpicker
+
+; какой-то рекурсивный поиск файлов
+;; (require 'find-recursive)
+
+(load "~/.emacs.d/my-session.el")
+(load "~/.emacs.d/my-scroll.el")
+(load "~/.emacs.d/my-backup.el")
+(load "~/.emacs.d/my-buffers.el")
+(load "~/.emacs.d/my-perl.el")
+
+(load "~/.emacs.d/my-js.el")            ; Нужно запускать до completion
+(load "~/.emacs.d/my-html.el")
+
+(load "~/.emacs.d/my-ruby.el")
+(load "~/.emacs.d/my-tab.el")
+(load "~/.emacs.d/my-git.el")
+(load "~/.emacs.d/my-flymake.el")
+(load "~/.emacs.d/my-tags.el")
+
+;(load "~/.emacs.d/my-rails.el") все ушло в ruby
+(load "~/.emacs.d/my-anything.el")
+;(load "~/.emacs.d/my-ido.el")
+(load "~/.emacs.d/my-icicles.el")
+
+
+;(load "~/.emacs.d/my-org.el")
+(load "~/.emacs.d/my-tab.el")
+
+(load "~/.emacs.d/my-completion.el")
+
+;(autoload 'cheat "cheat")
+(require 'cheat)
+
+;(setq display-time-interval 1)
+;(setq display-time-format "%H:%M:%S")
+;(display-time-mode)
+;; (setq woman-show-log nil)
+;; (setq woman-ignore t)
+
+;(global-set-key "\C-h" 'delete-backward-char)
+(global-set-key [(meta backspace)] 'advertised-undo)
+(global-set-key [f4] 'replace-string)
+;(global-set-key [(meta f3)] 'find-file-other-frame)
+;(global-set-key [(control r)] 'replace-string)
+;(global-set-key [(control f8)] 'kill-this-buffer)
+(global-set-key [(meta q)] 'comment-or-uncomment-region)
+;; (global-set-key [?\C-,] 'previous-buffer)
+;; (global-set-key [?\C-.] 'next-buffer)
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+;  
+; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
+
+(global-set-key [(super =)] 'text-scale-increase)
+(global-set-key [(super -)] 'text-scale-decrease)
+
+(fset 'yes-or-no-p 'y-or-n-p) ;;не заставляйте меня печать yes целиком
+
+(setq-default indent-tabs-mode nil) ; пробелы вместо табов
+(setq
+ tab-width 2                                        ; delete-key-deletes-forward 't		давно нет такой переменной
+ kill-whole-line 't)
+	
+	
+(auto-compression-mode 1) ; automatically uncompress files when visiting
+;(setq sort-fold-case t) ; sorting functions should ignore case
+
+
+; Ничего не работает, смотри http://www.enigmacurry.com/2009/01/14/extending-emacs-with-advice/
+; и http://www.emacswiki.org/emacs/EasyPG
+; Не спрашивать графически пароль11
+;(require 'epa)
+;(setenv "GPG_AGENT_INFO" nil)
+; сохранять пароль GPG
+(epa-file-enable)
+(setq epa-file-cache-passphrase-for-symmetric-encryption t) ; уже давно не работает
+
+; Чтобы не жать на выход три раза ESC
+

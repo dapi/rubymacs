@@ -1,47 +1,212 @@
+------
+Common
+------
+
+C-S-Backspace 
+    delete whole line
+M-k
+    kill the rest sentence
+C-M-\
+    Indent region
+C-g
+    Keyboard quit, deactive marking region
+C-]
+    Abort innermost recursive editing level and cancel the command which invoked it (abort-recursive-edit). 
+C-/, Alt-Backspace
+    undo
+C-x C-o
+    will delete all the empty lines around your current cursor position, except for one;
+M-q НЕРАБОТАЕТ
+    re-aligns the current paragraph; I use it all the time when writing e-mails etc. (you might want to check out filladapt for a version that gives you a bit more smartness with indentations, lists etc.); 
+M-;
+    Комментарий в конце строки
+C-h k
+    describe key
+C-h after any prefix key
+    will display all available shortcuts under that prefix.
+M->		
+    Move to end of buffer.
+M-<
+    Move to beginning of the current buffer.
+
+---------
+Registers
+---------
+C-x r <SPC> r
+C-, r
+    Record the position of point and the current buffer in register r (point-to-register).
+C-x r j r
+C-. r
+    Jump to the position and buffer saved in register r (jump-to-register). 
+
+-----------
+Selections:
+-----------
+
+C-w  (ОТКЛЮЧИЛ)
+C-c C-k 
+S-Del
+    Cut (kill-region), если блока нет, до катит строку
+M-w
+C-Ins
+    Copy (really kill-ring-save) если блока нет, то копирует строку
+C-y
+    Paste (really yank)
+M-y
+    Список янков в отдельном буфере.
+    (after C-y) ⇒ меняет вставленный блок на предыдущий в истории. Historic Paste of old cuts/copies “bonus” (really yank-pop, that is to say the kill-ring cometh)
+C-c y
+    yank-menu - тоже что и M-y только ввиде более удобного меню
+M-C-y
+    kill region search
+
+C-SPC C-SPC
+    Деактивация selection
+M-@
+    mark work forward
+
+
+----------------------------
+Narrow region: Скрыть регион
+----------------------------
+
+narrow-to-region	C-x n n
+narrow-to-page	        C-x n p
+narrow-to-defun	        C-x n d
+everything	        C-x n w
+
+
+-------
+Menubar
+-------
+
+M-`
+    выход в текстовом режиме в menubar
+F10
+    выход в меню
+
+
+----
+GTAG
+----
+
+M-. 
+    Jump to tag function gtags-find-tag
+M-: Find symbol
+C-M-. 
+    find tag regexp
+M-, 
+    искать где функция использутся find-tag-reference че-то странно работает
+M-* 
+    jump обратно откуда искал gtags-pop-stack pop-tag-mark
+
+
+
+----------
+ruby-mode:
+----------
+C-c C-e
+    insert end
+C-c d
+    flymake display error
+C-:
+    string->symbol
+
+
+-------------
+Inferior ruby
+-------------
+C-c C-s start inf-ruby
+C-c C-l load file
+C-c C-z switch to inf
+
+M- C-x  ruby-send-definition
+C-x C-e ruby-send-last-sexp
+C-c C-b ruby-send-block
+C-c M-b ruby-send-block-and-go
+C-c C-x ruby-send-definition
+C-c M-x ruby-send-definition-and-go
+C-c C-r ruby-send-region
+C-c M-r ruby-send-region-and-go
+
+
+---------
+Ruby help
+---------
+
+C-h y
+     YARI yet anoter ri
+M-C-i
+     ri-ruby-complete-symbol
+M-x
+     ri, ri-ruby-show-args
+
+
+------
+rinari
+------
+
+C-c ]
+    искать файлы по всему проекту (rinari-find-file-in-project)
+
+
+--------------------
+Rsense:my-completion
+--------------------
+
+C-c . rsense-complete
+C-c , ac-complete-rsense
+C-= rsense-jump-to-definition ; You can jump to definition of a method or a constant you are pointing at
+; rsense-where-is ; You can find which class/method you are editing
+; rsense-type-help ; You can infer types of an expression at point
+
+
+---------------------
+emacs-rails-reloaded: - пока не пользуюс
+---------------------
+[C-c '] Navigation around rails files
+[C-c ;] Navigation around rails files (больше вариантов) to display available files.
+[C-c up] to toggle (controller|mailer) <> view.
+[C-c t] to toggle test <> implementation.
+
+
+-----
+Marks - фигня какая-то, проще пользоваться регистрами
+-----
+
 C-x C-x Set the mark point and move point where the mark was. Удобно скакать от кода к коду.
 C-x C-space - global mark
-C-S-Backspace delete whole line
-
-ruby-mode:
-C-c C-e - insert end
-
-C-g Keyboard quit, deactive marking region
-C-] Abort innermost recursive editing level and cancel the command which invoked it (abort-recursive-edit). 
-C-/, Alt-Backspace undo
-
-C-x C-o will delete all the empty lines around your current cursor position, except for one;
-M-q re-aligns the current paragraph; I use it all the time when writing e-mails etc. (you might want to check out filladapt for a version that gives you a bit more smartness with indentations, lists etc.); 
-
-M-; Комментарий в конце строки
-
-Ruby/Rails:
-C-: string->symbol
-M-. искать где определна функция find-tag
-M-, искать где функция использутся find-reverse-tag
-M-* прягнуть обратно откуда искал
-
-C-c d flymake display error
-
-C-h k describe key
-C-h after any prefix key will display all available shortcuts under that
-  prefix.
-
-C-h y YARI yet anoter ri
-
-<C-S-f1>        ri-ruby-show-args
-<C-f1>          ri-ruby-complete-symbol
-<f1>            ri
-
-C-c ] искать файлы по всему проекту (rinari-find-file-in-project)
-
-emacs-rails-reloaded:
-* Navigation around rails files,
-  press [C-c '] or [C-c ;] (больше вариантов) to display available files.
-  [C-c up] to toggle (controller|mailer) <> view.
-  [C-c t] to toggle test <> implementation.
 
 
-region (selection)	narrow-to-region	C-x n n
-current page	narrow-to-page	C-x n p
-function	narrow-to-defun	C-x n d
-everything	widen	C-x n w
+
+
+http://www.math.uh.edu/~bgb/emacs_keys.html
+
+
+---
+IDO
+---
+C-j Select the current prompt as the buffer or file.
+If no buffer or file is found, prompt for a new one.
+
+C-s Put the first element at the end of the list.
+C-r Put the last element at the start of the list.
+TAB Complete a common suffix to the current string that
+matches all files.  If there is only one match, select that file.
+If there is no common suffix, show a list of all matching files
+in a separate window.
+C-e Edit input string (including directory).
+M-p or M-n go to previous/next directory in work directory history.
+M-s search for file in the work directory history.
+M-k removes current directory from the work directory history.
+M-o or C-M-o cycle through the work file history.
+M-f and M-d prompts and uses find to locate files or directories.
+M-m prompts for a directory to create in current directory.
+C-x C-f Fallback to non-ido version of current command.
+C-t Toggle regexp searching.
+C-p Toggle between substring and prefix matching.
+C-c Toggle case-sensitive searching of file names.
+C-v Toggle version control for this file.
+M-l Toggle literal reading of this file.
+? Show list of matching files in separate window.
+C-a Toggle ignoring files listed in `ido-ignore-files'.

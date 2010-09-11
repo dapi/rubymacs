@@ -5,7 +5,7 @@
 (require 'vc-git)
 (when (featurep 'vc-git) (add-to-list 'vc-handled-backends 'git))
 
-(add-to-list 'load-path "/usr/share/doc/git-core/contrib/emacs")
+(add-to-list 'load-path "/usr/share/doc/git/contrib/emacs")
 (require 'git)
 (autoload 'git-blame-mode "git-blame"
 		    "Minor mode for incremental blame for Git." t)

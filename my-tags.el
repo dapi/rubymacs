@@ -77,7 +77,7 @@
 ;      (rinari-gtags-create-or-update)
       (setq gtags-symbol-regexp "[A-Za-z_:][A-Za-z0-9_#.:?]*")
       (define-key ruby-mode-map "\e." 'gtags-find-tag)
-;      (define-key ruby-mode-map "\e," 'gtags-find-with-grep)
+      (define-key ruby-mode-map "\e," 'gtags-find-with-grep)
       (define-key ruby-mode-map "\e:" 'gtags-find-symbol)
       (define-key ruby-mode-map "\e," 'gtags-find-rtag)
 ))
