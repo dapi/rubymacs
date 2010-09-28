@@ -148,6 +148,16 @@ rinari
 
 C-c ]
     искать файлы по всему проекту (rinari-find-file-in-project)
+C-c x
+    extract partials
+C-c p
+    goto partial на котором находишья
+
+
+-------
+flymake
+-------
+C-c d  Display error
 
 
 --------------------
@@ -210,3 +220,8 @@ C-v Toggle version control for this file.
 M-l Toggle literal reading of this file.
 ? Show list of matching files in separate window.
 C-a Toggle ignoring files listed in `ido-ignore-files'.
+
+
+
+
+Ставь пробел после do тогда после ентера не будет лишнего end

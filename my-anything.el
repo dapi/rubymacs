@@ -24,6 +24,7 @@
 (setq anything-c-adaptive-history-file "~/.emacs.tmp/anything-c-adaptive-history")
 
 (global-set-key (kbd "M-X") 'anything)
+(global-set-key (kbd "M-z") 'anything)
 
 
 
@@ -39,13 +40,13 @@
       (list anything-c-source-buffers+
                                         ; anything-c-source-imenu    ; набо бы тоже узнать клавишу :)
                                         ;           anything-c-source-etags-select
-            anything-c-source-rake-task
+            ; anything-c-source-rake-task
             ; anything-c-source-gtags-select ; Use M-.
             anything-c-source-file-cache
                                         ;            anything-c-source-git-project-files
             anything-c-source-files-in-current-dir+
             anything-c-source-recentf
-            anything-c-source-file-name-history
+            ; anything-c-source-file-name-history ;тут больше чем в recentf но никогда не пользуюсь ими
             ;anything-c-source-locate  - как бы сделать отдельный поиск по locate
 
             ;anything-c-source-buffers

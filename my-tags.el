@@ -80,6 +80,8 @@
       (define-key ruby-mode-map "\e," 'gtags-find-with-grep)
       (define-key ruby-mode-map "\e:" 'gtags-find-symbol)
       (define-key ruby-mode-map "\e," 'gtags-find-rtag)
+      (define-key ruby-mode-map "\e/" 'gtags-find-tag-from-here)
+      (define-key ruby-mode-map "\e?" 'gtags-pop-stack)
 ))
 
 

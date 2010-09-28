@@ -1,4 +1,6 @@
 *.bak
+url/
+examples/
 bak/
 *~
 .#*

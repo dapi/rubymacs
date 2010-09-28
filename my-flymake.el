@@ -39,15 +39,37 @@ makes)."
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
 
+
+;; Not provided by flymake itself, curiously
+; Другая альтернатива flymake-create-temp-inplace
+(defun flymake-create-temp-in-system-tempdir (filename prefix)
+  (make-temp-file (or prefix "flymake-ruby")))
+
+(require 'flymake)
+
+;; I don't like the default colors :)
+(set-face-background 'flymake-errline "red4 white")
+(set-face-background 'flymake-warnline "dark slate blue")
+
+
+(defvar flymake-ruby-err-line-patterns '(("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)))
+(defvar flymake-ruby-allowed-file-name-masks '((".+\\.\\(rb\\|rake\\)$" flymake-ruby-init)
+                                               ("Rakefile$" flymake-ruby-init)))
+
+;; (defun flymake-ruby-load ()
+;;   (interactive)
+;;   (set (make-local-variable 'flymake-allowed-file-name-masks) flymake-ruby-allowed-file-name-masks)
+;;   (set (make-local-variable 'flymake-err-line-patterns) flymake-ruby-err-line-patterns)
+;;   (flymake-mode t))
+
 (eval-after-load 'ruby-mode
   '(progn
      (require 'flymake)
 
      ;Invoke ruby with '-c' to get syntax checking
      (defun flymake-ruby-init ()
-;       (let* ((temp-file (flymake-init-create-temp-buffer-copy
        (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-                            'flymake-create-temp-inplace))
+                            'flymake-create-temp-intemp))
               (local-file (file-relative-name
                            temp-file
                            (file-name-directory buffer-file-name))))

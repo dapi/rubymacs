@@ -110,6 +110,7 @@
 
 
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/markdown" load-path))
 (setq load-path (cons "~/.emacs.d/elpa" load-path))
 ;(require 'byte-code-cache) неработает с elpa или с package.el, не загружает yasnippet
 
@@ -162,6 +163,7 @@
 (load "~/.emacs.d/my-html.el")
 
 (load "~/.emacs.d/my-ruby.el")
+(load "~/.emacs.d/my-php.el")
 (load "~/.emacs.d/my-tab.el")
 (load "~/.emacs.d/my-git.el")
 (load "~/.emacs.d/my-flymake.el")
@@ -170,13 +172,29 @@
 ;(load "~/.emacs.d/my-rails.el") все ушло в ruby
 (load "~/.emacs.d/my-anything.el")
 ;(load "~/.emacs.d/my-ido.el")
-(load "~/.emacs.d/my-icicles.el")
+;(load "~/.emacs.d/my-icicles.el")
 
 
-;(load "~/.emacs.d/my-org.el")
+(load "~/.emacs.d/my-org.el")
 (load "~/.emacs.d/my-tab.el")
+(load "~/.emacs.d/my-gist.el")
+(load "~/.emacs.d/my-cucumber.el")
 
 (load "~/.emacs.d/my-completion.el")
+
+
+
+;; (require 'markdown-mode)
+
+; http://jblevins.org/projects/markdown-mode/
+(autoload 'markdown-mode "markdown-mode.el"
+   "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+   (cons '("\\.text" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist
+   (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+
+
 
 ;(autoload 'cheat "cheat")
 (require 'cheat)

@@ -25,3 +25,9 @@
 [submodule "yasnippets-rejeep"]
 	path = yasnippets-rejeep
 	url = http://github.com/rejeep/yasnippets.git
+[submodule "markdown"]
+	path = markdown
+	url = git://jblevins.org/git/markdown-mode.git
+[submodule "cucumber"]
+	path = cucumber
+	url = http://github.com/michaelklishin/cucumber.el.git

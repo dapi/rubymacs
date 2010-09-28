@@ -60,12 +60,26 @@
 
 
 (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+; (define-key ruby-mode-map (kbd "RET") 'ruby-newline-and-indent)
 
 ;; (define-key ruby-mode-map [M-up] 'backward-sentence)
 ;; (define-key ruby-mode-map [M-down] 'forward-sentence) 
 
 (define-key ruby-mode-map [M-up] 'ruby-backward-sexp)
 (define-key ruby-mode-map [M-down] 'ruby-forward-sexp) 
+
+
+;(setq ruby-deep-arglist t)
+
+; Когда параметры идут второй строкой делать малую идентацию, а не по их начало на предыдущей
+; (setq ruby-deep-indent-paren nil)
+
+;(setq ruby-deep-indent-paren-style nil)
+
+;(setq ruby-indent-beg-re (concat "\\(\\s *" (regexp-opt '("class"
+;      "module" "def" "belongs_to") t) "\\)\\|" (regexp-opt '("if"
+;      "unless" "case" "while" "until" "for" "begin"))) "Regexp to
+;      match where the indentation gets deeper.")
 
      
 ;;;
@@ -115,6 +129,8 @@
 
 (setq ri-ruby-script "/home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
 (setq ri-ruby-program "/usr/bin/ruby1.8")
+
+
 ;; (setq ri-ruby-script "1.8.7 ruby /home/danil/.emacs.d/ri-emacs/ri-emacs.rb")
 ;; (setq ri-ruby-program "rvm")
 
