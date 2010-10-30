@@ -47,7 +47,9 @@
 ;;
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
+(add-to-list 'auto-mode-alist '("\\.autotest$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
@@ -247,8 +249,42 @@
 ;; (add-hook 'ruby-mode-hook 'my-coding-hook)
 ;; (add-hook 'js2-mode-hook 'my-coding-hook)
 
+;(require 'rdoc-mode)
 
 (setq ruby-electric-newline-before-closing-bracket nil)
 ;(setq ruby-electric-newline-before-closing-bracket t)
 
 (rvm-use-default)
+
+
+;
+; test-case-mode
+; http://nschum.de/src/emacs/test-case-mode/
+;
+
+;(add-to-list 'load-path "/path/to/test-case-mode")
+(autoload 'test-case-mode "test-case-mode" nil t)
+(autoload 'enable-test-case-mode-if-test "test-case-mode")
+(autoload 'test-case-find-all-tests "test-case-mode" nil t)
+(autoload 'test-case-compilation-finish-run-all "test-case-mode")	
+
+; To enable it automatically when opening test files:
+(add-hook 'find-file-hook 'enable-test-case-mode-if-test)
+
+
+
+;
+; rspec
+;
+
+(require 'rspec-mode)
+
+; Как его подключить не отключая ruby-mode?
+;(add-to-list 'auto-mode-alist '("spec\\.rb$" . rspec-mode))
+
+	
+; If you want to run all visited tests after a compilation, add:
+; (add-hook 'compilation-finish-functions 'test-case-compilation-finish-run-all)
+
+
+(require 'rcov-overlay)

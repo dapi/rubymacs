@@ -189,6 +189,16 @@ C-x C-space - global mark
 
 
 
+--------------
+Feature
+--------------
+C-c ,f 'feature-verify-all-scenarios-in-project)
+C-c ,s 'feature-verify-scenario-at-pos)
+C-c ,v 'feature-verify-all-scenarios-in-buffer)
+C-c ,g 'feature-goto-step-definition)
+
+
+
 
 http://www.math.uh.edu/~bgb/emacs_keys.html
 
@@ -225,3 +235,7 @@ C-a Toggle ignoring files listed in `ido-ignore-files'.
 
 
 Ставь пробел после do тогда после ентера не будет лишнего end
+
+
+
+http://www.math.uh.edu/~bgb/emacs_keys.html

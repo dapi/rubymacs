@@ -26,7 +26,7 @@
 ;; (setq org-default-notes-file "~/Dropbox/orgfiles/notes.org")
 (setq org-hide-leading-stars 0)
 
-(setq org-todo-keywords '((sequence "TODO" "STARTED" "DONE")))
+(setq org-todo-keywords '((sequence "TODO" "STARTED" "WAITING" "DONE")))
 
 ;(setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s)"  "DONE")
 ;; (setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s)"  "WAITING(w@/!)"  "|" "DONE(d!/!)")
@@ -36,6 +36,7 @@
 (setq org-todo-keyword-faces (quote (
                                      ;("TODO" :foreground "red" :weight bold)
                                      ("STARTED" :foreground "white" :weight bold)
+                                     ("WAITING" :foreground "gray" :weight bold)
                                      ;("DONE" :foreground "forest green" :weight bold)
                                      )))
 

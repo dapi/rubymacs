@@ -22,6 +22,17 @@
 
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 
+(add-hook 'feature-mode-hook
+          (lambda ()
+            
+            (local-set-key (kbd "C-c ,f") 'feature-verify-all-scenarios-in-project)
+            (local-set-key (kbd "C-c ,s") 'feature-verify-scenario-at-pos)
+            (local-set-key (kbd "C-c ,v") 'feature-verify-all-scenarios-in-buffer)
+            (local-set-key (kbd "C-c ,g") 'feature-goto-step-definition)
+            
+            ))
+
+
 ;; Key Bindings
 ;; ------------
 ;;

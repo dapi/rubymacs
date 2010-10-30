@@ -24,7 +24,7 @@
 ;(setq rsense-home "/home/danil/.emacs.d/rsense")
 (add-to-list 'load-path (concat rsense-home "/etc"))
 (require 'rsense)
-(define-key ruby-mode-map (kbd "C-c ,") 'rsense-complete)
+(define-key ruby-mode-map (kbd "C-c , ,") 'rsense-complete)
 (define-key ruby-mode-map (kbd "C-c .") 'ac-complete-rsense)
 (define-key ruby-mode-map (kbd "C-=") 'rsense-jump-to-definition) ; You can jump to definition of a method or a constant you are pointing at
 ; rsense-where-is ; You can find which class/method you are editing
