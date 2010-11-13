@@ -4,6 +4,10 @@
 (require 'rhtml-mode)
 
 
+;; nxhtml
+(load "~/.emacs.d/nxhtml/autostart.el")
+
+
 
 
 (setq auto-mode-alist (cons '("\\.html\\.rb" . rhtml-mode) auto-mode-alist))

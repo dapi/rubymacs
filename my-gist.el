@@ -1,5 +1,5 @@
 (require 'gist)
-(setq gist-view-gist 't)
+; (setq gist-view-gist 't)
 
 
 ;; gist-list - Lists your gists in a new buffer. Use arrow keys

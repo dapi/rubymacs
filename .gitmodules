@@ -31,3 +31,6 @@
 [submodule "cucumber"]
 	path = cucumber
 	url = http://github.com/michaelklishin/cucumber.el.git
+[submodule "jekyll"]
+	path = jekyll
+	url = https://github.com/diasjorge/jekyll.el.git

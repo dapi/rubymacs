@@ -29,6 +29,8 @@
 ;(setq-default save-place t)
 
 
+; http://stackoverflow.com/questions/1229142/how-can-i-save-my-mini-buffer-history-in-emacs
+(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (savehist-mode 1)
 
 ;; Save a list of recent files visited.
