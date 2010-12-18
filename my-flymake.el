@@ -92,4 +92,4 @@ makes)."
                    (flymake-mode t))))))
 
 ; Start syntax check on file open
- (add-hook 'find-file-hook 'flymake-find-file-hook)
+(add-hook 'find-file-hook 'flymake-find-file-hook)

@@ -19,11 +19,11 @@
 ; http://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
 (setq default-frame-alist
       '((top . 0) (left . 0)
-        (width . 110) (height . 45)
+        (width . 112) (height . 45)
         ))
 (setq initial-frame-alist
       '((top . 0) (left . 0)
-        (width . 110) (height . 45)
+        (width . 112) (height . 45)
         ))
 
 
@@ -40,7 +40,6 @@
  '(ecb-source-path (quote (("/home/danil/projects/github/dapi/" "/") ("/home/danil/projects/github/dapi/orionet.ru" "orionet.ru"))))
  '(ecb-vc-enable-support nil)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
-; '(icicle-TAB-completion-methods (quote (basic vanilla fuzzy swank)))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/code/chebytoday/doc/todo.org" "~/Dropbox/orgfiles/tasks.org")))
  '(org-cycle-include-plain-lists t)
@@ -65,7 +64,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(anything-header ((t (:inherit header-line :foreground "grey30"))))
  '(border ((t (:background "red"))))
  '(buffer-menu-buffer ((t nil)))
@@ -89,6 +88,7 @@
  '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey40" :foreground "black"))))
  '(mouse ((t (:background "white"))))
  '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode ((t (:background "dark"))))
  '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
@@ -141,8 +141,9 @@
 
 ; Выключаем scrollbar и полосу прокрутки
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'fringe-mode) (fringe-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode t))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 
 ;(server-start)
@@ -165,7 +166,7 @@
 (load "~/.emacs.d/my-php.el")
 (load "~/.emacs.d/my-tab.el")
 (load "~/.emacs.d/my-git.el")
-(load "~/.emacs.d/my-flymake.el")
+; (load "~/.emacs.d/my-flymake.el")
 (load "~/.emacs.d/my-tags.el")
 
 ;(load "~/.emacs.d/my-rails.el") все ушло в ruby
