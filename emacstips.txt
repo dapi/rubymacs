@@ -111,7 +111,7 @@ C-c d
     flymake display error
 C-:
     string->symbol
-
+C-c C-a ruby-eval-buffer
 
 -------------
 Inferior ruby

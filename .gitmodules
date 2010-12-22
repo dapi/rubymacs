@@ -34,3 +34,6 @@
 [submodule "jekyll"]
 	path = jekyll
 	url = https://github.com/diasjorge/jekyll.el.git
+[submodule "anything-on-rails"]
+	path = anything-on-rails
+	url = git://github.com/wolfmanjm/anything-on-rails.git

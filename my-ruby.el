@@ -199,6 +199,7 @@
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (inf-ruby-keys)
+             (define-key ruby-mode-map "\C-c\C-a" 'ruby-eval-buffer)
              ))
 
 
