@@ -1,3 +1,7 @@
+
+; (require 'switch-window)
+
+
 ;;kill-orphan-buffers
 ;; Kills all orphan buffers - buffers that are visiting a file that no longer exists. Useful if you've just done an svn up and various files were moved or removed.
 

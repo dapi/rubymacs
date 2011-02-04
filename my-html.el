@@ -10,15 +10,15 @@
 
 
 
-(setq auto-mode-alist (cons '("\\.html\\.rb" . rhtml-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.erb" . rhtml-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.rhtml" . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.html\\.erb" . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.erb$" . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.rhtml$" . rhtml-mode) auto-mode-alist))
 
 
 
 ;; HAML
 ;(setq load-path (cons "/usr/lib/ruby/gems/1.8/gems/haml-edge-2.3.100/extra/" load-path))
-(setq load-path (cons "/home/danil/.rvm/gems/ruby-1.8.7-p302/gems/haml-3.0.18/extra/" load-path))
+(setq load-path (cons "/home/danil/.rvm/gems/ruby-1.8.7-p302/gems/haml-3.0.24/extra/" load-path))
 
 
 (require 'haml-mode)
@@ -26,9 +26,9 @@
 ; http://groups.google.com/group/haml/browse_thread/thread/173324407a78d290
 ; set indent-tabs-mode to nil
 
-(setq auto-mode-alist (cons '("\\.haml" . haml-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.sass" . sass-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.scss" . css-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.haml$" . haml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.sass$" . sass-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.scss$" . css-mode) auto-mode-alist))
 
 
 
@@ -40,6 +40,16 @@
              (setq tab-width 2)
              )
           )
+
+
+
+(setq css-indent-level 2) ; 3 by default
+
+;; (add-hook 'css-mode-hook
+;;           '(lambda ()
+;;              (setq tab-width 2)
+;;              )
+;;           )
 
 
 

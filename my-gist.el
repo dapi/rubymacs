@@ -1,3 +1,5 @@
+(require 'pastie)
+
 (require 'gist)
 ; (setq gist-view-gist 't)
 

@@ -11,6 +11,13 @@
 ;; gtag ?
 ;; hideshow ?
 
+
+; ruby-debug-extra
+
+(add-to-list 'load-path "/home/danil/App//share/emacs/site-lisp/")
+(require 'rdebug)
+
+
 ;;
 ;;
 ;; rcodetools
@@ -49,6 +56,8 @@
   "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.autotest$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.thor$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
@@ -71,12 +80,31 @@
 (define-key ruby-mode-map [M-down] 'ruby-forward-sexp) 
 
 
-;(setq ruby-deep-arglist t)
+
+; Работает только со скобками! 
+
+; Глубина аргументов, который идут второй строкой.
+; t -  "Deep indent lists in parenthesis when non-nil.
+; Also ignores spaces after parenthesis when 'space."
+;  глубина в ровень начала первого аргумента (конца нзвания метода)
+; nil - глубина в 2 симаолв
+; (setq ruby-deep-arglist t) ; default t
+; работает только когда -style=space
+
+
+; Может это на массивы? Некоторые ставят nil
+;(defcustom ruby-deep-indent-paren '(?\( ?\[ ?\] t)
 
 ; Когда параметры идут второй строкой делать малую идентацию, а не по их начало на предыдущей
-; (setq ruby-deep-indent-paren nil)
+; не понятно когда и где эта переменная срабатывает
+; Default deep indent style."
+;  :options '(t nil space) :group 'ruby)
+;; (setq ruby-deep-indent-paren-style 't)
 
-;(setq ruby-deep-indent-paren-style nil)
+
+; Не вставлять coding: utf-8
+; (setq ruby-insert-encoding-magic-comment nil)
+
 
 ;(setq ruby-indent-beg-re (concat "\\(\\s *" (regexp-opt '("class"
 ;      "module" "def" "belongs_to") t) "\\)\\|" (regexp-opt '("if"
@@ -114,7 +142,7 @@
 ;; ;; display to minibuffer
 ;; (setq ruby-block-highlight-toggle 'minibuffer)
 ;; ;; display to minibuffer and do overlay
-;(setq ruby-block-highlight-toggle t)
+(setq ruby-block-highlight-toggle t)
 ;(setq ruby-block-delay 0.1) ; люблю побыстрее
 
 ;; (require 'ruby-hacks)
@@ -204,12 +232,12 @@
 
 
 ; apidock search
-(defun gaizka-search-apidock-rails ()
-  "Search current word in apidock for rails"
-  (interactive)
-  (let* ((word-at-point (thing-at-point 'symbol))
-		(word (read-string "Search apidock for? " word-at-point)))
-	(browse-url (concat "http://apidock.com/rails/" word))))
+;; (defun gaizka-search-apidock-rails ()
+;;   "Search current word in apidock for rails"
+;;   (interactive)
+;;   (let* ((word-at-point (thing-at-point 'symbol))
+;; 		(word (read-string "Search apidock for? " word-at-point)))
+;; 	(browse-url (concat "http://apidock.com/rails/" word))))
  
 ;; (define-key ruby-mode-map (kbd "C-c d") 'gaizka-search-apidock-rails)
  

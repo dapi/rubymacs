@@ -12,11 +12,10 @@
                                    'yaml-mode
 				   'ruby-electric
                                    'find-file-in-project
-                                   'magit
                                    'gist
 				   'css-mode
 				   'find-file-in-project
-				   'javascript
+				   ; 'javascript
 				   'js2-mode
 				   'json
 				   'kill-ring-search

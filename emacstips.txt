@@ -236,6 +236,21 @@ C-a Toggle ignoring files listed in `ido-ignore-files'.
 
 Ставь пробел после do тогда после ентера не будет лишнего end
 
-
-
 http://www.math.uh.edu/~bgb/emacs_keys.html
+
+
+
+
+
+---------------------
+emacs -l init.el -batch -f batch-byte-compile *.el
+
+Other:
+
+emacs -batch -l runme.el -kill 
+find .emacs.d/site-lisp/ -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el 
+
+
+Other: recompile at startup
+
+http://curiousprogrammer.wordpress.com/2009/03/04/compiling-at-emacs-startup/

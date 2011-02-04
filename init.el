@@ -111,6 +111,8 @@
 
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/elpa" load-path))
+;; (setq load-path (cons "~/.emacs.d/color-theme" load-path))
+;; (require 'color-theme)
 ;(require 'byte-code-cache) неработает с elpa или с package.el, не загружает yasnippet
 
 

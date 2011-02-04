@@ -1,5 +1,9 @@
 ;; http://gist.github.com/321268
 ;;
+;;
+
+
+(setq load-path (cons "~/.emacs.d/lisp/magit" load-path))
 
 (require 'magit) 
 (global-set-key "\C-cm" 'magit-status)
