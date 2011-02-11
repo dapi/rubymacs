@@ -317,3 +317,12 @@
 
 
 (require 'rcov-overlay)
+
+
+; hide/show block support
+(add-to-list 'hs-special-modes-alist
+	     '(ruby-mode
+	       "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
+	       (lambda (arg) (ruby-end-of-block)) nil))
+
+

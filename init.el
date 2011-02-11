@@ -164,7 +164,10 @@
 (load "~/.emacs.d/my-js.el")            ; Нужно запускать до completion
 (load "~/.emacs.d/my-html.el")
 
+(load "~/.emacs.d/my-hide-show.el")
+
 (load "~/.emacs.d/my-ruby.el")
+
 (load "~/.emacs.d/my-php.el")
 (load "~/.emacs.d/my-tab.el")
 (load "~/.emacs.d/my-git.el")
