@@ -1,3 +1,8 @@
+
+
+(require 'hideshow)
+
+
 (add-hook 'ruby-mode-hook
   (lambda()
     (local-set-key (kbd "C-c <right>") 'hs-show-block)

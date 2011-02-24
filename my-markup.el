@@ -1,7 +1,7 @@
 (setq load-path (cons "~/.emacs.d/markdown" load-path))
 
-
-(require 'mumamo-fun)
+; требует nxhtml, а он глючит
+; (require 'mumamo-fun)
 
 
 ;; ; http://metajack.im/2009/01/02/manage-jekyll-from-emacs/

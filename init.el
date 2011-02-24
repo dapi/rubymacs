@@ -44,7 +44,6 @@
  '(org-agenda-files (quote ("~/code/chebytoday/doc/todo.org" "~/Dropbox/orgfiles/tasks.org")))
  '(org-cycle-include-plain-lists t)
  '(org-modules (quote (org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mouse org-annotate-file org-toc)))
- '(save-place t nil (saveplace))
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(truncate-lines t))
@@ -148,6 +147,12 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 
+; twitter
+(setq load-path (cons "~/.emacs.d/twittering-mode" load-path))
+(require 'twittering-mode)
+; http://www.emacswiki.org/emacs/TwitteringMode
+
+
 ;(server-start)
 
 ; gpicker
@@ -155,7 +160,7 @@
 ; какой-то рекурсивный поиск файлов
 ;; (require 'find-recursive)
 
-(load "~/.emacs.d/my-session.el")
+(load "~/.emacs.d/my-desktop.el")
 (load "~/.emacs.d/my-scroll.el")
 (load "~/.emacs.d/my-backup.el")
 (load "~/.emacs.d/my-buffers.el")
@@ -164,7 +169,7 @@
 (load "~/.emacs.d/my-js.el")            ; Нужно запускать до completion
 (load "~/.emacs.d/my-html.el")
 
-(load "~/.emacs.d/my-hide-show.el")
+; (load "~/.emacs.d/my-hide-show.el")
 
 (load "~/.emacs.d/my-ruby.el")
 

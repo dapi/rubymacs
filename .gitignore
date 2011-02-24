@@ -14,3 +14,4 @@ session.*
 emacs-visited-files
 elpa/*
 ac-comphist.dat
+/#my-desktop.el#

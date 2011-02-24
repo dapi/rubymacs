@@ -88,7 +88,7 @@
 ; Also ignores spaces after parenthesis when 'space."
 ;  глубина в ровень начала первого аргумента (конца нзвания метода)
 ; nil - глубина в 2 симаолв
-; (setq ruby-deep-arglist t) ; default t
+;(setq ruby-deep-arglist t) ; default t
 ; работает только когда -style=space
 
 
@@ -99,7 +99,11 @@
 ; не понятно когда и где эта переменная срабатывает
 ; Default deep indent style."
 ;  :options '(t nil space) :group 'ruby)
-;; (setq ruby-deep-indent-paren-style 't)
+
+; Если ruby-deep-arglist nil или t (default):
+; 't - делает indent на 2 символа дальше скобки
+; nil - делает indent на 2 символа от начала вызова и в ровень от начала методв
+(setq ruby-deep-indent-paren-style nil)
 
 
 ; Не вставлять coding: utf-8

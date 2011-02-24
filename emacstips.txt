@@ -113,6 +113,8 @@ C-:
     string->symbol
 C-c C-a ruby-eval-buffer
 
+C-/ toggle-hidding block
+
 -------------
 Inferior ruby
 -------------
@@ -254,3 +256,10 @@ find .emacs.d/site-lisp/ -name "*.el" | awk '{print "(byte-compile-file \"" $1 "
 Other: recompile at startup
 
 http://curiousprogrammer.wordpress.com/2009/03/04/compiling-at-emacs-startup/
+
+
+
+; desktop bookmarks
+M-x desktop-menu
+; ‘bmkp-set-desktop-bookmark’ (‘C-x p K’). bookmark current desktop
+; jump to them (e.g. using ‘C-x r b’)

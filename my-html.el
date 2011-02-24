@@ -5,7 +5,8 @@
 
 
 ;; nxhtml
-(load "~/.emacs.d/nxhtml/autostart.el")
+;; Тормозит и виснит емакс
+;(load "~/.emacs.d/nxhtml/autostart.el")
 
 
 
