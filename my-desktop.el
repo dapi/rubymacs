@@ -8,6 +8,9 @@
 ;(turn-on-save-visited-files-mode)
 
 
+(require 'desktop-menu)
+(setq desktop-menu-clear 'yes)
+
 
 ; сохраняет places и глобальные переменные
 ;(require 'session)
@@ -19,9 +22,9 @@
 ;;   (add-to-list 'session-globals-exclude 'org-mark-ring))
 
 
-(desktop-save-mode 1)
-(setq history-length 250)
-(add-to-list 'desktop-globals-to-save 'file-name-history)
+(desktop-save-mode t)
+;; (setq history-length 250)
+;; (add-to-list 'desktop-globals-to-save 'file-name-history)
 
 (setq-default desktop-save 'if-exists)
 (setq-default desktop-load-locked-desktop t)

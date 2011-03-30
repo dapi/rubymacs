@@ -40,3 +40,6 @@
 [submodule "twittering-mode"]
 	path = twittering-mode
 	url = git://github.com/hayamiz/twittering-mode.git
+[submodule "yasnippets-rspec"]
+	path = yasnippets-rspec
+	url = https://github.com/kavu/yasnippets-rspec.git

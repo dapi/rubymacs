@@ -8,6 +8,8 @@
 ;(yas/initialize) инициализируется где-то в рельсах
 
 (yas/load-directory "~/.emacs.d/yasnippets-rails/rails-snippets/" )
+(load-library "~/.emacs.d/yasnippets-rspec/setup.el")
+(yas/load-directory "~/.emacs.d/yasnippets-rspec/rspec-snippets/text-mode/" )
 (yas/load-directory "~/.emacs.d/yasnippets-rejeep" )
 
 ; Тут слишком много всего
@@ -53,23 +55,23 @@
 
 ; default
 ; (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
-(add-hook 'ruby-mode-hook 
-          (lambda () 
+(add-hook 'ruby-mode-hook
+          (lambda ()
             (setq ac-sources '(
                                ac-source-abbrev
-                               ac-source-dictionary 
+                               ac-source-dictionary
                                ac-source-words-in-same-mode-buffers
                                ac-source-yasnippet
                                ac-source-gtags
-                               ac-source-rsense ; В принципе работает только для дополнения методов обычных классов 
+                               ac-source-rsense ; В принципе работает только для дополнения методов обычных классов
                                ))
             ))
 
 ;;  (setq ac-sources (append '(ac-source-yasnippet ac-source-gtags) ac-sources)))
 
 ; В случае добавлений источников не работает rsense
-;; (add-hook 'ruby-mode-hook 
-;;            (lambda () 
+;; (add-hook 'ruby-mode-hook
+;;            (lambda ()
 ;;              (add-to-list 'ac-sources 'ac-source-yasnippet)
 ;;              (add-to-list 'ac-sources 'ac-source-gtags)
 ;;              (add-to-list 'ac-sources 'ac-source-rsense)
@@ -85,10 +87,10 @@
 ;  'ac-source-words-in-same-mode-buffers - вроде как есть подефолту
 ;(add-hook 'ruby-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-files-in-current-dir)))
 
-;(add-hook 'ruby-mode-hook '(lambda () 
+;(add-hook 'ruby-mode-hook '(lambda ()
 	;(pabbrev-mode t)
 	;))
 
-; дурацкая штука	
+; дурацкая штука
 ;(require 'predictive)
 

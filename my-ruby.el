@@ -63,6 +63,7 @@
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.watchr$" . ruby-mode))
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
@@ -74,14 +75,14 @@
 ; (define-key ruby-mode-map (kbd "RET") 'ruby-newline-and-indent)
 
 ;; (define-key ruby-mode-map [M-up] 'backward-sentence)
-;; (define-key ruby-mode-map [M-down] 'forward-sentence) 
+;; (define-key ruby-mode-map [M-down] 'forward-sentence)
 
 (define-key ruby-mode-map [M-up] 'ruby-backward-sexp)
-(define-key ruby-mode-map [M-down] 'ruby-forward-sexp) 
+(define-key ruby-mode-map [M-down] 'ruby-forward-sexp)
 
 
 
-; Работает только со скобками! 
+; Работает только со скобками!
 
 ; Глубина аргументов, который идут второй строкой.
 ; t -  "Deep indent lists in parenthesis when non-nil.
@@ -115,7 +116,7 @@
 ;      "unless" "case" "while" "until" "for" "begin"))) "Regexp to
 ;      match where the indentation gets deeper.")
 
-     
+
 ;;;
 ;;;
 ;;; rinari
@@ -209,6 +210,19 @@
 ;(require 'rails-autoload)
  ; rails/bytecompile
 
+(add-hook 'ruby-mode-hook '(lambda ()
+;                             (add-hook 'before-save-hook
+;                                       'delete-trailing-whitespace nil t)
+                             (setq show-trailing-whitespace t)
+                             (setq-default indicate-empty-lines t)
+                             (setq indicate-empty-lines t)
+
+                             (add-to-list 'hs-special-modes-alist
+                                          '(ruby-mode
+                                            "\\(def\\|do\\)" "end" "#"
+                                            (lambda (arg) (ruby-end-of-block)) nil))
+                             (hs-minor-mode t)
+                             ))
 
 ;;;
 ;;;
@@ -217,7 +231,16 @@
 ;;;
 
 (require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode)))
+(defun my-ruby-newline ()
+  ;; (indent-according-to-mode)
+  (newline-and-indent))
+
+(add-hook 'ruby-mode-hook '(lambda ()
+                             (ruby-electric-mode)
+                             (define-key ruby-mode-map "\r" 'newline-and-indent)
+                             ))
+
+
 
 
 (require 'inf-ruby)
@@ -242,9 +265,9 @@
 ;;   (let* ((word-at-point (thing-at-point 'symbol))
 ;; 		(word (read-string "Search apidock for? " word-at-point)))
 ;; 	(browse-url (concat "http://apidock.com/rails/" word))))
- 
+
 ;; (define-key ruby-mode-map (kbd "C-c d") 'gaizka-search-apidock-rails)
- 
+
 ;(provide 'rails-apidock)
 ;;
 ;;
@@ -255,7 +278,7 @@
 (require 'imenu)
 
 ;(add-hook 'ruby-mode-hook 'imenu-add-menubar-index)
-(add-hook 'ruby-mode-hook '(lambda () 
+(add-hook 'ruby-mode-hook '(lambda ()
                              (imenu-add-menubar-index)
                              ))
 
@@ -299,7 +322,7 @@
 (autoload 'test-case-mode "test-case-mode" nil t)
 (autoload 'enable-test-case-mode-if-test "test-case-mode")
 (autoload 'test-case-find-all-tests "test-case-mode" nil t)
-(autoload 'test-case-compilation-finish-run-all "test-case-mode")	
+(autoload 'test-case-compilation-finish-run-all "test-case-mode")
 
 ; To enable it automatically when opening test files:
 (add-hook 'find-file-hook 'enable-test-case-mode-if-test)
@@ -315,7 +338,7 @@
 ; Как его подключить не отключая ruby-mode?
 ;(add-to-list 'auto-mode-alist '("spec\\.rb$" . rspec-mode))
 
-	
+
 ; If you want to run all visited tests after a compilation, add:
 ; (add-hook 'compilation-finish-functions 'test-case-compilation-finish-run-all)
 

@@ -12,7 +12,7 @@
 
 ; byte compile files
 ; find .emacs.d -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el
-; emacs -batch -l runme.el -kill 
+; emacs -batch -l runme.el -kill
 ; emacs -batch -f batch-byte-compile files...
 
 ; /home/danil/bin/myemacs
@@ -120,7 +120,7 @@
 ;;; interfacing with ELPA, the package archive.
 ;;; Move this code earlier if you want to reference
 ;;; packages in your .emacs.
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/") 
+(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 (when (load (expand-file-name "~/.emacs.d/lisp/package.el"))
     (package-initialize))
@@ -195,6 +195,16 @@
 ;(autoload 'cheat "cheat")
 (require 'cheat)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq show-trailing-whitespace t)
+(setq-default indicate-empty-lines t)
+(setq indicate-empty-lines t)
+
+;; (add-hook 'c-mode-common-hook
+;;           (lambda()
+;;             (add-hook 'before-save-hook
+;;             'delete-trailing-whitespace nil t)))
+
 ;(setq display-time-interval 1)
 ;(setq display-time-format "%H:%M:%S")
 ;(display-time-mode)
@@ -211,7 +221,7 @@
 ;; (global-set-key [?\C-,] 'previous-buffer)
 ;; (global-set-key [?\C-.] 'next-buffer)
 (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
-;  
+;
 ; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
 
 (global-set-key [(super =)] 'text-scale-increase)
@@ -223,8 +233,8 @@
 (setq
  tab-width 2                                        ; delete-key-deletes-forward 't		давно нет такой переменной
  kill-whole-line 't)
-	
-	
+
+
 (auto-compression-mode 1) ; automatically uncompress files when visiting
 ;(setq sort-fold-case t) ; sorting functions should ignore case
 
@@ -239,4 +249,3 @@
 (setq epa-file-cache-passphrase-for-symmetric-encryption t) ; уже давно не работает
 
 ; Чтобы не жать на выход три раза ESC
-
