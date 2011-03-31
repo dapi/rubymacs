@@ -50,9 +50,9 @@
 ;; window-numbers
 ;;
 ;; Switch buffers by M-[1,2,3,4..]
-(require 'window-number)
-(window-number-mode)
-(window-number-meta-mode)
+;(require 'window-number)
+;(window-number-mode)
+;(window-number-meta-mode)
 
 ;; (require 'window-numbering)
 ;; (window-numbering-mode 1)
@@ -60,7 +60,8 @@
 ;;       (lambda () (when (equal (buffer-name) "*Calculator*") 9))) ALWAYS NUMBER 9
 
 
-(require 'browse-kill-ring+)
+; el-get problem
+
 ; M-y
 (global-set-key "\C-cy" '(lambda ()
                            (interactive)
@@ -73,17 +74,12 @@
 (delete-selection-mode 1) ; Нажатие на клавишу удаляет selection(delete-selection-mode 1) ; Нажатие на клавишу удаляет selection
 
 
-
-; Удалять строку, если нет выделеного региона по M-w/C-w
-(require 'whole-line-or-region)
-(whole-line-or-region-mode)
-
 ;; Copy Past
 ;;;; делаем чтоб можно было копировать из емакса во вне
 ;;;l http://www.emacswiki.org/emacs/CopyAndPaste
 (setq x-select-enable-clipboard t)
 
-; You can customize the variable x-select-enable-clipboard to make the Emacs yank functions consult the clipboard before the primary selection, and to make the kill functions to store in the clipboard as well as the primary selection. Otherwise, these commands do not access the clipboard at all. Using the clipboard is the default on MS-Windows and Mac OS, but not on other systems. 
+; You can customize the variable x-select-enable-clipboard to make the Emacs yank functions consult the clipboard before the primary selection, and to make the kill functions to store in the clipboard as well as the primary selection. Otherwise, these commands do not access the clipboard at all. Using the clipboard is the default on MS-Windows and Mac OS, but not on other systems.
 
 ;  (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 ;(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
@@ -146,13 +142,13 @@ With argument, do this that many times."
             (insert "/")
             )
          (delete-region (line-beginning-position) pos))
-       ))) 
+       )))
 
 
 ;; Если что можно заменить на ido-delete-backward-updir
 (define-key minibuffer-local-completion-map "\C-w" 'backward-delete-path)
 (define-key minibuffer-local-map "\C-w" 'backward-delete-path)
-(define-key minibuffer-local-must-match-map "\C-w" 'backward-delete-path) 
+(define-key minibuffer-local-must-match-map "\C-w" 'backward-delete-path)
 
 
 ;; Надо узнавать не в идошном ли мы режиме и тогда его удалялку ставить
@@ -220,7 +216,7 @@ With argument, do this that many times"
 ; Bind the functions to Ctrl-Left and Ctrl-Right with:
 
 ; (global-set-key [C-right] 'forward-word) потому что не выделяют текст с Shift-ом
-;; (global-set-key [C-left] 'backward-word) 
+;; (global-set-key [C-left] 'backward-word)
 
 ;; ;; Kill-server
 ;; (defun my-kill-emacs ()
@@ -232,24 +228,16 @@ With argument, do this that many times"
 ;; (global-set-key (kbd "C-x c") 'my-kill-emacs)
 
 
-
-;;
-;;
-;; sr-speedbar
-;;
-;;
-(require 'sr-speedbar)
-
 ;;
 ;;
 ;;
 ;; iswitchb-mode
 ;;
-;; интерактивная фигня для быстрого переключения ‘C-x b’ 
+;; интерактивная фигня для быстрого переключения ‘C-x b’
 (iswitchb-mode 1)
 
 (defun iswitchb-local-keys ()
-  (mapc (lambda (K) 
+  (mapc (lambda (K)
 	      (let* ((key (car K)) (fun (cdr K)))
             (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
 	    '(("<right>" . iswitchb-next-match)
@@ -277,31 +265,32 @@ With argument, do this that many times"
 ;;============================================================
 ;; iswitchb-fc
 ;;============================================================
-(require 'filecache)
-(defun file-cache-iswitchb-file ()
-  "Using iswitchb, interactively open file from file cache'.
-First select a file, matched using iswitchb against the contents
-in `file-cache-alist'. If the file exist in more than one
-directory, select directory. Lastly the file is opened."
-  (interactive)
-  (let* ((file (file-cache-iswitchb-read "File: "
-                                   (mapcar
-                                    (lambda (x)
-                                      (car x))
-                                    file-cache-alist)))
-         (record (assoc file file-cache-alist)))
-    (find-file
-     (concat
-      (if (= (length record) 2)
-          (car (cdr record))
-        (file-cache-iswitchb-read 
-         (format "Find %s in dir: " file) (cdr record))) file))))
 
-(defun file-cache-iswitchb-read (prompt choices)
-  (let ((iswitchb-make-buflist-hook
-	 (lambda ()
-	   (setq iswitchb-temp-buflist choices))))
-    (iswitchb-read-buffer prompt)))
+;; (require 'filecache)
+;; (defun file-cache-iswitchb-file ()
+;;   "Using iswitchb, interactively open file from file cache'.
+;; First select a file, matched using iswitchb against the contents
+;; in `file-cache-alist'. If the file exist in more than one
+;; directory, select directory. Lastly the file is opened."
+;;   (interactive)
+;;   (let* ((file (file-cache-iswitchb-read "File: "
+;;                                    (mapcar
+;;                                     (lambda (x)
+;;                                       (car x))
+;;                                     file-cache-alist)))
+;;          (record (assoc file file-cache-alist)))
+;;     (find-file
+;;      (concat
+;;       (if (= (length record) 2)
+;;           (car (cdr record))
+;;         (file-cache-iswitchb-read
+;;          (format "Find %s in dir: " file) (cdr record))) file))))
+
+;; (defun file-cache-iswitchb-read (prompt choices)
+;;   (let ((iswitchb-make-buflist-hook
+;; 	 (lambda ()
+;; 	   (setq iswitchb-temp-buflist choices))))
+;;     (iswitchb-read-buffer prompt)))
 
 ;I bound C-c f to it:
 
@@ -319,8 +308,8 @@ directory, select directory. Lastly the file is opened."
 
 
 ; уникальные названия буферов http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html
-(require 'uniquify) 
-(setq 
+(require 'uniquify)
+(setq
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 ;(setq uniquify-buffer-name-style 'reverse)
@@ -378,7 +367,7 @@ directory, select directory. Lastly the file is opened."
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*"))))))
 
-(add-hook 'ibuffer-mode-hook 
+(add-hook 'ibuffer-mode-hook
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)
 	     (ibuffer-switch-to-saved-filter-groups "home")))

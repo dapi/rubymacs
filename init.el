@@ -1,21 +1,3 @@
-;(require 'site-gentoo)
-; http://grapevine.net.au/~striggs/elisp/workspaces.el
-; http://www.emacswiki.org/cgi-bin/wiki/NumberedWindows
-; http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/etags.html
-; http://www.emacswiki.org/emacs/DiredMode
-; Some powerful tips http://www.xsteve.at/prg/emacs/power-user-tips.html
-
-; ubuntu
-; http://stackoverflow.com/questions/189291/emacs-ubuntu-initialization
-;(load-file "/usr/share/emacs/site-lisp/debian-startup.el")
-;(debian-startup 'emacs23)
-
-; byte compile files
-; find .emacs.d -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el
-; emacs -batch -l runme.el -kill
-; emacs -batch -f batch-byte-compile files...
-
-; /home/danil/bin/myemacs
 ; http://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
 (setq default-frame-alist
       '((top . 0) (left . 0)
@@ -35,10 +17,6 @@
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(current-language-environment "UTF-8")
- '(ecb-layout-window-sizes (quote (("left8" (0.2777777777777778 . 0.3269230769230769) (0.2777777777777778 . 0.21153846153846154) (0.2777777777777778 . 0.2692307692307692) (0.2777777777777778 . 0.17307692307692307)))))
- '(ecb-options-version "2.40")
- '(ecb-source-path (quote (("/home/danil/projects/github/dapi/" "/") ("/home/danil/projects/github/dapi/orionet.ru" "orionet.ru"))))
- '(ecb-vc-enable-support nil)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/code/chebytoday/doc/todo.org" "~/Dropbox/orgfiles/tasks.org")))
@@ -47,16 +25,6 @@
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(truncate-lines t))
-
-; '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 132 :width normal :family "misc-fixed"))))
-
-;; (setq initial-frame-alist (append '((width . 263) (height . 112) (top . -5) (left . 5) (font . "4.System VIO")) initial-frame-alist))
-;; (setq default-frame-alist (append '((width . 263) (height . 112) (top . -5) (left . 5) (font . "4.System VIO")) default-frame-alist))
-
-;(setq initial-frame-alist (append '((width . 110) (height . 44) (top . -5) (left . 5))
-;(setq default-frame-alist (append '((width . 110) (height . 44) (top . -5) (left . 5))
-
-
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -109,36 +77,6 @@
 
 
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
-(setq load-path (cons "~/.emacs.d/elpa" load-path))
-;; (setq load-path (cons "~/.emacs.d/color-theme" load-path))
-;; (require 'color-theme)
-;(require 'byte-code-cache) неработает с elpa или с package.el, не загружает yasnippet
-
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
-(when (load (expand-file-name "~/.emacs.d/lisp/package.el"))
-    (package-initialize))
-;(load "~/.emacs.d/starter-kit-elpa.el")
-;; package-list-packages
-
-
-;; (setq load-path (cons "/usr/share/emacs/site-lisp/" load-path))
-;; (setq load-path (cons "/usr/share/emacs/site-lisp/emacs-goodies-el" load-path))
-
-
-
-;; auto-install
-;; для anything, в elpa его почемуто нет
-;; (require 'auto-install)
-;; (setq auto-install-directory "~/.emacs.d/auto-install/")
-(setq load-path (cons "~/.emacs.d/auto-install" load-path))
-; (auto-install-update-emacswiki-package-name t)
 
 ; Выключаем scrollbar и полосу прокрутки
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -147,9 +85,11 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 
+(load "~/.emacs.d/my-el-get.el")
+
 ; twitter
-(setq load-path (cons "~/.emacs.d/twittering-mode" load-path))
-(require 'twittering-mode)
+;(setq load-path (cons "~/.emacs.d/twittering-mode" load-path))
+;(require 'twittering-mode)
 ; http://www.emacswiki.org/emacs/TwitteringMode
 
 
@@ -164,18 +104,17 @@
 (load "~/.emacs.d/my-scroll.el")
 (load "~/.emacs.d/my-backup.el")
 (load "~/.emacs.d/my-buffers.el")
-(load "~/.emacs.d/my-perl.el")
 
-(load "~/.emacs.d/my-js.el")            ; Нужно запускать до completion
-(load "~/.emacs.d/my-html.el")
+;; прикольная штука, чтобы видеть какие строки зименились
+(require 'format-spec)
 
-; (load "~/.emacs.d/my-hide-show.el")
+;(load "~/.emacs.d/my-perl.el")
+
+;; (load "~/.emacs.d/my-hide-show.el")
 
 (load "~/.emacs.d/my-ruby.el")
 
-(load "~/.emacs.d/my-php.el")
-(load "~/.emacs.d/my-tab.el")
-(load "~/.emacs.d/my-git.el")
+;(load "~/.emacs.d/my-php.el")
 ; (load "~/.emacs.d/my-flymake.el")
 (load "~/.emacs.d/my-tags.el")
 
@@ -184,42 +123,23 @@
 ;(load "~/.emacs.d/my-ido.el")
 ;(load "~/.emacs.d/my-icicles.el")
 
-(load "~/.emacs.d/my-org.el")
-(load "~/.emacs.d/my-tab.el")
-(load "~/.emacs.d/my-gist.el")
-(load "~/.emacs.d/my-cucumber.el")
+;(load "~/.emacs.d/my-org.el")
+; (load "~/.emacs.d/my-gist.el")
+;(load "~/.emacs.d/my-cucumber.el")
 
-(load "~/.emacs.d/my-completion.el")
-(load "~/.emacs.d/my-markup.el")
+;(load "~/.emacs.d/my-markup.el")
 
 ;(autoload 'cheat "cheat")
-(require 'cheat)
+;(require 'cheat)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq show-trailing-whitespace t)
 (setq-default indicate-empty-lines t)
 (setq indicate-empty-lines t)
 
-;; (add-hook 'c-mode-common-hook
-;;           (lambda()
-;;             (add-hook 'before-save-hook
-;;             'delete-trailing-whitespace nil t)))
-
-;(setq display-time-interval 1)
-;(setq display-time-format "%H:%M:%S")
-;(display-time-mode)
-;; (setq woman-show-log nil)
-;; (setq woman-ignore t)
-
-;(global-set-key "\C-h" 'delete-backward-char)
 (global-set-key [(meta backspace)] 'advertised-undo)
 (global-set-key [f4] 'replace-string)
-;(global-set-key [(meta f3)] 'find-file-other-frame)
-;(global-set-key [(control r)] 'replace-string)
-;(global-set-key [(control f8)] 'kill-this-buffer)
 (global-set-key [(meta q)] 'comment-or-uncomment-region)
-;; (global-set-key [?\C-,] 'previous-buffer)
-;; (global-set-key [?\C-.] 'next-buffer)
 (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
 ;
 ; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
@@ -236,16 +156,5 @@
 
 
 (auto-compression-mode 1) ; automatically uncompress files when visiting
-;(setq sort-fold-case t) ; sorting functions should ignore case
-
-
-; Ничего не работает, смотри http://www.enigmacurry.com/2009/01/14/extending-emacs-with-advice/
-; и http://www.emacswiki.org/emacs/EasyPG
-; Не спрашивать графически пароль11
-;(require 'epa)
-;(setenv "GPG_AGENT_INFO" nil)
-; сохранять пароль GPG
 (epa-file-enable)
 (setq epa-file-cache-passphrase-for-symmetric-encryption t) ; уже давно не работает
-
-; Чтобы не жать на выход три раза ESC
