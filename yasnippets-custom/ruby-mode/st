@@ -1,9 +1,0 @@
-#name : state_machine : ...
-# --
-state_machine :state, :initial => :${initial} do
-  state :${initial_state}
-  state :${state2}
-  # event :event do
-  #    transition [:idling, :first_gear] => :parked
-  # end
-end

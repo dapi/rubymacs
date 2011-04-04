@@ -1,1 +1,0 @@
-add_config "emacs", "", "emacs", 'path to the emacs'

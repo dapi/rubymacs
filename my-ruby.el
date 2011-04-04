@@ -136,10 +136,12 @@
 
 ;; ruby-block
 
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
-(setq ruby-block-delay 0.1) ; люблю побыстрее
+;; (require 'ruby-block)
+;; (ruby-block-mode t)
+;; (setq ruby-block-highlight-toggle t)
+;; (setq ruby-block-delay 0.1) ; люблю побыстрее
+
+
 
 (add-hook 'ruby-mode-hook '(lambda ()
 ;                             (add-hook 'before-save-hook

@@ -1,3 +1,16 @@
+
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+
+
+;(setq load-path (cons "~/.emacs.d/lisp" load-path))
+
+; Выключаем scrollbar и полосу прокрутки
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'fringe-mode) (fringe-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
 ;;; sessions and desktops
 ;
 
@@ -8,8 +21,8 @@
 ;(turn-on-save-visited-files-mode)
 
 
-(require 'desktop-menu)
-(setq desktop-menu-clear 'yes)
+;(require 'desktop-menu)
+;(setq desktop-menu-clear 'yes)
 
 
 ; сохраняет places и глобальные переменные
@@ -47,6 +60,7 @@
 
 
 ; http://stackoverflow.com/questions/1229142/how-can-i-save-my-mini-buffer-history-in-emacs
+(setq savehist-file "~/.emacs-history")
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (savehist-mode 1)
 

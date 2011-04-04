@@ -29,7 +29,7 @@
 
 
 
-(require 'anything-gtags)
+;(require 'anything-gtags)
 
 ; (require 'anything-etags)
 

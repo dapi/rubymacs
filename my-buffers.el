@@ -171,131 +171,6 @@ With argument, do this that many times."
 
 
 
-
-;;;
-;; Навигатор
-;;
-
-(defun geosoft-forward-word ()
-   ;; Move one word forward. Leave the pointer at start of word
-   ;; instead of emacs default end of word. Treat _ as part of word
-   (interactive)
-   (forward-char 1)
-   (backward-word 1)
-   (forward-word 2)
-   (backward-word 1)
-   (backward-char 1)
-   (cond ((looking-at "_") (forward-char 1) (geosoft-forward-word))
-         (t (forward-char 1))))
-
-(defun geosoft-backward-word ()
-   ;; Move one word backward. Leave the pointer at start of word
-   ;; Treat _ as part of word
-   (interactive)
-   (backward-word 1)
-   (backward-char 1)
-   (cond ((looking-at "_") (geosoft-backward-word))
-         (t (forward-char 1))))
-
-(defun forward-word-dwim (&optional n)
-  "Like forward-word, but stops at beginning of words.
-With argument, do this that many times"
-  (interactive "p")
-  (when (looking-at "\\(\\sw\\|\\s_\\)")
-                            (skip-syntax-forward "w_"))
-                          (skip-syntax-forward "^w_"))
-
-(defun backward-word-dwim (&optional n)
-  "Like backward-word, but stops at beginning of words.
-With argument, do this that many times"
-  (interactive "p")
-  (unless (looking-back "\\(\\sw\\|\\s_\\)")
-    (skip-syntax-backward "^w_"))
-  (skip-syntax-backward "w_"))
-
-; Bind the functions to Ctrl-Left and Ctrl-Right with:
-
-; (global-set-key [C-right] 'forward-word) потому что не выделяют текст с Shift-ом
-;; (global-set-key [C-left] 'backward-word)
-
-;; ;; Kill-server
-;; (defun my-kill-emacs ()
-;; (interactive)
-;; (save-some-buffers)
-;; (desktop-save-in-desktop-dir)
-;; (kill-emacs))
-
-;; (global-set-key (kbd "C-x c") 'my-kill-emacs)
-
-
-;;
-;;
-;;
-;; iswitchb-mode
-;;
-;; интерактивная фигня для быстрого переключения ‘C-x b’
-(iswitchb-mode 1)
-
-(defun iswitchb-local-keys ()
-  (mapc (lambda (K)
-	      (let* ((key (car K)) (fun (cdr K)))
-            (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
-	    '(("<right>" . iswitchb-next-match)
-	      ("<left>"  . iswitchb-prev-match)
-	      ("<up>"    . ignore             )
-	      ("<down>"  . ignore             ))))
-
-(add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
-;(setq iswitchb-buffer-ignore '("^ " "*"))
-(add-to-list 'iswitchb-buffer-ignore "^ ")
-(add-to-list 'iswitchb-buffer-ignore "^*")
-;; (add-to-list 'iswitchb-buffer-ignore "*Messages*")
-;; (add-to-list 'iswitchb-buffer-ignore "*ECB")
-;; (add-to-list 'iswitchb-buffer-ignore "*Buffer")
-;; (add-to-list 'iswitchb-buffer-ignore "*WoMan")
-;; (add-to-list 'iswitchb-buffer-ignore "*Completions")
-;; (add-to-list 'iswitchb-buffer-ignore "*ftp ")
-;; (add-to-list 'iswitchb-buffer-ignore "*bsh")
-;; (add-to-list 'iswitchb-buffer-ignore "*jde-log")
-;; (add-to-list 'iswitchb-buffer-ignore "*file")
-(add-to-list 'iswitchb-buffer-ignore "^[tT][aA][gG][sS]$")
-
-
-
-;;============================================================
-;; iswitchb-fc
-;;============================================================
-
-;; (require 'filecache)
-;; (defun file-cache-iswitchb-file ()
-;;   "Using iswitchb, interactively open file from file cache'.
-;; First select a file, matched using iswitchb against the contents
-;; in `file-cache-alist'. If the file exist in more than one
-;; directory, select directory. Lastly the file is opened."
-;;   (interactive)
-;;   (let* ((file (file-cache-iswitchb-read "File: "
-;;                                    (mapcar
-;;                                     (lambda (x)
-;;                                       (car x))
-;;                                     file-cache-alist)))
-;;          (record (assoc file file-cache-alist)))
-;;     (find-file
-;;      (concat
-;;       (if (= (length record) 2)
-;;           (car (cdr record))
-;;         (file-cache-iswitchb-read
-;;          (format "Find %s in dir: " file) (cdr record))) file))))
-
-;; (defun file-cache-iswitchb-read (prompt choices)
-;;   (let ((iswitchb-make-buflist-hook
-;; 	 (lambda ()
-;; 	   (setq iswitchb-temp-buflist choices))))
-;;     (iswitchb-read-buffer prompt)))
-
-;I bound C-c f to it:
-
-(global-set-key "\C-cf" 'file-cache-iswitchb-file)
-
 ; добавить убиваемые файлы в file-cache
 (defun file-cache-add-this-file ()
   (and buffer-file-name
@@ -323,51 +198,40 @@ With argument, do this that many times"
 ;; bubble-buffer
 ;;
 ;;
-
-(when (require 'bubble-buffer nil t)
-  (global-set-key [f11] 'bubble-buffer-next)
-  (global-set-key [(shift f11)] 'bubble-buffer-previous))
-(setq bubble-buffer-omit-regexp "\\(^ .+$\\|\\*Messages\\*\\|*compilation\\*\\|\\*.+output\\*$\\|\\*TeX Help\\*$\\|\\*vc-diff\\*\\|\\*Occur\\*\\|\\*grep\\*\\|\\*cvs-diff\\*\\)")
-
-;;
-;;
-;; ibuffer
-;;
-;;
-(global-set-key "\C-x\C-b" 'ibuffer)
-(autoload 'ibuffer "ibuffer" "List buffers." t)
-;(add-to-list 'ibuffer-never-show-regexps "^\\*")
-(setq ibuffer-show-empty-filter-groups nil)
-(setq ibuffer-shrink-to-minimum-size t)
-(setq ibuffer-always-show-last-buffer nil)
-(setq ibuffer-sorting-mode 'recency)
-(setq ibuffer-use-header-line t)
+;; (require 'bubble-buffer)
+;; (when (require 'bubble-buffer nil t)
+;;   (global-set-key [f11] 'bubble-buffer-next)
+;;   (global-set-key [(shift f11)] 'bubble-buffer-previous))
+;; (setq bubble-buffer-omit-regexp "\\(^ .+$\\|\\*Messages\\*\\|*compilation\\*\\|\\*.+output\\*$\\|\\*TeX Help\\*$\\|\\*vc-diff\\*\\|\\*Occur\\*\\|\\*grep\\*\\|\\*cvs-diff\\*\\)")
 
 
-(setq ibuffer-saved-filter-groups
-      '(("home"
-         ("emacs-config" (or (filename . ".emacs.d")
-                             (filename . ".emacs")))
-         ("lubpytno" (filename . "lubopytno"))
-         ("orionet" (filename . "orionet"))
-         ("chebit" (filename . "chebit"))
-         ("chebytoday" (filename . "chebytoday"))
-         ("Org" (or (mode . org-mode)
-                    (filename . "OrgMode")))
-         ("code" (filename . "code"))
-         ("Web Dev" (or (mode . html-mode)
-                        (mode . haml-mode)
-                        (mode . sass-mode)
-                        (mode . ruby-mode)
-                        (mode . css-mode)))
-         ("Subversion" (name . "\*svn"))
-         ("Magit" (name . "\*magit"))
-;         ("ERC" (mode . erc-mode))
-         ("Help" (or (name . "\*Help\*")
-		     (name . "\*Apropos\*")
-		     (name . "\*info\*"))))))
+;;;
 
-(add-hook 'ibuffer-mode-hook
-	  '(lambda ()
-	     (ibuffer-auto-mode 1)
-	     (ibuffer-switch-to-saved-filter-groups "home")))
+
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq show-trailing-whitespace t)
+(setq-default indicate-empty-lines t)
+(setq indicate-empty-lines t)
+
+(global-set-key [(meta backspace)] 'advertised-undo)
+(global-set-key [f4] 'replace-string)
+(global-set-key [(meta q)] 'comment-or-uncomment-region)
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+;
+; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
+
+(global-set-key [(super =)] 'text-scale-increase)
+(global-set-key [(super -)] 'text-scale-decrease)
+
+(fset 'yes-or-no-p 'y-or-n-p) ;;не заставляйте меня печать yes целиком
+
+(setq-default indent-tabs-mode nil) ; пробелы вместо табов
+(setq
+ tab-width 2                                        ; delete-key-deletes-forward 't		давно нет такой переменной
+ kill-whole-line 't)
+
+
+(auto-compression-mode 1) ; automatically uncompress files when visiting
+(epa-file-enable)
+(setq epa-file-cache-passphrase-for-symmetric-encryption t) ; уже давно не работает

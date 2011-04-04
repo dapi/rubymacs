@@ -1,10 +1,12 @@
 *.bak
+#*
 el-get/
 url/
 examples/
 bak/
 *~
-.#*
+\#*
+.*
 .emacs*
 history
 auto-save-list

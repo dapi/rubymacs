@@ -70,91 +70,18 @@
  '(widget-button ((t (:inherit default :foreground "gray80" :width condensed))))
  '(widget-button-pressed ((((min-colors 88) (class color)) (:inherit widget-button :foreground "red1")))))
 
+(load "~/.emacs.d/my-scroll.el")
+(load "~/.emacs.d/my-backup.el")
+(load "~/.emacs.d/my-desktop.el")
 
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-
-
-
-(setq load-path (cons "~/.emacs.d/lisp" load-path))
-
-; Выключаем scrollbar и полосу прокрутки
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'fringe-mode) (fringe-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
+(load "~/.emacs.d/my-buffers.el")
+(load "~/.emacs.d/my-ibuffer.el")
+(load "~/.emacs.d/my-iswitch.el")
 
 (load "~/.emacs.d/my-el-get.el")
 
-; twitter
-;(setq load-path (cons "~/.emacs.d/twittering-mode" load-path))
-;(require 'twittering-mode)
-; http://www.emacswiki.org/emacs/TwitteringMode
-
-
-;(server-start)
-
-; gpicker
-
-; какой-то рекурсивный поиск файлов
-;; (require 'find-recursive)
-
-(load "~/.emacs.d/my-desktop.el")
-(load "~/.emacs.d/my-scroll.el")
-(load "~/.emacs.d/my-backup.el")
-(load "~/.emacs.d/my-buffers.el")
-
-;; прикольная штука, чтобы видеть какие строки зименились
-(require 'format-spec)
-
-;(load "~/.emacs.d/my-perl.el")
-
-;; (load "~/.emacs.d/my-hide-show.el")
-
+(load "~/.emacs.d/my-perl.el")
 (load "~/.emacs.d/my-ruby.el")
+; (load "~/.emacs.d/my-tags.el")
 
-;(load "~/.emacs.d/my-php.el")
-; (load "~/.emacs.d/my-flymake.el")
-(load "~/.emacs.d/my-tags.el")
-
-;(load "~/.emacs.d/my-rails.el") все ушло в ruby
 (load "~/.emacs.d/my-anything.el")
-;(load "~/.emacs.d/my-ido.el")
-;(load "~/.emacs.d/my-icicles.el")
-
-;(load "~/.emacs.d/my-org.el")
-; (load "~/.emacs.d/my-gist.el")
-;(load "~/.emacs.d/my-cucumber.el")
-
-;(load "~/.emacs.d/my-markup.el")
-
-;(autoload 'cheat "cheat")
-;(require 'cheat)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq show-trailing-whitespace t)
-(setq-default indicate-empty-lines t)
-(setq indicate-empty-lines t)
-
-(global-set-key [(meta backspace)] 'advertised-undo)
-(global-set-key [f4] 'replace-string)
-(global-set-key [(meta q)] 'comment-or-uncomment-region)
-(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
-;
-; Not to say this is right for you, but when I had this problem I taught myself to press Ctrl-g instead, which is also bound to keyboard-escape-quit by default. For me, this has the advantage of keeping my left hand pretty close to the home position, as well as leaving my Esc prefix intact.
-
-(global-set-key [(super =)] 'text-scale-increase)
-(global-set-key [(super -)] 'text-scale-decrease)
-
-(fset 'yes-or-no-p 'y-or-n-p) ;;не заставляйте меня печать yes целиком
-
-(setq-default indent-tabs-mode nil) ; пробелы вместо табов
-(setq
- tab-width 2                                        ; delete-key-deletes-forward 't		давно нет такой переменной
- kill-whole-line 't)
-
-
-(auto-compression-mode 1) ; automatically uncompress files when visiting
-(epa-file-enable)
-(setq epa-file-cache-passphrase-for-symmetric-encryption t) ; уже давно не работает

@@ -58,3 +58,24 @@ http://blog.nozav.org/post/2010/07/12/Updated-tangotango-emacs-color-theme
 Other emacs recipe collections:
 
 https://github.com/alexott/emacs-configs
+
+
+
+Memory:
+
+
+
+; twitter
+;(setq load-path (cons "~/.emacs.d/twittering-mode" load-path))
+;(require 'twittering-mode)
+; http://www.emacswiki.org/emacs/TwitteringMode
+
+;(server-start)
+
+; gpicker
+
+; какой-то рекурсивный поиск файлов
+;; (require 'find-recursive)
+
+;(autoload 'cheat "cheat")
+;(require 'cheat)

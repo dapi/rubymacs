@@ -23,8 +23,10 @@
 
 ; save temps somewhere else and don't affect the git repository
 (defvar user-temporary-file-directory
-;(concat (file-name-directory (or load-file-name buffer-file-name)) 
+;(concat (file-name-directory (or load-file-name buffer-file-name))
 	"~/.emacs.tmp/")
+
+;; auto-save-list-file-name
 (make-directory user-temporary-file-directory t)
 ;(setq backup-directory-alist
 ;      `(("." . ,user-temporary-file-directory)
@@ -33,4 +35,4 @@
       (concat user-temporary-file-directory ".auto-saves-"))
 (setq auto-save-file-name-transforms
       `((".*" ,user-temporary-file-directory t)))
-;(setq auto-save-interval 
+;(setq auto-save-interval
