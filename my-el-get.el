@@ -143,7 +143,13 @@
                       :after (lambda ()
                                (global-set-key "\C-cm" 'magit-status)
                                ))
-	       ))
+               (:name flymake-ruby
+                      :after (lambda()
+                                    (require 'flymake-ruby)
+                                    (add-hook 'ruby-mode-hook 'flymake-ruby-load)
+                                    ))
+	       )
+      )
 
 (el-get)
 ;(el-get 'wait)
