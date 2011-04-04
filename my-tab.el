@@ -19,7 +19,7 @@
  Emacs buffer are those starting with “*”."
   (list
    (cond
-	((or 
+	((or
       (string-equal "*" (substring (buffer-name) 0 1))
       (string-equal "TAGS" (buffer-name))
       )
@@ -50,7 +50,7 @@
 
 (dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
   (autoload func "tabbar" "Tabs at the top of buffers and easy control-tab navigation"))
-     
+
 
 (defmacro defun-prefix-alt (name on-no-prefix on-prefix &optional do-always)
   `(defun ,name (arg)
@@ -59,10 +59,10 @@
      (if (equal nil arg)
          ,on-no-prefix
        ,on-prefix)))
-     
+
 (defun-prefix-alt shk-tabbar-next (tabbar-forward-tab) (tabbar-forward-group) (tabbar-mode 1))
 (defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
-     
+
 
 (global-set-key "\M-]" 'shk-tabbar-next)
 (global-set-key "\M-[" 'shk-tabbar-prev)
