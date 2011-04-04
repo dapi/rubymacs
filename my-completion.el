@@ -11,6 +11,7 @@
 (load-library "~/.emacs.d/yasnippets-rspec/setup.el")
 (yas/load-directory "~/.emacs.d/yasnippets-rspec/rspec-snippets/text-mode/" )
 (yas/load-directory "~/.emacs.d/yasnippets-rejeep" )
+(yas/load-directory "~/.emacs.d/yasnippets-custom" )
 
 ; Тут слишком много всего
 ; (yas/load-directory "~/.emacs.d/yasnippets-jpablobr" )
