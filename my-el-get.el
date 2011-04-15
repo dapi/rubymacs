@@ -19,6 +19,11 @@
                ;; anything-gtags
                ;; desktop-menu sr-speedbar twittering-mode
                ; ruby-block
+               (:name jekyll
+                      :type git
+                      :url "https://github.com/diasjorge/jekyll.el.git"
+                      :features jekyll
+                      )
 
                (:name haml-mode
                       :after (lambda()
@@ -27,7 +32,14 @@
                                ))
 
 	       sass-mode
-               yasnippet
+               (:name yasnippet
+                      :after (lambda()
+                               ;; (add-to-list 'yas/snippet-dirs (concat el-get-dir "yasnippet/snippets"))
+                               (yas/load-directory "~/.emacs.d/yasnippets/jpablobr" )
+                               (yas/load-directory "~/.emacs.d/yasnippets/rejeep" )
+                               (yas/load-directory "~/.emacs.d/yasnippets/custom" )
+                              )
+                      )
 
                ;;	       (:name browse-kill-ring%2b
                ;;		      :after (lambda()
@@ -38,8 +50,22 @@
                (:name mode-compile
                       :features mode-compile)
 
-	       rspec-mode
-	       yari
+	       (:name rspec-mode
+                      :after (lambda()
+                               '(add-hook 'ruby-mode-hook
+                                          (lambda ()
+                                            (when (rspec-buffer-is-spec-p) (rspec-mode))
+
+                                            (local-set-key (kbd "C-c ,v") 'rspec-verify)
+                                            (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
+                                            (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target)
+
+                                            )
+                                          )
+                               )
+                      )
+
+               yari
 
 
                (:name rvm-el
@@ -100,9 +126,8 @@
                                (add-hook 'js2-mode-hook
                                          '(lambda ()
                                             (setq tab-width 2)
-                                            (setq js2-basic-offset 2)
-                                            (setq js2-use-font-lock-faces t)
-
+                                            ;; (setq js2-basic-offset 2)
+                                            ;; (setq js2-use-font-lock-faces t)
                                             )
                                          )
                                ))
