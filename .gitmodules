@@ -1,45 +1,15 @@
-[submodule "rhtml"]
-	path = rhtml
-	url = git://github.com/eschulte/rhtml.git
-[submodule "gpicker"]
-	path = gpicker
-	url = git://git.savannah.nongnu.org/gpicker.git
-[submodule "yasnippets-rails"]
-	path = yasnippets-rails
-	url = git://github.com/eschulte/yasnippets-rails.git
-[submodule "rails-minor-mode"]
-	path = rails-minor-mode
-	url = git://github.com/remvee/emacs-rails.git
-[submodule "auto-complete"]
-	path = auto-complete
-	url = git://github.com/m2ym/auto-complete.git
-[submodule "rinari"]
-	path = rinari
-	url = http://github.com/masatomo/rinari.git
-[submodule "emacs-rails-reloaded"]
-	path = emacs-rails-reloaded
-	url = http://github.com/hron/emacs-rails-reloaded.git
-[submodule "yasnippets-jpablobr"]
-	path = yasnippets-jpablobr
-	url = http://github.com/jpablobr/yasnippets-jpablobr.git
-[submodule "yasnippets-rejeep"]
-	path = yasnippets-rejeep
-	url = http://github.com/rejeep/yasnippets.git
-[submodule "markdown"]
-	path = markdown
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule "cucumber"]
-	path = cucumber
-	url = http://github.com/michaelklishin/cucumber.el.git
+[submodule "scss-mode"]
+	path = scss-mode
+  url = https://github.com/antonj/scss-mode.git
 [submodule "jekyll"]
-	path = jekyll
-	url = https://github.com/diasjorge/jekyll.el.git
-[submodule "anything-on-rails"]
-	path = anything-on-rails
-	url = git://github.com/wolfmanjm/anything-on-rails.git
-[submodule "twittering-mode"]
-	path = twittering-mode
-	url = git://github.com/hayamiz/twittering-mode.git
-[submodule "yasnippets-rspec"]
-	path = yasnippets-rspec
-	url = https://github.com/kavu/yasnippets-rspec.git
+  path = jekyll
+  url = https://github.com/diasjorge/jekyll.el.git
+[submodule "yasnippets-jpablobr"]
+  path = yasnippets/jpablobr
+  url = http://github.com/jpablobr/yasnippets-jpablobr.git
+[submodule "yasnippets-rejeep"]
+  path = yasnippets/rejeep
+  url = http://github.com/rejeep/yasnippets.git
+
+
+

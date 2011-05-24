@@ -30,15 +30,26 @@
                                (setq indent-tabs-mode nil)
                                (define-key haml-mode-map "\C-m" 'newline-and-indent)
                                ))
-
+               (:name rainbow-delimiters
+                      :after (lambda()
+                               (when (require 'rainbow-delimiters nil 'noerror)
+                                 (add-hook 'elisp-mode-hook 'rainbow-delimiters-mode)
+                                 (add-hook 'ruby-mode-hook 'rainbow-delimiters-mode)
+                                 (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+                                 )
+                               )
+                      )
 	       sass-mode
                (:name yasnippet
-                      :after (lambda()
-                               ;; (add-to-list 'yas/snippet-dirs (concat el-get-dir "yasnippet/snippets"))
-                               (yas/load-directory "~/.emacs.d/yasnippets/jpablobr" )
-                               (yas/load-directory "~/.emacs.d/yasnippets/rejeep" )
-                               (yas/load-directory "~/.emacs.d/yasnippets/custom" )
-                              )
+                              :after (lambda()
+                                       ;; (add-to-list 'yas/snippet-dirs (concat el-get-dir "yasnippet/snippets"))
+
+                                       ;; В ней какой-то сниппет цапает двойные кавычки "
+                                       ;; (yas/load-directory "~/.emacs.d/yasnippets/jpablobr" )
+
+                                       (yas/load-directory "~/.emacs.d/yasnippets/rejeep" )
+                                       (yas/load-directory "~/.emacs.d/yasnippets/custom" )
+                                       )
                       )
 
                ;;	       (:name browse-kill-ring%2b
@@ -99,7 +110,7 @@
 
                (:name css-mode ; elpa?
                       :after (lambda ()
-                               (setq auto-mode-alist (cons '("\\.scss$" . css-mode) auto-mode-alist))
+                               ;; (setq auto-mode-alist (cons '("\\.scss$" . css-mode) auto-mode-alist))
                                (setq css-indent-level 2) ; 3 by default
                                ))
                (:name rhtml-mode

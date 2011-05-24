@@ -85,3 +85,15 @@
 ; (load "~/.emacs.d/my-tags.el")
 
 (load "~/.emacs.d/my-anything.el")
+
+
+;;
+;;
+; SCSS
+; https://github.com/antonj/scss-mode
+
+;  (setq exec-path (cons (expand-file-name "~/.gem/ruby/1.8/bin") exec-path))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+(setq scss-compile-at-save nil)
