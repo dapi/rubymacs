@@ -52,6 +52,7 @@
                                        )
                       )
 
+               coffee-mode
                ;;	       (:name browse-kill-ring%2b
                ;;		      :after (lambda()
                ;;			       (require 'browse-kill-ring+)
