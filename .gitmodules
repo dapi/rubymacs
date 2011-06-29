@@ -10,6 +10,3 @@
 [submodule "yasnippets-rejeep"]
   path = yasnippets/rejeep
   url = http://github.com/rejeep/yasnippets.git
-
-
-

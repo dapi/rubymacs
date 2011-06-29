@@ -1,6 +1,5 @@
 *.bak
 #*
-/el-get/*
 /url/
 /examples/
 /bak/
