@@ -9,7 +9,6 @@
         ))
 
 
-
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -26,49 +25,13 @@
  '(show-paren-mode t)
  '(truncate-lines t))
 
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#061010" :foreground "#d8d09c" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
- '(anything-header ((t (:inherit header-line :foreground "grey30"))))
- '(border ((t (:background "red"))))
- '(buffer-menu-buffer ((t nil)))
- '(cperl-array-face ((((class color) (background dark)) (:foreground "yellow" :underline t))))
- '(cperl-hash-face ((((class color) (background dark)) (:foreground "yellow" :underline t))))
- '(cursor ((t (:background "red"))))
- '(custom-face-tag ((t (:inherit variable-pitch :height 0.8))))
- '(custom-group-tag ((((class color) (background dark)) (:foreground "light blue"))))
- '(custom-group-tag-1 ((((class color) (background dark)) (:inherit variable-pitch :foreground "pink"))))
- '(custom-variable-tag ((((class color) (background dark)) (:inherit variable-pitch :foreground "light blue" :weight bold :height 0.8))))
- '(erb-delim-face ((t (:inherit erb-face :foreground "cyan1"))))
- '(erb-exec-delim-face ((t (:inherit erb-delim-face))))
- '(erb-face ((t (:background "black"))))
- '(erb-out-delim-face ((t (:inherit erb-face :foreground "darkred"))))
- '(erb-out-face ((t (:inherit erb-face))))
- '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "chocolate1"))))
- '(header-line ((t (:inherit default :foreground "grey70" :slant oblique))))
- '(highlight ((((class color) (min-colors 88) (background dark)) (:background "#202a2a"))))
- '(mode-line ((((class color) (min-colors 88)) (:background "red4" :foreground "gray90"))))
- '(mode-line-highlight ((((class color) (min-colors 88)) (:background "red"))))
- '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey40" :foreground "black"))))
- '(mouse ((t (:background "white"))))
- '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
- '(mumamo-background-chunk-submode ((t (:background "dark"))))
- '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) nil)))
- '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
- '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
- '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil)))
- '(region ((((class color) (min-colors 88) (background dark)) (:background "gray40" :foreground "black"))))
- '(show-paren-match ((((class color) (background dark)) (:foreground "white" :weight bold))))
- '(tabbar-button ((t (:inherit tabbar-default :foreground "dark red"))))
- '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "grey10" :height 0.8))))
- '(tabbar-selected ((t (:inherit tabbar-default :background "black" :foreground "darkgray" :box (:line-width 3 :color "black")))))
- '(tabbar-separator ((t (:inherit tabbar-default :box (:line-width 2 :color "grey75") :height 0.1))))
- '(tabbar-unselected ((t (:inherit tabbar-default :background "gray50"))))
- '(widget-button ((t (:inherit default :foreground "gray80" :width condensed))))
- '(widget-button-pressed ((((min-colors 88) (class color)) (:inherit widget-button :foreground "red1")))))
+(require 'color-theme)
+(color-theme-initialize)
+
+(load "~/.emacs.d/color-themes/color-theme-dapi.el")
+(load "~/.emacs.d/color-themes/color-theme-tangotango.el")
+(load "~/.emacs.d/color-themes/color-theme-ingle-fingers.el")
+(color-theme-dapi)
 
 (load "~/.emacs.d/my-scroll.el")
 (load "~/.emacs.d/my-backup.el")
