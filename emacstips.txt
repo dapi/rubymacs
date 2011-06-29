@@ -2,7 +2,7 @@
 Common
 ------
 
-C-S-Backspace 
+C-S-Backspace
     delete whole line
 M-k
     kill the rest sentence
@@ -11,20 +11,20 @@ C-M-\
 C-g
     Keyboard quit, deactive marking region
 C-]
-    Abort innermost recursive editing level and cancel the command which invoked it (abort-recursive-edit). 
+    Abort innermost recursive editing level and cancel the command which invoked it (abort-recursive-edit).
 C-/, Alt-Backspace
     undo
 C-x C-o
     will delete all the empty lines around your current cursor position, except for one;
 M-q НЕРАБОТАЕТ
-    re-aligns the current paragraph; I use it all the time when writing e-mails etc. (you might want to check out filladapt for a version that gives you a bit more smartness with indentations, lists etc.); 
+    re-aligns the current paragraph; I use it all the time when writing e-mails etc. (you might want to check out filladapt for a version that gives you a bit more smartness with indentations, lists etc.);
 M-;
     Комментарий в конце строки
 C-h k
     describe key
 C-h after any prefix key
     will display all available shortcuts under that prefix.
-M->		
+M->
     Move to end of buffer.
 M-<
     Move to beginning of the current buffer.
@@ -37,14 +37,14 @@ C-, r
     Record the position of point and the current buffer in register r (point-to-register).
 C-x r j r
 C-. r
-    Jump to the position and buffer saved in register r (jump-to-register). 
+    Jump to the position and buffer saved in register r (jump-to-register).
 
 -----------
 Selections:
 -----------
 
 C-w  (ОТКЛЮЧИЛ)
-C-c C-k 
+C-c C-k
 S-Del
     Cut (kill-region), если блока нет, до катит строку
 M-w
@@ -90,14 +90,14 @@ F10
 GTAG
 ----
 
-M-. 
+M-.
     Jump to tag function gtags-find-tag
 M-: Find symbol
-C-M-. 
+C-M-.
     find tag regexp
-M-, 
+M-,
     искать где функция использутся find-tag-reference че-то странно работает
-M-* 
+M-*
     jump обратно откуда искал gtags-pop-stack pop-tag-mark
 
 
@@ -249,8 +249,8 @@ emacs -l init.el -batch -f batch-byte-compile *.el
 
 Other:
 
-emacs -batch -l runme.el -kill 
-find .emacs.d/site-lisp/ -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el 
+emacs -batch -l runme.el -kill
+find .emacs.d/site-lisp/ -name "*.el" | awk '{print "(byte-compile-file \"" $1 "\")";}' > runme.el
 
 
 Other: recompile at startup
@@ -263,3 +263,14 @@ http://curiousprogrammer.wordpress.com/2009/03/04/compiling-at-emacs-startup/
 M-x desktop-menu
 ; ‘bmkp-set-desktop-bookmark’ (‘C-x p K’). bookmark current desktop
 ; jump to them (e.g. using ‘C-x r b’)
+
+
+
+Переключить кодировку текущего буфера в window-1251
+--------------
+
+'revert-buffer-with-coding-system
+ C-x <RET> r CHARSET
+
+http://www.linux.org.ru/forum/development/1646986
+

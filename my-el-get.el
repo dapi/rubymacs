@@ -79,7 +79,6 @@
 
                yari
 
-
                (:name rvm-el
                       :type http
                       :url "https://github.com/senny/rvm.el/raw/master/rvm.el"
@@ -99,6 +98,10 @@
 
 		      )
 
+               ;; (:name php-mode-imp
+               ;;        http://www.emacswiki.org/emacs/php-mode-improved.el
+               ;;        )
+               php-mode-improved
 
                ;; Удаляет строку, если нет выделеного региона по M-w/C-w
 
@@ -120,12 +123,20 @@
                                (setq auto-mode-alist (cons '("\\.erb$" . rhtml-mode) auto-mode-alist))
                                (setq auto-mode-alist (cons '("\\.rhtml$" . rhtml-mode) auto-mode-alist))
                                ))
+               markdown-mode
+               ; Recomendations and commentx fixes http://www.emacswiki.org/emacs/YamlMode
                (:name yaml-mode
-                      :after (lambda ()
+                      :type http
+                      :features yaml-mode
+                      :url "https://raw.github.com/arthuraa/yaml-mode/master/yaml-mode.el"
+                      :after (lambda()
+                               (add-hook 'yaml-mode-hook
+                                         '(lambda ()
+                                            (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
                                (add-to-list 'auto-mode-alist '("\\.yaml"  . yaml-mode))
                                (add-to-list 'auto-mode-alist '("\\.yml"  . yaml-mode))
-
-                               ))
+                               )
+                      )
 
                (:name js2-mode
                       :after (lambda ()
