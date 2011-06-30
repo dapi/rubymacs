@@ -1,6 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-
 ;; (unless (require 'el-get nil t)
 ;;   (url-retrieve
 ;;    "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
@@ -11,17 +10,12 @@
 (require 'el-get)
 
 (setq el-get-sources
-      '(el-get package browse-kill-ring
-               ;; http://www.emacswiki.org/emacs/download/browse-kill-ring%2b.el
-               ;; switch-window
-
-               ;; (:name ruby-compilation :type elpa)
-
-	       anything
-               ;; anything-config anything-match-plugin
+      '(      ;; anything-config anything-match-plugin
                ;; anything-gtags
                ;; desktop-menu sr-speedbar twittering-mode
                ; ruby-block
+               yari
+
                (:name jekyll
                       :type git
                       :url "https://github.com/diasjorge/jekyll.el.git"
@@ -81,7 +75,6 @@
                ;;                 )
                ;;        )
 
-               yari
 
 
                ;; (:name rvm-el
@@ -114,7 +107,7 @@
                                )
                       )
 
-               (:name css-mode ; elpa?
+               (:name cssh ; css-mode
                       :after (lambda ()
                                ;; (setq auto-mode-alist (cons '("\\.scss$" . css-mode) auto-mode-alist))
                                (setq css-indent-level 2) ; 3 by default
@@ -184,14 +177,14 @@
                                )
                       )
 
-               ;; (:name magit
-               ;;        :features magit
-               ;;        :after (lambda ()
-               ;;                 (global-set-key "\C-cm" 'magit-status)
-	       ;;  	       ;; прикольная штука, чтобы видеть какие строки изменились
-	       ;;  	       (require 'format-spec)
-               ;;                 )
-               ;;        )
+                 (:name magit
+                        :features magit
+                        :after (lambda ()
+                                 (global-set-key "\C-cm" 'magit-status)
+	          	       ;; прикольная штука, чтобы видеть какие строки изменились
+	          	       (require 'format-spec)
+                                 )
+                        )
                ;; (:name flymake-ruby
                ;;        :after (lambda()
                ;;                 (require 'flymake-ruby)
@@ -199,8 +192,46 @@
                ;;                 )
                ;;        )
 	       )
-      )
+        )
 
-(el-get)
+
+;; local sources
+;; (setq el-get-sources
+;;       '((:name magit
+;;                 :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
+;; ))
+
+;;         (:name asciidoc
+;;                :type elpa
+;;                :after (lambda ()
+;;                         (autoload 'doc-mode "doc-mode" nil t)
+;;                         (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
+;;                         (add-hook 'doc-mode-hook '(lambda ()
+;;                                                     (turn-on-auto-fill)
+;;                                                     (require 'asciidoc)))))
+
+;;         (:name lisppaste        :type elpa)
+;;         (:name dictionary-el    :type apt-get)
+;;         (:name emacs-goodies-el :type apt-get)))
+
+(setq my-packages
+      (append
+       ;'(cssh el-get switch-window vkill)
+       '(cssh vkill package browse-kill-ring
+	      ;; http://www.emacswiki.org/emacs/download/browse-kill-ring%2b.el
+	      ;; switch-window
+
+	      ;; (:name ruby-compilation :type elpa)
+	      haml-mode
+
+	      anything
+	      jekyll
+
+	      auto-complete
+          )
+       (mapcar 'el-get-source-name el-get-sources)))
+
+(el-get 'sync my-packages)
+
 ;(el-get 'sync)
 ;(el-get 'wait)

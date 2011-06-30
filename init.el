@@ -1,12 +1,12 @@
 ; http://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
-(setq default-frame-alist
-      '((top . 0) (left . 0)
-        (width . 112) (height . 45)
-        ))
-(setq initial-frame-alist
-      '((top . 0) (left . 0)
-        (width . 112) (height . 45)
-        ))
+;; (setq default-frame-alist
+;;       '((top . 0) (left . 0)
+;;         (width . 112) (height . 45)
+;;         ))
+;; (setq initial-frame-alist
+;;       '((top . 0) (left . 0)
+;;         (width . 112) (height . 45)
+;;         ))
 
 ; (when (featurep 'aquamacs)
 ;   ...)
@@ -28,9 +28,8 @@
  '(show-paren-mode t)
  '(truncate-lines t))
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(require 'el-get)
-(el-get)
+
+(load "~/.emacs.d/my-el-get-recipes.el")
 
 
 (load "~/.emacs.d/my-color.el")
