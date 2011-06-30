@@ -10,7 +10,7 @@
   "Light on dark color theme by Danil Pismenny, based on the dreams, created 2011-06-29."
   (interactive)
   (color-theme-install
-   '(my-color-theme
+   '(color-theme-dapi
      ((background-color . "#061010")
       (background-mode . dark)
       (border-color . "red")
@@ -156,4 +156,7 @@
      (widget-field ((t (:background "dim gray"))))
      (widget-inactive ((t (:foreground "grey70"))))
      (widget-single-line-field ((t (:background "dim gray")))))))
-(add-to-list 'color-themes '(my-color-theme  "dapi" "Danil Pismenny"))
+
+(add-to-list 'color-themes '(color-theme-dapi  "dapi" "Danil Pismenny"))
+
+(provide 'color-theme-dapi)

@@ -5,7 +5,7 @@
 /bak/
 *~
 \#*
-.*
+/.*
 .emacs*
 /history
 auto-save-list
@@ -17,3 +17,4 @@ emacs-visited-files
 elpa/*
 ac-comphist.dat
 /#my-desktop.el#
+/el-get/.loaddefs.el

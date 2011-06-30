@@ -11,11 +11,15 @@
 
 (require 'anything)
 (require 'anything-config)
+
+; ruby
+; (require 'anything-etags)
 (require 'anything-match-plugin)
 
 ;; Проблемы с загрузкой ruby-compilation
-;; (setq load-path (cons "~/.emacs.d/anything-on-rails" load-path))
-;; (require 'anything-rails)
+(setq load-path (cons "~/.emacs.d/anything-on-rails" load-path))
+(require 'anything-rails)
+(global-set-key (kbd "M-.") 'anything-etags-select-from-here)
 
 ;;    *If non-nil, use separate source file by file.
 ;(setq anything-gtags-classify t)
@@ -41,9 +45,11 @@
       (list
        anything-c-source-fixme
        anything-c-source-buffers+
-       ; anything-c-source-rails-project-files
+       anything-c-source-rails-project-files
        anything-c-source-file-cache
        anything-c-source-files-in-current-dir+
+       ; anything-c-source-git-project-files
+       ; anything-c-source-bookmarks
        anything-c-source-recentf
                                         ; anything-c-source-imenu    ; набо бы тоже узнать клавишу :)
                                         ;           anything-c-source-etags-select

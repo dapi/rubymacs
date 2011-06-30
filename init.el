@@ -8,6 +8,12 @@
         (width . 112) (height . 45)
         ))
 
+; (when (featurep 'aquamacs)
+;   ...)
+; http://www.emacswiki.org/emacs/CustomizeAquamacs#toc2
+(setq ring-bell-function nil)
+(setq visible-bell t)
+
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -18,21 +24,16 @@
  '(current-language-environment "UTF-8")
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/code/chebytoday/doc/todo.org" "~/Dropbox/orgfiles/tasks.org")))
- '(org-cycle-include-plain-lists t)
- '(org-modules (quote (org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mouse org-annotate-file org-toc)))
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(truncate-lines t))
 
-(require 'color-theme)
-(color-theme-initialize)
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(require 'el-get)
+(el-get)
 
-(load "~/.emacs.d/color-themes/color-theme-dapi.el")
-(load "~/.emacs.d/color-themes/color-theme-tangotango.el")
-(load "~/.emacs.d/color-themes/color-theme-ingle-fingers.el")
-(color-theme-dapi)
 
+(load "~/.emacs.d/my-color.el")
 (load "~/.emacs.d/my-scroll.el")
 (load "~/.emacs.d/my-backup.el")
 (load "~/.emacs.d/my-desktop.el")
@@ -41,10 +42,10 @@
 (load "~/.emacs.d/my-ibuffer.el")
 (load "~/.emacs.d/my-iswitch.el")
 
-(load "~/.emacs.d/my-el-get.el")
+;(load "~/.emacs.d/my-el-get.el")
 
 (load "~/.emacs.d/my-perl.el")
-(load "~/.emacs.d/my-ruby.el")
+; (load "~/.emacs.d/my-ruby.el")
 ; (load "~/.emacs.d/my-tags.el")
 
 (load "~/.emacs.d/my-anything.el")

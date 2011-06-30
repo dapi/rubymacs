@@ -1,11 +1,12 @@
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
-   (lambda (s)
-     (end-of-buffer)
-     (eval-print-last-sexp))))
+
+;; (unless (require 'el-get nil t)
+;;   (url-retrieve
+;;    "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
+;;    (lambda (s)
+;;      (end-of-buffer)
+;;      (eval-print-last-sexp))))
 
 (require 'el-get)
 
@@ -27,11 +28,12 @@
                       :features jekyll
                       )
 
-               (:name haml-mode
-                      :after (lambda()
-                               (setq indent-tabs-mode nil)
-                               (define-key haml-mode-map "\C-m" 'newline-and-indent)
-                               ))
+               ;; (:name haml-mode
+               ;;        :features haml-mode
+               ;;        :after (lambda()
+               ;;                 (setq indent-tabs-mode nil)
+               ;;                 (define-key haml-mode-map "\C-m" 'newline-and-indent)
+               ;;                 ))
                (:name rainbow-delimiters
                       :after (lambda()
                                (when (require 'rainbow-delimiters nil 'noerror)
@@ -64,42 +66,43 @@
                (:name mode-compile
                       :features mode-compile)
 
-	       (:name rspec-mode
-                      :after (lambda()
-                               '(add-hook 'ruby-mode-hook
-                                          (lambda ()
-                                            (when (rspec-buffer-is-spec-p) (rspec-mode))
+	       ;; (:name rspec-mode
+               ;;        :after (lambda()
+               ;;                 '(add-hook 'ruby-mode-hook
+               ;;                            (lambda ()
+               ;;                              (when (rspec-buffer-is-spec-p) (rspec-mode))
 
-                                            (local-set-key (kbd "C-c ,v") 'rspec-verify)
-                                            (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
-                                            (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target)
+               ;;                              (local-set-key (kbd "C-c ,v") 'rspec-verify)
+               ;;                              (local-set-key (kbd "C-c ,a") 'rspec-verify-all)
+               ;;                              (local-set-key (kbd "C-c ,t") 'rspec-toggle-spec-and-target)
 
-                                            )
-                                          )
-                               )
-                      )
+               ;;                              )
+               ;;                            )
+               ;;                 )
+               ;;        )
 
                yari
 
 
-               (:name rvm-el
-                      :type http
-                      :url "https://github.com/senny/rvm.el/raw/master/rvm.el"
-                      :features rvm
-                      :after (lambda ()
-                               (rvm-use-default)
-                               )
-                      )
+               ;; (:name rvm-el
+               ;;        :type http
+               ;;        :url "https://github.com/senny/rvm.el/raw/master/rvm.el"
+               ;;        :features rvm
+               ;;        :after (lambda ()
+               ;;                 (rvm-use-default)
+               ;;                 )
+               ;;        )
 
-	       (:name tabbar
-		      :type http
-		      :url "http://www.emacswiki.org/emacs/download/tabbar.el"
-		      :features tabbar
-		      :after (lambda ()
-                               (load "~/.emacs.d/my-tab.el")
-                               )
+               ;; В  aquamacs уже есть
+	       ;; (:name tabbar
+	       ;;        :type http
+	       ;;        :url "http://www.emacswiki.org/emacs/download/tabbar.el"
+	       ;;        :features tabbar
+	       ;;        :after (lambda ()
+               ;;                 (load "~/.emacs.d/my-tab.el")
+               ;;                 )
 
-		      )
+	       ;;        )
 
 
                ;; Удаляет строку, если нет выделеного региона по M-w/C-w
@@ -181,14 +184,14 @@
                                )
                       )
 
-               (:name magit
-                      :features magit
-                      :after (lambda ()
-                               (global-set-key "\C-cm" 'magit-status)
-			       ;; прикольная штука, чтобы видеть какие строки изменились
-			       (require 'format-spec)
-                               )
-                      )
+               ;; (:name magit
+               ;;        :features magit
+               ;;        :after (lambda ()
+               ;;                 (global-set-key "\C-cm" 'magit-status)
+	       ;;  	       ;; прикольная штука, чтобы видеть какие строки изменились
+	       ;;  	       (require 'format-spec)
+               ;;                 )
+               ;;        )
                ;; (:name flymake-ruby
                ;;        :after (lambda()
                ;;                 (require 'flymake-ruby)
@@ -197,6 +200,7 @@
                ;;        )
 	       )
       )
+
 (el-get)
-                                        ;(el-get 'sync)
+;(el-get 'sync)
 ;(el-get 'wait)

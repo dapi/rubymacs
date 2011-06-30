@@ -10,3 +10,9 @@
 [submodule "yasnippets-rejeep"]
   path = yasnippets/rejeep
   url = http://github.com/rejeep/yasnippets.git
+[submodule "el-get/el-get"]
+	path = el-get/el-get
+	url = https://github.com/dimitri/el-get.git
+[submodule "anything-on-rails"]
+	path = anything-on-rails
+	url = https://github.com/wolfmanjm/anything-on-rails.git
