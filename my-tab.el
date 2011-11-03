@@ -64,6 +64,17 @@
 (defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
 
 
+
+
+;; (global-set-key "\M-]" 'shk-tabbar-next)
+;; (global-unset-key [(control \])])
+;(global-set-key [(command \§)] 'shk-tabbar-next)
+;(define-key tab-mode-map [(command \])] 'shk-tabbar-next)
+
+;; ⌘{              previous-tab-or-buffer
+;; ⌘}              next-tab-or-buffer
+;; ⌘⌥ࡤ             next-tab-or-buffer
+;; ⌘⌥ࡶ             previous-tab-or-buffer
 (global-set-key "\M-]" 'shk-tabbar-next)
 (global-set-key "\M-[" 'shk-tabbar-prev)
 (global-set-key [(control tab)] 'shk-tabbar-next)

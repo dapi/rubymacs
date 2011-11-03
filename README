@@ -79,3 +79,5 @@ Memory:
 
 ;(autoload 'cheat "cheat")
 ;(require 'cheat)
+
+http://smartic.us/2010/08/01/getting-started-with-emacs-again/

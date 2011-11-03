@@ -4,6 +4,7 @@
 ;(color-theme-initialize)
 
 (load "~/.emacs.d/color-themes/color-theme-dapi.el")
+(load "~/.emacs.d/color-themes/color-theme-dapi2.el")
 (load "~/.emacs.d/color-themes/color-theme-tangotango.el")
 (load "~/.emacs.d/color-themes/color-theme-ingle-fingers.el")
 (color-theme-dapi)

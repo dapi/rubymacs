@@ -119,6 +119,7 @@
                                (setq auto-mode-alist (cons '("\\.rhtml$" . rhtml-mode) auto-mode-alist))
                                ))
                (:name yaml-mode
+                      :features yaml-mode
                       :after (lambda ()
                                (add-to-list 'auto-mode-alist '("\\.yaml"  . yaml-mode))
                                (add-to-list 'auto-mode-alist '("\\.yml"  . yaml-mode))
@@ -226,6 +227,7 @@
 
 	      anything
 	      jekyll
+	      yaml-mode
 
 	      auto-complete
           )

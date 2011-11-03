@@ -46,7 +46,6 @@
 ;; (setq rct-fork-command-name "/home/danil/.rvm/bin/ruby-1.8.7-p302 -S rct-fork")
 
 
-
 ;;
 ;;
 ;; ruby-mode
@@ -60,6 +59,7 @@
 (add-to-list 'auto-mode-alist '("\\.thor$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
@@ -187,4 +187,12 @@
 	       (lambda (arg) (ruby-end-of-block)) nil))
 
 
+;
+; ruby-debug
+;
+;
+;
 
+
+;(add-to-list 'load-path (expand-file-name "~/.emacs.d/ruby-debug-extra"))
+(require 'rdebug)

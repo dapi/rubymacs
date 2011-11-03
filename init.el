@@ -41,11 +41,13 @@
 (load "~/.emacs.d/my-ibuffer.el")
 (load "~/.emacs.d/my-iswitch.el")
 
+(load "~/.emacs.d/my-tab.el")
+
 ;(load "~/.emacs.d/my-el-get.el")
 
 (load "~/.emacs.d/my-perl.el")
-; (load "~/.emacs.d/my-ruby.el")
-; (load "~/.emacs.d/my-tags.el")
+(load "~/.emacs.d/my-ruby.el")
+(load "~/.emacs.d/my-tags.el")
 
 (load "~/.emacs.d/my-anything.el")
 
